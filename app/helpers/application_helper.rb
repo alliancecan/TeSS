@@ -691,4 +691,25 @@ module ApplicationHelper
     content_tag('div', t('warnings.unverified', resource_type: resource.model_name.human.downcase),
                 class: 'alert alert-warning mb-4 unverified-notice')
   end
+
+  def language_menu_item
+    # Luckily we are supporting bilingual en/fr, so only toggle is needed
+    # Show locale for the one we aren't currently using ...
+    if I18n.locale == :fr
+      switch = :en
+      text = 'English'
+    else
+      switch = :fr
+      text = 'Français'
+    end
+    # Add the font awesome exchange icon to the text
+    text = (icon('exchange', class: 'pr-3') + text).html_safe
+
+    self_url_params = { controller: controller_name, action: action_name, id: params[:id] }
+    url = url_for controller: '/localization',
+                  action: :change_locale,
+                  locale: switch,
+                  back_to: url_for(self_url_params)
+    menu_item text, url, class: "ml-3"
+  end
 end

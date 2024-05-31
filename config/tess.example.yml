@@ -23,6 +23,7 @@ default: &default
     # Defines the locales available in the application.
     available_locales:
       - en
+      - fr
     # Sets the default locale of the application.
     default_locale: en
 
