@@ -147,7 +147,7 @@ default: &default
     registration: true
     trainers: false
     workflows: true
-    sources: false
+    sources: true
     user_source_creation: false # CW: turned off
     edit_suggestions: false
     geocoding: false
@@ -161,7 +161,7 @@ default: &default
     learning_paths: false
     collection_curation: true
   restrict_content_provider_selection: false
-  user_ingestion_methods: ['bioschemas']
+  user_ingestion_methods: ['bioschemas', 'ical', 'drac_ical']
   placeholder:
     collection: 'placeholder-collection.svg'
     content_provider: 'placeholder-organization.svg'

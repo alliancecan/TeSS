@@ -10,7 +10,13 @@ module Ingestors
         Ingestors::MaterialCsvIngestor,
         Ingestors::TessEventIngestor,
         Ingestors::ZenodoIngestor,
-      ] + taxila_ingestors + llm_ingestors
+      ] + drac_ingestors + taxila_ingestors + llm_ingestors
+    end
+
+    def self.drac_ingestors
+      [
+        Ingestors::DracIcalIngestor
+      ]
     end
 
     def self.taxila_ingestors
