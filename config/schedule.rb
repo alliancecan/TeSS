@@ -33,9 +33,17 @@ end
 
 # Process ingestions
 if !schedules['ingestions'].nil?
-  every :"#{schedules['ingestions']['every']}", at: "#{schedules['ingestions']['at']}" do
-    rake 'tess:automated_ingestion'
-    rake 'tess:llm_post_processing'
+  # Janky!
+  if "#{schedules['ingestions']['every']}" == 'hour'
+    every :"#{schedules['ingestions']['at']} * * * *" do
+      rake "tess:automated_ingestion"
+      rake 'tess:llm_post_processing'
+    end
+  else
+    every :"#{schedules['ingestions']['every']}", at: "#{schedules['ingestions']['at']}" do
+      rake "tess:automated_ingestion"
+      rake 'tess:llm_post_processing'
+    end
   end
 else
   every :day, at: '3am' do
