@@ -69,7 +69,9 @@ Rails.application.configure do
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
-  config.i18n.fallbacks = [I18n.default_locale]
+  unless ENV['HIGHLIGHT_TRANSLATIONS']
+    config.i18n.fallbacks = [I18n.default_locale]
+  end
 
   # Annotate rendered view with file names.
   config.action_view.annotate_rendered_view_with_filenames = true

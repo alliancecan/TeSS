@@ -1015,4 +1015,10 @@ td.day .calendar-text {
 .draggable--over {
   opacity: 0.7;
   background: $state-success-bg;
+
+span.translation_missing {
+  background-color: #ffcccc;
+}
+span.translation_present {
+  background-color: #ccffcc;
 }
