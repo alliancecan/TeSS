@@ -82,3 +82,13 @@ else
     rake 'tess:check_resource_urls'
   end
 end
+
+if !schedules['expire_sessions'].nil?
+  every :"#{schedules['expire_sessions']['every']}", at: "#{schedules['expire_sessions']['at']}" do
+    rake 'tess:expire_sessions'
+  end
+else
+  every :day, at: '2am' do
+    rake 'tess:expire_sessions'
+  end
+end
