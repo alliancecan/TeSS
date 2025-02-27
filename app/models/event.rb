@@ -325,7 +325,15 @@ class Event < ApplicationRecord
 
     scope = provider_id.present? ? where(content_provider_id: provider_id) : all
 
-    event = scope.where(url: given_event.url).last if given_event.url.present?
+    # Events with same URL: if external ID doesn't match, then events don't match
+    if given_event.url.present?
+      if given_event.external_id.present?
+        event = scope.where(url: given_event.url,
+                            external_id: given_event.external_id).last
+      else
+        event = scope.where(url: given_event.url).last
+      end
+    end
 
     event ||= where(content_provider_id: provider_id, title: given_event.title, start: given_event.start).last if given_event.title.present? && given_event.start.present?
 
