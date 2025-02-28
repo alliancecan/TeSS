@@ -1,0 +1,97 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: 'https://www.acenet.training/admin/api/v2/courses?access=free'
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (linux x86_64) ruby/3.2.2p53
+      Authorization:
+      - Bearer REDACTED
+      Lw-Client:
+      - RECACTED
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - www.acenet.training
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 28 Feb 2025 20:22:41 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept-Encoding
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, DELETE, OPTIONS
+      Access-Control-Allow-Headers:
+      - DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Encoding,Authorization,Lw-Client,authuser
+      X-Robots-Tag:
+      - noindex
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 919320ca8accbf03-YYC
+    body:
+      encoding: ASCII-8BIT
+      string: '{"data":[{"id":"basics-of-machine-learning","title":"Foundations of
+        Machine Learning","expires":null,"expiresType":"weeks","afterPurchase":{"type":"course","settings":{"page":null,"url":null}},"categories":["Beginner","Online
+        Synchronous","Winter 2025"],"description":"Are you curious about machine learning
+        but unsure where to start or whether it''s the right fit for you? Join ACENET
+        for an overview of key machine learning methods, from simple models like Linear
+        Regression and Decision Trees for classification to more advanced techniques
+        such as Support Vector Machines and Neural Networks\u2014the foundation of
+        Large Language Models.","label":"March 14, 2025 | 1:30 - 4:30 pm (Atlantic)","author":null,"courseImage":"https:\/\/lwfiles.mycourse.app\/651ebde6c37afd427e55d85f-public\/789c4400364a7d894139fa12c4fe1615.jpg","original_price":0,"discount_price":0,"final_price":0,"dripFeed":"date","identifiers":{"google_store_id":"basics_of_machine_learning","apple_store_id":"basics_of_machine_learning","slug":"basics-of-machine-learning"},"access":"free","created":1739542124.880013,"modified":1739895040.084048},{"id":"introduction-to-python-programming","title":"Introductory
+        Programming with Python","expires":null,"expiresType":null,"afterPurchase":{"type":"course","settings":{"page":null,"url":null}},"categories":["Online
+        Synchronous","Beginner","Winter 2025"],"description":"Join us for an engaging
+        and interactive introduction to programming with Python. Whether you are a
+        complete beginner or looking to strengthen your foundational knowledge, this
+        session will provide you with the essential building blocks of Python programming.\n\nThroughout
+        these sessions, you\u2019ll build a strong foundation in Python by learning
+        how to write and structure code, work with different types of data, and create
+        dynamic programs using decision-making and loops. You\u2019ll also explore
+        how functions help organize your code and how libraries can expand your programming
+        capabilities, making it easier to tackle more complex tasks. This hands-on
+        experience will give you the confidence to start coding and problem-solving
+        effectively.","label":"March 4, 6, 2025 | 1:00 - 4:00 pm (Atlantic)","author":null,"courseImage":"https:\/\/lwfiles.mycourse.app\/651ebde6c37afd427e55d85f-public\/70d4a2b4f82173eedc4931a36497bd8e.jpg","original_price":0,"discount_price":0,"final_price":0,"dripFeed":"date","identifiers":{"google_store_id":"introduction_to_python_programming","apple_store_id":"introduction_to_python_programming","slug":"introduction-to-python-programming"},"access":"free","created":1739473565.654304,"modified":1739891416.035679},{"id":"using-spreadsheets-for-organizing-data","title":"Using
+        Spreadsheets for Organizing Data","expires":null,"expiresType":null,"afterPurchase":{"type":"course","settings":{"page":null,"url":null}},"categories":["HSS","Online
+        Synchronous","Winter 2025","Beginner"],"description":"Good data organization
+        is the foundation of any research project. Most researchers have data in spreadsheets,
+        so it\u2019s the starting place for many research projects. To use tools that
+        make computation and analysis more efficient, such as programming languages
+        like R or Python, we need to structure our data the way that computers need
+        the data. This workshop aims to teach researchers basic concepts, skills,
+        and tools for working with data to get more done quickly and with less pain.
+        In this lesson, you will learn good data entry practices, how to avoid common
+        formatting mistakes, approaches for handling dates in spreadsheets, basic
+        quality control and data manipulation, and exporting data from spreadsheets.
+        ","label":"February 26, 2025 | 1:00 - 4:00 pm (Atlantic)","author":null,"courseImage":"https:\/\/lwfiles.mycourse.app\/651ebde6c37afd427e55d85f-public\/e03e477972de03718b3188c4f9ebd309.jpg","original_price":0,"discount_price":0,"final_price":0,"dripFeed":"date","identifiers":{"google_store_id":"using_spreadsheets_for_organizing_data","apple_store_id":"using_spreadsheets_for_organizing_data","slug":"using-spreadsheets-for-organizing-data"},"access":"free","created":1738778720.757874,"modified":1739989910.041658},{"id":"apache-spark","title":"Big
+        Data Analysis with Apache Spark","expires":null,"expiresType":null,"afterPurchase":{"type":"course","settings":{"page":null,"url":null}},"categories":["Online
+        Synchronous","Winter 2025","Beginner"],"description":"Apache Spark is an open-source
+        software for large-scale data processing and analysis. Using Apache Spark
+        and Python (PySpark), this workshop is aimed at analyzing data sets that are
+        too large to be handled and processed by a single computer. \nIn a hands-on
+        format, using PySpark, participants will learn to import data, and use functions
+        to transform, reduce and compile the data. You will also learn how to produce
+        parallel algorithms that can run on the national clusters.\n","label":"March
+        11, 13, 2025 | 1:00 - 4:00 pm (Atlantic)","author":null,"courseImage":"https:\/\/lwfiles.mycourse.app\/651ebde6c37afd427e55d85f-public\/48ad38d2d5158bdf7a07e7178476205a.png","original_price":0,"discount_price":0,"final_price":0,"dripFeed":"date","identifiers":{"google_store_id":"apache_spark","apple_store_id":"apache_spark","slug":"apache-spark"},"access":"free","created":1737389914.593248,"modified":1739989626.032025}],"meta":{"page":1,"totalItems":4,"totalPages":1,"itemsPerPage":50}}'
+  recorded_at: Fri, 28 Feb 2025 20:22:41 GMT
+recorded_with: VCR 6.2.0

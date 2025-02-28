@@ -66,3 +66,10 @@ another_portal_provider:
   user: regular_user
   content_provider_type: Portal
   contact: user@provider.portal
+
+acenet:
+  title: Acenet
+  url: http://acenet.portal
+  user: regular_user
+  content_provider_type: Portal
+  contact: user@provider.portal
