@@ -1,5 +1,8 @@
 module Ingestors
   class DracIcalIngestor < IcalIngestor
+
+    include Ingestors::Concerns::HasDescriptionMetadata
+
     # The ics files from Google tend to embed the timezone in
     # the calendar, not the events
     attr_reader :default_timezone
@@ -138,5 +141,12 @@ module Ingestors
 
       timezone
     end
+
+    def process_description_title(description, title, event)
+      super
+
+      process_description_metadata(description, title, event)
+    end
+
   end
 end

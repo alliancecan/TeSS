@@ -1,0 +1,38 @@
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Training test
+X-WR-TIMEZONE:America/Edmonton
+BEGIN:VEVENT
+DTSTART:20250322T203000Z
+DTEND:20250322T213000Z
+DTSTAMP:20250319T175913Z
+UID:358208ctm2nsc9nr7dqbvnuh1i@google.com
+CREATED:20250319T160504Z
+DESCRIPTION:Register at: <a href="https://www.some-other-fake-course.ca" target="
+ _blank">https://www.some-other-fake-course.ca</a><br><br>This course is lik
+ ely python\, but could be machine learning. It might talk about physics.<br
+ ><br>Presence: Hybrid
+LAST-MODIFIED:20250319T175220Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Test 2
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20250315T203000Z
+DTEND:20250315T213000Z
+DTSTAMP:20250319T175913Z
+UID:029sb650sornpgjr87ipbmuu2b@google.com
+CREATED:20250311T204014Z
+DESCRIPTION:https://www.some-fake-course.ca\n\nSome filler text\, it might 
+ be about python.\n\nLanguage: fr\nKeywords: dogs\, cats
+LAST-MODIFIED:20250319T175306Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Test 1
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

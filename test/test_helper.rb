@@ -265,6 +265,9 @@ class ActiveSupport::TestCase
      { url: 'https://www.eventbriteapi.com/v3/categories/101/', filename: 'eventbrite/categories_101.json' },
      { url: 'https://www.eventbriteapi.com/v3/categories/102/', filename: 'eventbrite/categories_102.json' },
      { url: 'https://www.eventbriteapi.com/v3/formats/', filename: 'eventbrite/formats.json' },
+
+     { url: 'https://www.drac-ical.ca/stuff/drac-ical1.ics', filename: 'drac-ical/drac-ical1.ics' },
+
      { url: 'https://dummy.com', status: 404 },
      { url: 'https://dummy.com/events.csv', status: 404 },
      { url: 'https://app.com/materials/material3.html' },

@@ -103,14 +103,11 @@ module Ingestors
         event = OpenStruct.new
         event.url = extract_url(calevent)
         event.title = calevent.summary.to_s
-        event.description = process_description calevent.description
 
-        # puts "\n\ncalevent.description = #{calevent.description}"
-        # puts "\n\n...        converted = #{event.description}"
+        event.timezone = extract_event_timezone(calevent)
 
         event.end = calevent.dtend&.to_time
         event.start = extract_event_start(calevent)
-        event.timezone = extract_event_timezone(calevent)
 
         event.venue = calevent.location.to_s
         if ical_event_online?(calevent)
@@ -136,6 +133,9 @@ module Ingestors
           end
         end
 
+        # Update description, and potentially other fields too
+        process_description_title(calevent.description, event.title, event)
+
         # store event
         @events << event
       rescue Exception => e
@@ -146,10 +146,10 @@ module Ingestors
       nil
     end
 
-    def process_description(input)
-      return input if input.nil?
+    def process_description_title(description, title, event)
+      return if description.nil?
 
-      convert_description(input.to_s.gsub(/\R/, '<br />'))
+      event.description = convert_description(description.to_s.gsub(/\R/, '<br />'))
     end
   end
 end
