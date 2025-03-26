@@ -81,87 +81,75 @@ module Ingestors::Concerns::HasDescriptionMetadata
     # TODO: possibly anything would be better than this -- maybe AI?
 
     # Mush it all together
-    text = (title.to_s + description.to_s).gsub(/\W+/, ' ').downcase
+    text = " #{title} #{description} ".gsub(/\W+/, ' ').downcase
 
     keywords = Set.new
-    if text =~ /data *management/
-      keywords << 'RDM'
-      keywords << 'Research Data Management'
-    end
-    if text =~ /storage/
-      keywords << 'Storage'
-    end
-    if text =~ /humanitites/ || text =~ /social/
+    if text =~ / humanitites /
       keywords << 'Humanities'
+    end
+    if text =~ / social science/
       keywords << 'Social Sciences'
     end
-    if text =~ /physics/
-      keywords << 'Physics'
+    if text =~ /physics /
+      keywords << ' Physics '
     end
     if text =~ /chem/
       keywords << 'Chemistry'
     end
-    if text =~ /hpc/
-      keywords << 'HPC'
-    end
-    if text =~ /gpu/ || text =~ /nvidia/ || text =~ /cuda/
+    if text =~ / gpu / || text =~ / nvidia / || text =~ / cuda /
       keywords << 'GPU'
       keywords << 'HPC'
     end
-    if text =~ /machine *learning /|| text =~ /tensorflow/ ||
-       text =~ /torch/ || text =~ /llm/ || text =~ /chatgpt/ ||
+    if text =~ / machine learning /|| text =~ / tensorflow / ||
+       text =~ /torch / || text =~ / llm / || text =~ / chatgpt / ||
        text =~ /generative/
       keywords << 'Machine Learning'
       keywords << 'AI'
     end
-    if text =~ /newuser/
+    if text =~ /new *user/
       keywords << 'Introductory'
       keywords << 'New User'
     end
-    if text =~ /bigdata/ || text =~ /spark/
+    if text =~ / big *data / || text =~ / spark /
       keywords << 'Big Data'
       keywords << 'Data Analytics'
     end
-    if text =~ /python/ || text =~ /pandas/
+    if text =~ / python /
       keywords << 'Python'
       keywords << 'Programming'
     end
-    if text =~ /visualiz/ || text =~ /paraview/
+    if text =~ / visualiz/ || text =~ / paraview /
       keywords << 'Visualization'
     end
-   if text =~ /git/
+   if text =~ / git /
       keywords << 'Git'
       keywords << 'Programming'
     end
-    if text =~ /julia/
+    if text =~ / julia /
       keywords << 'Julia'
       keywords << 'Programming'
     end
 
-    if text =~ /dataframe/ || text =~ /statistic/ || text =~ /pandas/
+    if text =~ / data *frame / || text =~ / pandas /
       keywords << 'Statistics'
       keywords << 'Data Analysis'
     end
 
-    if text =~ /tidyverse/
-      keywords << 'R'
-    end
-
-    if text =~ /ddt/ || text =~ /debug/ || text =~ /fortran/
+    if text =~ / fortran /
       keywords << 'Programming'
     end
 
-    if text =~ /openmp/ || text =~ /MPI/
+    if text =~ /openmp/ || text =~ / mpi /
       keywords << 'Programming'
       keywords << 'Parallel'
       keywords << 'HPC'
     end
 
-    if text =~ /emacs/ || text =~ /vim/ || text =~ /vscode/ || text =~ /nano/
+    if text =~ / emacs / || text =~ / vim / || text =~ / vscode / || text =~ / nano /
       keywords << 'Editor'
     end
 
-    if text =~ /bash/ || text =~ /shell/ || text =~ /commandline/
+    if text =~ / bash / || text =~ / shell / || text =~ / command *line /
       keywords << 'Shell'
     end
 
