@@ -39,3 +39,4 @@ vendor/bundle
 config/ontologies/*.cache
 
 tess.crontab
+.DS_Store
