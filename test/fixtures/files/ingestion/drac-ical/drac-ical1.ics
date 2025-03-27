@@ -6,25 +6,9 @@ METHOD:PUBLISH
 X-WR-CALNAME:Training test
 X-WR-TIMEZONE:America/Edmonton
 BEGIN:VEVENT
-DTSTART:20250322T203000Z
-DTEND:20250322T213000Z
-DTSTAMP:20250319T175913Z
-UID:358208ctm2nsc9nr7dqbvnuh1i@google.com
-CREATED:20250319T160504Z
-DESCRIPTION:Register at: <a href="https://www.some-other-fake-course.ca" target="
- _blank">https://www.some-other-fake-course.ca</a><br><br>This course is lik
- ely python\, but could be machine learning. It might talk about physics.<br
- ><br>Presence: Hybrid
-LAST-MODIFIED:20250319T175220Z
-SEQUENCE:0
-STATUS:CONFIRMED
-SUMMARY:Test 2
-TRANSP:OPAQUE
-END:VEVENT
-BEGIN:VEVENT
 DTSTART:20250315T203000Z
 DTEND:20250315T213000Z
-DTSTAMP:20250319T175913Z
+DTSTAMP:20250327T150724Z
 UID:029sb650sornpgjr87ipbmuu2b@google.com
 CREATED:20250311T204014Z
 DESCRIPTION:https://www.some-fake-course.ca\n\nSome filler text\, it might 
@@ -33,6 +17,41 @@ LAST-MODIFIED:20250319T175306Z
 SEQUENCE:0
 STATUS:CONFIRMED
 SUMMARY:Test 1
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20250322T203000Z
+DTEND:20250322T213000Z
+DTSTAMP:20250327T150724Z
+UID:358208ctm2nsc9nr7dqbvnuh1i@google.com
+CREATED:20250319T160504Z
+DESCRIPTION:Register at: https://www.some-other-fake-course.ca\n\nThis cour
+ se is likely python\, but could be machine learning. It might talk about ph
+ ysics.\n\nPresence: Hybrid
+LAST-MODIFIED:20250327T144640Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Test 2
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20250329T203000Z
+DTEND:20250329T213000Z
+DTSTAMP:20250327T150724Z
+UID:1ha4slbt9hq903pr4ld541tmu6@google.com
+CREATED:20250327T143744Z
+DESCRIPTION:Here is another event\, with a description that has more HTML i
+ n it.<br>Topics may include <b>visualization</b>\, maybe some git.<br>Maybe
+  it will touch on the <u>humanities</u>. There could be an <b>NVIDIA</b> gu
+ est speaker.<br><br>This is just a random URL thrown here for testing: http
+ s://www.lydo-chinese-food.com<br><br>url: https://what-a-great-course.com<b
+ r>presense: onsite
+LAST-MODIFIED:20250327T150718Z
+LOCATION:Aquarium of Quebec\, 1675 Av. des Hôtels\, Québec\, QC G1W 4S3\, C
+ anada
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Test 3 (could be about VSCode)
 TRANSP:OPAQUE
 END:VEVENT
 END:VCALENDAR

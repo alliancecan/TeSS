@@ -17,7 +17,7 @@ class DracIcalIngestorTest < ActiveSupport::TestCase
 
   test 'Ingest drac_ical source' do
     # override time
-    assert_difference('Event.count', 2) do
+    assert_difference('Event.count', 3) do
       freeze_time(2019) do
         ingestor = Ingestors::DracIcalIngestor.new
         source = @content_provider.sources.build(
@@ -27,10 +27,10 @@ class DracIcalIngestorTest < ActiveSupport::TestCase
         ingestor.read(source.url)
         ingestor.write(@user, @content_provider)
 
-        assert_equal 2, ingestor.events.count
+        assert_equal 3, ingestor.events.count
         assert ingestor.materials.empty?
 
-        assert_equal 2, ingestor.stats[:events][:added]
+        assert_equal 3, ingestor.stats[:events][:added]
         assert_equal 0, ingestor.stats[:events][:updated]
         assert_equal 0, ingestor.stats[:events][:rejected]
 
@@ -45,9 +45,19 @@ class DracIcalIngestorTest < ActiveSupport::TestCase
 
         event = ingestor.events.detect { |e| e.title == 'Test 2' }
         assert event
+        assert_equal(event.url, 'https://www.some-other-fake-course.ca')
         assert_nil(event.language)
         assert_equal(event.presence, 'hybrid')
-        assert_equal(event.keywords.sort, ["AI", "Machine Learning",'Physics', 'Programming', 'Python'])
+        assert_equal(event.keywords.sort, ["AI", "Machine Learning", 'Physics', 'Programming', 'Python'])
+
+        event = ingestor.events.detect { |e| e.title =~ /Test 3/ }
+        assert event
+        assert_equal(event.url, 'https://what-a-great-course.com')
+        assert_nil(event.language)
+        # Note to self: event has to have a location set or 'onsite' will not stick.
+        assert_equal(event.presence, 'onsite')
+        assert_equal(event.venue, 'Aquarium of Quebec, 1675 Av. des Hôtels, Québec, QC G1W 4S3, Canada')
+        assert_equal(event.keywords.sort, ['Editor', 'GPU', 'Git', 'HPC', 'Programming', 'Visualization'])
       end
     end
   end

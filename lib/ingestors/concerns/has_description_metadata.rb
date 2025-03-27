@@ -39,6 +39,9 @@ module Ingestors::Concerns::HasDescriptionMetadata
       when :presence
         # Model validation will catch this ...
         event.presence = value&.downcase
+      when :url
+        # Model validation will catch this ...
+        event.url = value
       when :keywords
         if enable_auto_keywords
           enable_auto_keywords = false
