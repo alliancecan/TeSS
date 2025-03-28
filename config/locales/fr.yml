@@ -1,16 +1,646 @@
 fr:
-  activerecord:
-    attributes:
-      event:
-        language: "Langue d’enseignement"
   features:
     about:
-      short: 'À propos'
-      long: 'À propos'
-  dictionaries:
-    languages:
-      eng: 'Anglais'
-      fre: 'Français'
+      short: À propos de
+      long: À propos de
+    events:
+      short: Événements
+      long: Événements
+    materials:
+      short: Matériel
+      long: Matériel de formation
+    elearning_materials:
+      short: E-Learning
+      long: E-Learning
+    workflows:
+      short: Flux de travail
+      long: Flux de travail
+    collections:
+      short: Collections
+      long: Collections
+    trainers:
+      short: Formateurs
+      long: Formateurs
+    content_providers:
+      short: Fournisseurs
+      long: Fournisseurs de contenu
+    nodes:
+      short: Nœuds
+      long: Nœuds
+    learning_paths:
+      short: Parcours d'apprentissage
+      long: Parcours d'apprentissage
+    learning_path_topics:
+      short: Sujets
+      long: Sujets du parcours d'apprentissage
+  pundit:
+    default: 'Vous n''êtes pas autorisé à effectuer cette action.'
+    material_policy:
+    event_policy:
+  attributes:
+    url: 'URL'
+    doi: 'DOI'
+    orcid: 'ORCID'
+  activerecord:
+    models:
+      event: Événement
+      material: Matériel
+      elearning_material: Matériel de formation en ligne
+      workflow: Flux de travail
+      collection: Collection
+      trainer: Formateur
+      content_provider: Fournisseur de contenu
+      node: Nœud
+    attributes:
+      content_provider:
+        user: Propriétaire
+      profile:
+        firstname: 'Prénom'
+        surname: 'Nom de famille'
+      event:
+        county: Région
+        presence:
+          online: En ligne
+          onsite: En présentiel
+          hybrid: Hybride
+        language: 'Langue d''enseignement'
+  about:
+    headings:
+      events: Événements
+      materials: Matériel
+      workflows: Flux de travail de la formation
+      learning_paths: Parcours d'apprentissage
+      educational_resource: Ressource pédagogique
+      subscribe: S'abonner
+      widgets_and_api: Widgets et API
+    sidebar:
+      what_is: 'Qu''est-ce que %{title} ?'
+      what_we_catalogue: 'Ce que nous cataloguons'
+      subscribing_to_notifications: 'Abonnement aux notifications'
+      widgets_and_api: Widgets et API
+      registering_content: 'Enregistrement du contenu'
+      automatic_registration: 'Enregistrement automatique'
+      manual_registration: 'Enregistrement manuel'
+      learning_paths: 'Parcours d''apprentissage'
+      editorial_process: 'Révision éditoriale'
+      overview_of_registering_learning_paths: 'Présentation de l''enregistrement des parcours d''apprentissage'
+      learning_path_topics: 'Sujets du parcours d''apprentissage'
+      registering_learning_paths: 'Enregistrement des parcours d''apprentissage'
+      viewing_learning_paths: 'Affichage des parcours d''apprentissage'
+      developers: 'Développeurs'
+      code_and_data: 'Code et données'
+      widgets: 'Widgets'
+      api: 'API'
+      about_us: 'À propos de nous'
+    links:
+      learn_more_widgets: En savoir plus sur les widgets
+      learn_more_api: En savoir plus sur notre API
+    registry: >
+      TeSS est une plateforme qui a été développée pour fournir un guichet unique aux formateurs et aux apprenants pour découvrir des informations et du contenu en ligne, y compris du matériel de formation, des événements et des tutoriels interactifs. Pour les prestataires de formation, TeSS offre la possibilité de promouvoir les événements de formation et les actualités, et de contribuer à un catalogue croissant de contenu; pour les formateurs, le portail est un environnement pour lke partage de matériel et d'information sur les événements; pour les apprenants, c'est une passerelle pratique via laquelle identifier les événements et ressources de formation, et effectuer des tâches d'analyse spécifiques et guidées via des flux de formade formation personnalisés.
+    history: >
+      TeSS a été initialement développée dans le cadre de <a href='https ://elixir-europe.org/' target='_blank'>ELIXIR</a>, l'infrastructure distribuée européenne pour les données des sciences de la vie. L’un des objectifs d’ELIXIR est de former des chercheurs scientifiques à mieux utiliser les infrastructures de calcul pour solutionner des problématiques de recherche cruciales. Pour ce faire, il est nécessaire d'avoir accès à des possibilités de formation en présentiel et à des ressources et du matériel de formation, actuellement dispersés dans toute l'Europe.
+    events: >
+      Les événements dans TeSS sont définis comme étant des occasions de formation en présentiel ou en ligne, avec des heures de début et de fin. Ceux-ci prennent principalement la forme d'ateliers, de cours, de webinaires, etc.; mais TeSS recueille également des informations sur les conférences, les réunions et les marathons de programmation, car ceux-ci peuvent également être des occasions d'apprentissage.
+    nominatim: "<a href='https ://wiki.openstreetmap.org/wiki/Nominatim' target='_blank' rel='noopener'>Nominatim</a>"
+    materials: >
+      Le matériel est défini comme comme des ressources de formation accessibles en tout temps. Il peut être dans une variété de formats différents, y compris des didacticiels en ligne, des vidéos, des présentations PowerPoint, etc.
+    workflows: >
+      Parmi les nouveaux outils graphiques de TeSS se trouvent les flux de travail pour la formation. Trois principaux types de flux de travail sont en cours de développement: Ressources pédagogiques, parcours d'apprentissage et cartes conceptuelles. Ceux-ci regroupent différents types et/ou approches de formation, à différents niveaux de granularité, dans des affichages faciles à utiliser.
+    learning_paths: >
+      Afin de faire progresser leurs compétences, les apprenants doivent s’engager dans un parcours, ou une trajectoire de développement. Pour faciliter ceci, les parcours d’apprentissage visent à structurer, au sein de flux de travail simples, l’ensemble des ressources de formation que les apprenants doivent étudier afin d’atteindre leurs objectifs d’apprentissage. Des parcours d’apprentissage sont développés par ELIXIR TeSS, ELIXIR-NL et ELIXIR UK.
+    resources: >
+      Dans ce type de flux de travail, les apprenants sont initiés à diverses tâches pratiques, liées à des outils en ligne et/ou des bases de données associées, dans des modules autonomes. Chaque module comprend i) des énoncés succincts des objectifs d'enseignement et des résultats d'apprentissage, pour transmettre aux apprenants ce qu'ils seront en mesure de faire à la fin du module; ii) une série de questions ou d'idées pour provoquer une réflexion critique sur les tâches qui ont été accomplies; iii) des informations générales supplémentaires et des lectures complémentaires pour consolider l'apprentissage et la recherche; et enfin iv) des questions à choix multiple pour évaluer la compréhension. Des ressources pédagogiques en introduction à la bio-informatique des séquences et structurale sont actuellement développées par ELIXIR TeSS, ELIXIR-UK et le groupe britannique de bio-informatique structurale (via le projet FunPDBe).
+    subscribe: >
+      TeSS possède une fonction d'abonnement pour aider les utilisateurs à rester informés sur les cours, ateliers et conférences qui les intéressent. Le service peut être personnalisé en sélectionnant les filtres appropriés et il est lancé en cliquant sur le bouton pour s'abonner. Les utilisateurs peuvent choisir de recevoir des notifications par courriel sur les événements à venir ou de les ajouter automatiquement à leur application de calendrier préférée.
+    subscription_manager: >
+      La page <a href='%{subscriptions_path}'>Gestionnaire d'abonnements</a> peut être utilisée pour modifier la fréquence des abonnements ou pour les supprimer.
+    widgets_and_api: >
+      Pour accéder aux données de TeSS, les organisations peuvent facilement importer des informations sur des événements et des documents qui se trouvent sur leur site à l’aide de widgets, ou encore créer des flux personnalisés à l’aide de notre API.
+    collect_events: >
+      %{site_name} collecte des informations sur les événements auprès de %{count} fournisseurs de contenu et complémente les données par des informations de géolocalisation trouvées à l'aide de %{nominatim}.
+    discover_events: Découvrir les événements
+    collect_materials: "%{site_name} collecte du matériel auprès de %{count} fournisseurs de contenu."
+    discover_materials: Découvrir le matériel
+    discover_learning_paths: Découvrir les parcours d'apprentissage
+    discover_workflows: Découvrir les flux de travail
+  developer:
+    license: >
+      TeSS s'engage à respecter les principes FAIR: rendre les données faciles à utiliser, accessibles, interopérables et réutilisables. Tout le contenu de TeSS est disponible sous licence CC BY 4,0 et peut être consulté via notre API et nos widgets. La base de code TeSS est également disponible pour être réutilisée sous la licence BSD; elle se trouve sur GitHub.
+    code_license: >
+      <a href="https ://github.com/ElixirTeSS/TeSS/blob/master/LICENSE", target="_blank">BSD 3-Clause<i class="icon icon-md arrow-top-right-icon"> </i> </a>
+    data_license: >
+      <a href="https ://creativecommons.org/licenses/by/4.0/", target="_blank">CC-BY 4.0<i class="icon icon-md arrow-top-right-icon"> </i> </a>
+    gmaps_countries: >
+      Royaume-Uni, Espagne, Portugal, France, Belgique, Irlande, Estonie, Finlande, Allemagne, Autriche, Italie, Hongrie, République tchèque, Estonie, Danemark,  Grèce, Luxembourg, Pays-Bas, Suisse, Norvège, Suède,  Slovénie
+    widgets: >
+      Les widgets sont des morceaux de code javascript qui peuvent être copiés dans le code source du site Web pour afficher le contenu TeSS. Il existe plusieurs styles et fonctionnalités différents disponibles à partir de notre suite de widgets configurables. Les widgets peuvent être utilisés pour améliorer votre site et offrir à votre communauté des listes d'événements ou des ressources de formation.
+    widgets_available: "https ://elixirtess.github.io/TeSS_widgets/"
+    api_example_1: "/events.json_api"
+    api_example_2: "/events/data-fairification-for-data-stewards.json_api"
+    api_example_3: "/Materials.JSON_api ?Scientific_topics=RNA-SEQ"
+    api_example_4: "/content_providers.json_api"
+    api_example_5: "/workflows.json_api"
+  us:
+    keys:
+      tess_club: Club TeSS
+      contact: Contact
+      team: L'équipe
+      funding: Financement
+      acknowledgements: Remerciements
+      cite: Nous citer
+    tess_club: >
+      <p>Meetings bimensuels, marathons de programmation, activités partagées, participation à la définition de priorités, contribution aux efforts pour unifier la communauté.</p> <p>Pour tous les détails, visitez le site web du club <a href="https ://elixirtess.github.io/about/">TeSS.<i class="icon icon-md arrow-top-right-icon"> </i> </a> </p>
+    contact: >
+      Pour toute question, information ou assistance, contactez le service d'assistance TESS à <br> <a href="mailto :tess-support@googlegroups.com">tess-support@googlegroups.com</a>
+    team: >
+      <h5>Leadership</h5> <ul><li>Carole Goble</li><li>Hedi Peterson</li><li>Alexia Cardona</li></ul> <h5>Project Management</h5> <ul><li>Munazah Andrabi</li><li>Phil Reed</li></ul> <h5>Software Engineering</h5> <ul><li>Finn Bacall</li><li>Ivan Kuzmin</li></ul> <h5>Community Engagement</h5> <ul><li>Alexander Botzki</li><li>Olivier Sand</li></ul> <h5>Past Members</h5> <ul>
+        <li>Aleksandra Nenadic - Project Management/Software Engineering</li>
+        <li>Aleksandra Pawlik - Project Management</li>
+        <li>Teresa K. Attwood - Leadership</li>
+        <li>Susanna-Assunta Sansone - Leadership</li>
+        <li>Niall Beard - Project Management/Software Engineering</li>
+        <li>Milo Thurston - Software Engineering</li>
+        <li>Chris Child - Project Management/Software Engineering</li>
+        <li>Aitor Apaolaza - Software Engineering</li>
+      </ul>
+    funding: >
+      TeSS a été financée par: <ul> <li>European Commission, Horizon 2020 Research Infrastructures programme (ELIXIR-EXCELERATE, <a href="https://cordis.europa.eu/project/rcn/198519_en.html" target="_blank">grant agreement number 676559</a>);</li> <li>ELIXIR Implementation Study (Registry Integration from a User Perspective);</li> <li>ELIXIR Implementation Study (Learning Paths).</li> <li>BBSRC UK (Delivering ELIXIR-UK grant, grant agreement numbers
+        <a href="https://bbsrc.ukri.org/research/grants/grants/AwardDetails.aspx?FundingReference=BB/L005050/1"
+          target="_blank">BB/L005050/1</a> &amp;
+        <a href="https://bbsrc.ukri.org/research/grants-search/AwardDetails/?FundingReference=BB/L005069/1"
+          target="_blank">BB/L005069/1</a>
+        ).
+      </li> </ul>
+    acknowledgements: >
+      <p>L’équipe du projet TeSS tient à remercier de leur aide un certain nombre de groupes et de personnes, et
+         à les remercier pour leurs discussions utiles, leurs commentaires et leur assistance dans le développement de la platgeforme, pour n’en nommer que quelques-uns:</p>
+       <ul>
+          <li>Le personnel technique d'ELIXIR et les coordonateurs du Hub
+            en particulier Rafael Jimenez, Martin Cook et Premysl Velek</li>
+          <li>Le groupe des coordonateurs de formation d ’ÉLIXIR, en particulier Celia van Gelder, Patricia Palagi et Gabriella Rustici
+            </li>
+          <li>Le groupe britannique de bioinformatique structurelle, en particulier Christine Orengo</li>
+        </ul>
+    cite: >
+      Niall Beard, Finn Bacall, Aleksandra Nenadic, Milo Thurston, Carole A Goble, Susanna-Assunta Sansone, Teresa K Attwood, <strong>TeSS : a Platform for Discovering Life-science training Opportunities </strong>, <em>Bioinformatics</em>, volume 36, numéro 10, 15 mai 2020, pages 3290-3291, <a href="https ://doi.org/10.1093/bioinformatics/btaa047">https ://doi.org/10.1093/bioinformatics/btaa047</a>
+
+  register:
+    buttons:
+      content_providers: 'Enregistrer le fournisseur de contenu'
+      events: 'Enregistrer l''événement'
+      materials: 'Enregistrer le matériel de formation'
+      workflows: 'Créer un flux de travail'
+      trainers: 'S''inscrire comme formateur'
+      collections: 'Créer une collection'
+    registering_resources_in: "Enregistrement des ressources dans %{site_name}"
+    resources: >
+      <p>Les ressources de formation (événements et matériel) peuvent être ajoutées à TeSS pour rejoindre un public plus large, augmenter l'impact et renforcer la participation à l'événement. L'enregistrement d'événements et de matériel de formation les rend plus faciles à trouver de diverses manières par les utilisateurs.</p>
+    methods: >
+      <p>Il existe deux façons d'enregistrer le matériel ou des événements à afficher dans TeSS: <ol> <li>Configurer une solution d'enregistrement <a href="#automatic">automatique </a> ;</li> <li>Utiliser notre formulaire pour les enregistrer <a href="#manual">manuellement</a>.</li> </ol> </p>
+    automatic: >
+      TeSS offre plusieurs options pour intégrer automatiquement des ressources provenant de sources externes. Cela peut être utile si vous gérez beaucoup de matériel et une grande collection d'événements qui changent fréquemment.
+    structured: >
+      <p>Pour enregistrer automatiquement des ressources dans TeSS, nous devons pouvoir extraire les données des sources cibles de manière fiable. À cette fin, il est utile que les données soient structurées selon un format standard.</p> <p>Les exemples suivants illustrent les types de données structurées avec lesquelles TeSS peut travailler.</p> <p>Si votre site Web ne contient actuellement aucune donnée structurée et que vous souhaitez que vos ressources soient ajoutées à TeSS, nous vous recommandons d’utiliser <a href="http ://bioschemas.org" target="_blank">Bioschemas</a> pour structurer votre site.</p>
+    schema: >
+      <p> <a href='https ://schema.org', target='_blank'>Schema.org</a> est un projet mené par un consortium de moteurs de recherche. Schema.org a créé une vaste bibliothèque de schémas que les webmaîtres peuvent utiliser pour baliser explicitement le contenu de leurs sites Web afin d'améliorer la visibilité et l'interopérabilité des moteurs de recherche.</p> </p> <p> <a target='_blank', href='https ://bioschemas.org'>Bioschemas</a> est une initiative visant à complémenter le travail de Schema.org pour aider à améliorer la trouvabilité des ressources en ligne dans le domaine des sciences de la vie.</p> Les deux principales activités de Bioschemas sont: <ul> <li>Proposer de nouveaux types et propriétés à Schema.org pour permettre la description des ressources en sciences de la vie.</li> <li>Définir des profils d'utilisation sur les types Schema.org qui identifient les propriétés essentielles à utiliser pour décrire une ressource.</li> </ul> <p> TeSS prend en charge les profils de Bioschemas suivants:<br/> <strong>pour les événements qui sont des cours,</strong> <ul> <li> <a target='_blank', href='https ://bioschemas.org/profiles/CourseInstance/1.0-RELEASE'>CourseInstance</a> </li> <li> <a target='_blank', href='https ://bioschemas.org/profiles/Course/1.0-RELEASE'>Cours</a> </li> </ul> <strong>pour les autres événements,</strong> <ul> <li> <a target='_blank',href='https://bioschemas.org/profiles/Event/0.2-DRAFT-2019_06_14'>Événements </a> </li> </ul> <strong> </a> </li> </ul>pour le matériel de formation </strong> <ul> <li> <a target='_blank', href='https ://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE'>
+    sitemap: >
+      <p>Pour aider les moteurs de recherche (et TeSS) à trouver toutes les pages d'un site qui ont le balisage Bioschemas, un <a target='_blank', href='https ://developers.google.com/search/docs/crawling-indexing/sitemaps/overview'>sitemap</a> devrait être utilisé. Un sitemap est essentiellement une liste de répertoire de toutes les pages de votre site.</p> <p>C'est une norme bien établie, et il devrait y avoir des bibliothèques de sitemapd et des plugiciels disponibles pour n'importe quel logiciel que vous utilisez pour votre site.</p>
+    api: >
+      Les interfaces de programmation d'application <p>, ou API, ont généralement des URL de point de terminaison qui, lorsqu'elles sont accessibles, renvoient des données dans un format d'échange de données commun, tel que JSON.</p> <p>TeSS prend actuellement en charge les API pour: <ul> <li> <a target='_blank', href='https ://eventbrite.com'>Eventbrite</a> - pour les événements</li> <li> <a target='_blank', href='https ://zenodo.com'>Zenodo</a> - pour le matériael</li> <li>Autres plateformes TeSS - pour les événements</li> </ul> </p>
+    calendar: >
+      <p>Plusieurs organisations utilisent des applications de calendrier pour organiser et afficher leurs événements. Ceux-ci peuvent être faits sur mesure ou, plus probablement, utiliser des applications comme Google Agenda. Ces applications conservent un fichier sous-jacent pour le stockage et la récupération des événements, généralement au format iCal (.ics).</p> <p>TeSS peut extraire des descriptions, des dates et des lieux d'événements à partir de fichiers iCal.</p>
+    other_types: >
+      <ul> <li> <b>RSS Feed</b>: un flux RSS est un type de format de nouvelles. De nombreux sites Web ont de tels flux, qui listent les messages récents dans un format standard. Nous pouvons écrire des scripts pour analyser ce format</li> <li> <b>Référenciel Git:</b> un référentiel Git est un répertoire contenant des fichiers qui peuvent être édités en collaboration. Si vous utilisez GitHub (ou similaire) pour développer vos ressources de formation, et/ou utilisez les pages GitHub pour les afficher, nous pouvons écrire un script qui clone le référentiel et extrait les informations sur les ressources. Nous pouvons vous demander de créer un fichier de métadonnées au format YAML pour nous aider à extraire les métadonnées ;</li> <li> <b>Autre:</b> si vous avez des métadonnées de formation dans un autre format structuré (par exemple, un dump XML ou JSON, un fichier CSV, un fichier YAML ou un autre format), il est possible pour l'équipe TeSS d'écrire un script pour l'analyser.</li> </ul>
+    user_managed_sources: >
+      <p>Les propriétaires  et éditeurs de fournisseurs de contenu dans TeSS peuvent enregistrer et gérer <em>les sources</em> pour être automatiquement importées. Une source se compose d'une URL que TeSS peut trouver et d'une méthode d'importation qui indique à TeSS comment le contenu de l'URL doit être traité.</p> <p>Une fois enregistrée, une source devra être approuvée par un administrateur avant d'être active, mais peut être testée pour voir exactement quelles métadonnées TeSS peut en extraire.</p> <p>Pour enregistrer une source, cliquez sur l'onglet Sources sur la page de votre fournisseur de contenu, ou si vous n'avez pas encore enregistré de fournisseur de contenu, cliquez sur le bouton ci-dessous.</p>
+    advice: >
+      Contactez <a href="mailto :%{contact_email}">%{contact_email}</a> pour savoir comment enregistrer automatiquement votre contenu dans TeSS.
+    manual: >
+      <p>Les resources peuvent être ajoutées manuellement à TeSS.</p> <p>Pour ce faire, créez d'abord un compte gratuit. Les membres des établissements d'enseignement peuvent ouvrir une session à l'aide de LS-Login.</p> <p> Une fois enregistré et connecté, les boutons Enregistrer l'événement et Enregistrer le matériel seront visibles sous les onglets des événements et du matériel. Vous pouvez également cliquer ici:</p>
+    learning_paths: 
+      register_in: "Parcours d'apprentissage dans %{site_name}"
+      what: >
+        Un parcours d’apprentissage est un parcours qui guide les apprenants à travers un ensemble de modules (cours/matériels) à entreprendre progressivement pour acquérir les connaissances et les compétences (des compétences de pensée d’ordre inférieur aux compétences de pensée d’ordre supérieur) souhaitées sur un sujet.
+      editorial: >
+        <p>Il existe plusieurs rôles associés aux parcours d’apprentissage:</p> <ul> <li> <b>Auteur</b> : Personnes et organisations qui ont participé à la préparation, la création ou la présentation de l’œuvre publiée.</li> <li> <b>Contributeur</b> : Personnes et les organisations qui ont contribué à l'œuvre publiée, mais qui ne sont pas des auteurs.</li> <li> <b>Collaborateur</b> : Personne à qui l'on a accordé des droits d'édition sur le matériel, un sujet ou un parcours d'apprentissage par la personne (propriétaire) qui l'a créé.</li> <li> <b>Éditeur</b>: Personne autorisée à créer un parcours d'apprentissage dans TeSS , selon le processus éditorial de sa communauté.</li> <li> <b>Propriétaire</b>: Personne qui a créé du matériel, un sujet ou un parcours d'apprentissage dans TeSS.</li> </ul> <p>Avant d'enregistrer un parcours d'apprentissage, un prestataire de formation doit: </p> <ol> <li>Assigner un éditeur de parcours d'apprentissage (propriétaire).</li> <li>Contactez l'équipe TeSS pour assigner le rôle d'éditeur de parcours d'apprentissage à son compte.</li> <li>Completez vos processus éditoriaux internes (le cas échéant) avant de commencer à enregistrer les parcours d'apprentissage sur TeSS.</li> </ol> <p>Après que ces tâches sont terminées:</p> <ul> <li>L'éditeur de parcours d'apprentissage a la responsabilité de créer des parcours d'apprentissage pour son fournisseur.</li> <li>Il est aussi responsable de mettre en œuvre tous les protocoles requis par la communauté qui offre le parcours d'apprentissage.  Par exemple, les parcours d’apprentissage de la communauté ELIXIR suivront le protocole créé par le ELIXIR Training Platform/Learning Paths Focus Group.</li></ul> <p>Gouvernance: Maintenir le parcours d'apprentissage </p> <ol> <li>Il est de la responsabilité de l'éditeur de parcours d'apprentissage de maintenir les parcours d'apprentissage de leur communauté.</li> <li>Il peut affecter des collaborateurs à travailler sur chaque parcours d'apprentissage, en fonction de l'expertise requise.</li> </ol>
+      overview: >
+        <p>Pour enregistrer un parcours d'apprentissage, vous devez suivre les trois étapes décrites ci-dessous:</p> <ol> <li>Enregistrer le matériel de formation </li> <li>Créer un sujet de parcours d'apprentissage et y ajouter du matériel (répéter pour chaque sujet)</li> <li>Inscrivez un parcours d'apprentissage et ajoutez des sujets au parcours d'apprentissage à it</li> </ol> <p>Pour enregistrer un parcours d'apprentissage et ses sujets, connectez-vous d'abord. Le bouton Enregistrer un parcours d'apprentissage deviendra visible sur la page des parcours d'apprentissage, et le bouton Créer un sujet deviendra visible sur la page des sujets. Si vous ne voyez pas ces boutons, contactez tess-support@googlegroups.com pour demander l'autorisation nécessaire.</p> <p>Les trois étapes pour enregistrer un parcours d'apprentissage sont décrites en détail ci-dessous.</p> 
+      training_material: >
+        <p>Pour <a href='%{registering_resources_path}'>enregistrer les supports de formation, suivez les instructions ci-dessous </a>.  Si votre matériel de formation est déjà enregistré, ignorez cette étape.  Chaque matériel peut se voir attribuer un niveau de compétence (débutant, intermédiaire, avancé).</p>
+      creating_topics: >
+        <p>Le sujet du parcours d'apprentissage est une liste ordonnée du matériel.  Un niveau de compétence (débutant, intermédiaire, avancé), une description et un ensemble de mots-clés peuvent être attribués à un sujet. Un parcours d'apprentissage contient une liste ordonnée d'un ou plusieurs sujets. </p> <p>Pour créer un sujet de parcours d'apprentissage:</p> <ol> <li>Sous l'onglet Parcours d'apprentissage, cliquez sur le bouton Sujets en haut à droite.</li> <li>Cliquez sur le bouton Créer un sujet en haut à droite.</li> <li>Pour ajouter un nouveau sujet, une description et des mots-clés.</li> <li>Sélectionnez le niveau de compétence du sujet (débutant, intermédiaire ou Avancé.</li> <li>Pour ajouter un support de formation au sujet, cliquez dans la case Ajouter du nouveau matériel.  Sélectionnez le matériel. Vous pouvez écrire un commentaire à afficher avec le matériel, si vous souhaitez donner plus de contexte ou expliquer quelles parties du matériel sont pertinentes pour le sujet.</li> <li>Répétez l'étape 5 pour ajouter d'autre matériel pour ce sujet, tous au même niveau de compétence.</li> <li>Vous pouvez réorganiser le matériel à l'aide des icônes fléchées.</li> <li>Lorsque vous avez terminé, cliquez sur le bouton Créer un sujet.</li> </ol>
+      topic_naming: >
+        <p>Lorsque vous donnez un titre à votre sujet de parcours d'apprentissage, veuillez utiliser un nom descriptif.  Cela permettra également d'éviter les chevauchements potentiels avec des noms identiques ou similaires utilisés par d'autres fournisseurs de contenu, réduisant ainsi le risque de sélectionner par erreur les mauvais sujets.</p> <p>Exemples de bons noms de sujets:</p> <ul> <li>BIOL30561 thème 1: Introduction à Galaxy</li> <li>Module 3: Se déplacer dans les environnements de code</li> </ul> <p>Exemples de mauvais noms de sujets:</p> <ul> <li>Sujet 3</li> <li>Python</li> </ul>
+      paths: >
+        <p>Après avoir créé tous vos sujets et ajouté le matériel de formation, vous êtes prêt à enregistrer votre parcours d'apprentissage.</p> <ol> <li>Sous l'onglet Parcours d'apprentissage, cliquez sur le bouton Enregistrer parcours d'apprentissage en haut à droite.</li> <li>Remplissez les deux champs obligatoires: titre, description et champs tels que sujets scientifiques, mots clés, license, statut, DOI, fournisseur de contenu, auteurs, contributeurs, publics cibles, prérequis, objectifs d'apprentissage, nœuds. Nous vous recommandons de remplir autant de champs que possible pour avoir des métadonnées riches associées à votre cours.</li> <li>Pour chaque rubrique, cliquez dans la case Ajouter une nouvelle rubrique et commencez à taper son nom. Sélectionnez le sujet approprié.</li> <li>Reprenez l'étape 3 pour ajouter plusieurs sujets.</li> <li>Vous pouvez réorganiser les sujets à l'aide des icônes fléchées.</li> <li>Le chemin d'apprentissage sera public par défaut. Supprimez la coche dans la case Public si vous voulez cacher ce parcours d'apprentissage à toute personne qui n'est pas le créateur ou un collaborateur.</li> <li>Lorsque vous avez terminé, cliquez sur le bouton Enregistrer le parcours d'apprentissage.</li> </ol>
+      collaborators: >
+        <p> Les collaborateurs sont des utilisateurs de TeSS qui peuvent modifier un parcours ou un sujet d'apprentissage après sa création.  Seul le propriétaire du parcours d'apprentissage ou du sujet peut ajouter et supprimer des collaborateurs. Pour ajouter un collaborateur:</p> <ol> <li>naviguez jusqu'à la page correspondant à ce parcours d'apprentissage ou à ce sujet.</li> <li>Cliquez sur le bouton Collaborateurs en haut à droite de la page.</li> <li>Commencez à taper le nom ou le nom d'utilisateur du collaborateur que vous souhaitez ajouter et sélectionnez-le.  Le collaborateur doit être un utilisateur enregistré de TeSS.</li> <li>Reprenez les étapes pour tout collaborateur supplémentaire.</li> <li>Lorsque vous avez terminé, cliquez sur le bouton Terminé.</li> </ol>
+      updating_paths: >
+        <p>Pour mettre à jour un chemin d'apprentissage ou un sujet, vous devez en être le propriétaire ou le collaborateur:</p> <ol> <li>Naviguez jusqu'à la page correspondant à ce chemin d'apprentissage ou à ce sujet.</li> <li>Cliquez sur le bouton Modifier en haut à droite de la page.</li> <li>Entrez vos modifications, puis cliquez sur le bouton Mettre à jour le chemin d'apprentissage en bas.</li> </ol> <p>Si vous souhaitez supprimer le chemin d'apprentissage ou le sujet, utilisez le bouton Supprimer  près du bouton modifier de l'élément.</p>
+      view_paths: >
+        <p>Les parcours d'apprentissage peuvent être parcourus et recherchés dans TeSS. Ils sont organisés par sujet.</p> <ol> <li>Pour afficher les parcours d'apprentissage, cliquez sur Parcours d'apprentissage dans le menu principal.  (Astuce: Pour afficher un parcours d'apprentissage, vous n'avez pas besoin d'être connecté à TeSS.)</li> <li>Pour parcourir tous les sujets, cliquez sur le bouton Sujets en haut à droite.</li> <li>Vous pouvez aussi cliquer dans la zone de recherche, taper votre requête et appuyer sur la touche Retour.</li> <li>Cliquez pour afficher un parcours d'apprentissage. Lisez le sommaire. Les détails sur le matériel inclus apparaissent ci-dessous; cliquez sur un élément pour l'ouvrir. Des informations sur le fournisseur de contenu apparaissent sur la gauche.</li> <li>Pour créer une collection de vos parcours d'apprentissage favoris, cliquez sur l'icône en forme d'étoile en haut de chaque parcours d'apprentissage pour les ajouter à une liste. Vous pouvez afficher vos ressources étoilées ultérieurement en cliquant sur l'icône utilisateur en haut à droite de l'écran, puis sur « mes étoiles ».  Pour utiliser la fonction STAR, vous devez être un utilisateur TESS enregistré.</li>
+      view_topics: >
+        <ol> <li> dans l'onglet « parcours d'apprentissage », cliquez sur le bouton « gérer les sujets » en haut à droite.</li> <li>Vous pouvez parcourir les sujets du parcours d'apprentissage en utilisant les filtres à gauche pour sélectionner des mots-clés ou une date.</li> <li>Alternative, cliquez dans la zone de recherche et tapez une requête, puis appuyez sur entrée pour afficher les résultats.</li> <li>Cliquez sur le titre d'un sujet pour l'afficher.  À partir de la page des sujets, vous pouvez afficher tout le matériel.</li> </ol>
+  home:
+    welcome: |
+      Comment la plateforme <span class="text-primary">TeSS</span> peut-elle vous aider?
+    subtitle: |
+      Recherchez sur le portail des cours, des événements, des vidéos, des présentations, des parcours d'apprentissage, des manuels...<br>
+       tous les types de ressources de tous les niveaux, pour tirer parti des ressources de calcul <span class="text-primary"> pour les sciences de la vie.</span>.
+    search_placeholder: >
+      Rechercher %{site_name}...
+    catalogue:
+      title: Parcourir le catalogue
+      link_text: Lancer la navigation
+      events: "Découvrir les dernières formations et actualités des nœuds ELIXIR et des tiers fournisseurs<sup></sup>."
+      materials: "Parcourir le catalogue du matériel proposé par les noeud ELIXIR et les tiers  fournisseurs<sup></sup>."
+      workflows: "Créer des workflows de formation pour visualiser les étapes d'apprentissage et établir un lien avec des ressources spécifiques à vos besoins de formation."
+      providers: "Parcourir les fournisseurs de formation pour découvrir les ressources de formation qu'ils proposent et suivre les liens vers leur matériel et leurs cours."
+      trainers: "Parcourir un répertoire de formateurs en fonction de leurs compétences et de leur expertise."
+      learning_paths: "Suivre des parcours organisés de ressources de formation vous menant vers des objectifs d'apprentissage spécifiques."
+      events_count: "%{total_events} événements à venir, %{last_month_events} ajoutés le mois dernier"
+    providers:
+      title: Fournisseurs
+      content: |
+        <p>Vous voulez devenir fournisseur?</p> <p>
+        Ajoutez la formation de votre établissement au portail de no cost</p>
+      button_text: Contribuer
+    promo:
+      nonprofit:
+        title: "À but non lucratif et libre d'utilisation"
+        description: "Aucun coût associé et financé par des fonds nationaux et européens"
+      sustainable:
+        title: "Durable"
+        description: "Code source ouvert, qui est là pour rester"
+      community:
+        title: "Par des professionnels des sciences de la vie, pour les travailleurs en sciences de la vie"
+        description: "Construit par une communauté internationale de professionnels des sciences de la vie"
+      domain:
+        title: "Spécialisé en sciences de la vie"
+        description: "Pour l'ensemble des travailleurs en sciences de la vie"
+    faq:
+      title: Foire aux questions
+      who:
+        q: Qui peut enregistrer du contenu dans TeSS?
+        a: >
+          <p>Nous accueillons tout contenu de formation pertinent pour les personnes qui travaillent dans les sciences de la vie et dans les domaines adjacents.</p>
+      how:
+        q: Comment enregistrer du contenu dans TeSS?
+        a: >
+          <p>Vous pouvez enregistrer du contenu dans TeSS automatiquement ou manuellement.</p> <p>Pour ajouter du contenu manuellement, vous devrez vous connecter et remplir le formulaire d'inscription pour des documents ou des événements.</p> <p>TeSS peut également enregistrer automatiquement du contenu à partir d'un site Web externe ou d'une autre source sur le Web.</p> <p> <a href='about/registering'>Voir ici pour plus d'informations.</a> </p>
+      why:
+        q: Pourquoi enregistrer du contenu dans TeSS?
+        a: >
+          <p>Enregistrer les événements de formation et les matériaux dans TeSS les rend plus faciles à trouver de diverses manières par les utilisateurs.</p>
+
+          <p>La formation dans TeSS peut être découverte...</p> <ul>
+
+          <li> <strong>dans TeSS</strong>, par les visiteurs naviguant sur TeSS ou s'abonnant aux notifications.</li>
+
+          <li> <strong>dans les résultats des moteurs de recherche.</strong>, en raison de l'optimisation de notre moteur de recherche.</li>
+
+          <li> <strong>
+
+          à travers d'autres sites webes</strong> qui affichent le contenu de TeSS soit en utilisant nos widgets ou notre API publique.</li> </ul> 
+
+      embed:
+        q: Puis-je afficher du contenu de TeSS sur le site Web de mon organisation?
+        a: >
+          <p>Oui, une sélection de widgets est disponible pour afficher les événements de formation et le matériel de TeSS dans une variété de formats.</p> <p> <a href='https ://elixirtess.github.io/TeSS_widgets/' target='_blank'>Cliquez ici pour voir des exemples de widgets et comment les utiliser.</a> </p>
+      subscribe:
+        q: Puis-je m'abonner aux mises à jour?
+        a: >
+          <p>TeSS fournit un service d'abonnement personnalisable, vous permettant de choisir exactement les types de formation dont vous souhaitez être averti.</p> <p>Choisissez comment vous souhaitez recevoir des mises à jour:</p> <ul> <li> <strong>Courriel</strong> - des courriels quotidiens, hebdomadaires ou mensuels contenant un résumé des nouveaux événements ou du nouveau matériel.</li> <li> <strong>
+
+          Agenda</strong> - Voir les nouveaux événements directement dans votre calendrier en ligne.</li> <li> <strong>
+            Flux RSS </strong> - Voir les nouveaux événements dans un lecteur RSS.</li> </ul>
+
+    local_content_banner:
+      title: "Connexion depuis %{Country_name}?"
+      body: "Visitez le portail %{Community_name} pour parcourir les formations locales."
+  privacy:
+    registration: |
+      <p>Lorsque vous vous inscrivez auprès de TeSS, nous vous demandons un nom d'utilisateur, un mot de passe et une adresse de courriel.</p> 
+      <ul>
+      <li>Votre nom d'utilisateur est utilisé pour l'authentification et l'attribution. Ces informations sont visibles publiquement, par exemple lorsqu'un utilisateur consulte une ressource que vous avez créée.</li> 
+      <li>
+      Votre mot de passe est stocké sous forme de hachage sécurisé cryptographiquement et n'est pas visible publiquement.</li> 
+      <li>Votre adresse de courriel est utilisée pour vérifier votre identité et pour être utilisée lors de la demande de réinitialisation de votre mot de passe. Cette adresse de courriel n'est pas visible publiquement, mais vous pouvez spécifier une adresse e-mail publique supplémentaire (voir ci-dessous).</li> </ul>
+
+    personal: "Vous pouvez également fournir un profil, contenant votre nom, une adresse e-mail publique, un lien vers le site Web et un avatar. Ces informations sont accessibles publiquement à tous les utilisateurs."
+    resources: "Les détails des supports de formation et des événements que vous enregistrez seront visibles publiquement et consultables. Tous les workflows et packages créés peuvent être rendus privés, auquel cas seuls vous, les collaborateurs que vous spécifiez et les administrateurs TESS pourront les consulter et les rechercher."
+    server: "Lorsque vous naviguez sur TESS, le serveur enregistre automatiquement les journaux des pages auxquelles vous accédez, du moment où vous y avez accédé et de votre adresse IP. Ces journaux sont utilisés pour corriger les erreurs et ne sont pas partagés avec des tiers. Les informations sensibles (telles que les mots de passe) sont automatiquement supprimées."
+    cookies: "TESS utilise des « cookies strictement nécessaires » pour que le site fonctionne. Ces cookies sont nécessaires pour établir votre \"session\" avec TESS, qui permet des fonctionnalités telles que la connexion de l'utilisateur, et protège contre les attaques de falsification de requêtes inter-sites (CSRF)."
+    analytics: "Tess utilise Google Analytics pour suivre comment les utilisateurs découvrent Tess et interagissent avec le service. Les informations recueillies comprennent les pages que vous avez visitées, les termes de recherche qui vous mènent à TESS et des informations sur votre navigateur Web. Aucune information personnellement identifiable n'est envoyée à Google."
+    retention: "Vos informations seront conservées par TESS jusqu’à ce que vous choisissiez de les supprimer, que vous supprimiez votre compte ou que le service TESS cesse d’exister."
+    code: "TESS adhère au Code de conduite de <a href='https ://wiki.refeds.org/display/CODE/Code+of+Conduct+for+Service+Providers'> géant en matière de protection des données pour les fournisseurs de services dans l'</a> UE/EEE"
+    controller: "Le contrôleur de données de TESS est l'Université de Manchester."
+    post: "<strong>The TESS Team</strong> <br/>Room 1,17 c / o École d'informatique, <br/>Kilburn Building, <br/>Oxford Road, <br/>Manchester, <br/>M13 9PL"
+  providers:
+    info: >
+      Les fournisseurs de contenu sont des entités (telles que les établissements universitaires, les organisations à but non lucratif, les portails, etc.) qui fournissent du matériel de formation pertinent pour les sciences de la vie et ÉLIXIR.
+  events:
+    hints:
+      address: 'Où se tient cet événement ?'
+      capacity: >
+        Indiquez le nombre total (maximum) de personnes pouvant assister à l'événement de formation. Laissez vide s'il n'y a pas de limite.
+      contact: ''
+      cost_basis: 'Sélectionnez la base d''application des coûts, le cas échéant.'
+      cost_value: 'Saisissez le coût de l''événement de formation.'
+      cost_currency: 'Sélectionnez la devise associée au coût.'
+      description: 'Fournissez une description textuelle de l''événement de formation, pour plus de contexte.'
+      visible: 'Indique si cet événement doit être affiché ou non sur la page événements'
+      duration: 'En heures et minutes (HH :MM), combien de temps durera votre entraînement ?'
+      eligibility: 'Qui peut assister à l''événement de formation ?'
+      end: 'Quand l''événement se termine-t-il ?'
+      event_type: 'Sélectionnez le type d''événement le plus approprié pour l''événement de formation.'
+      fields: 'Sélectionnez des champs de recherche pour mieux classer votre événement.'
+      hosts: ''
+      keywords: "Fournissez des mots ou des termes qui identifient clairement les sujets de l'événement de formation."
+      language: 'Langue d''enseignement'
+      materials: 'Ajoutez tout matériel de formation associé à l''événement de formation.'
+      objectives: 'Quelles connaissances, compétences ou aptitudes votre public devrait-il acquérir en suivant la formation ?'
+      organizer: ''
+      prerequisites: 'Quelles connaissances ou connaissances le public doit-il avoir abordées avant la formation ?'
+      recognition: 'Fournissez une description de tous les titres, récompenses, certificats, diplômes ou autres titres de compétences qui seront décernés à la réussite de l''événement de formation.'
+      requirements: 'Indiquez les exigences techniques requises pour participer à la formation.'
+      sponsors: 'Qui a parrainé ou financé l''événement ?'
+      start: 'Quand l''événement commence-t-il ?'
+      subtitle: 'Incluez un sous-titre pour ajouter du contexte à votre public cible.'
+      targets: 'Indiquez le type de public auquel l''événement de formation est destiné.'
+      topics: 'Sélectionnez les champs de recherche (for) codes couverts par la formation.'
+      timezone: 'Sélectionnez le fuseau horaire approprié'
+      title: 'Ajoutez un titre à votre événement de formation.'
+      url: 'Saisissez une URL valide pour la page d''accueil de l''événement.'
+    prompts:
+      language: 'Sélectionner une langue...'
+    long: 'Événements de longue durée'
+    pick_date: 'Choisissez une plage de dates pour une meilleure collection d''événements.'
+  materials:
+    hints:
+      authors: >
+        Ajouter les personnes et les organisations qui ont contribué à la préparation, la création ou la présentation du travail publié.
+      contact: >
+        Indiquer le prénom, le nom et les coordonnées de la personne ou de l'organisation qui peut être contactée au sujet du matériel de formation.
+      contributors: 'Ajouter les personnes et les organisations qui ont contribué au matériel de formation.'
+      date_created: 'Ajouter la date à laquelle le matériel de formation a été créé.'
+      date_modified: 'Ajouter la date de la dernière modification du matériel de formation.'
+      date_published: 'Ajouter la date à laquelle le matériel de formation a été publié.'
+      description: 'Fournir une description textuelle de votre matériel de formation, pour plus de contexte.'
+      difficulty: 'Indiquer le niveau de compétence attendu des apprenants dans le sujet couvert par le matériel.'
+      doi: 'Inclure un DOI s''il en existe pour le matériel de formation.'
+      events: ''
+      fields: 'Sélectionner des domaines de recherche pour mieux classer votre matériel.'
+      keywords: "Indiquer des mots ou des termes qui identifient clairement les sujets abordés dans le matériel de formation."
+      licence: 'Sélectionner la licence pour le matériel de formation.'
+      objectives: >
+        Décrire les connaissances, les compétences ou les capacités que les apprenants devraient acquérir en utilisant le matériel de formation.
+      other_types: 'Entrer les types de ressources qui ne figurent pas dans la liste ci-dessus.'
+      part_of: 'Décrire le service de formation auquel ce matériel appartient.'
+      prerequisites: >
+        Quelles connaissances préalables votre public cible doit-il avoir sur les sujets abordés dans le matériel de formation?
+      providers: ''
+      resources: 'Existe-t-il des ressources externes liées au matériel de formation IS?'
+      status: 'Indiquer l''état actuel du matériel de formation.'
+      subsets: 'Ajouter des URL d''identifiants ou des DOI pour chaque sous-ensemble du matériel de formation.'
+      syllabus: 'Décrire le plan de cours ou donner un aperçu des sujets abordés.'
+      targets: 'Indiquer le type de public auquel votre matériel de formation est destiné.'
+      time: 'Quel est le temps estimé nécessaire pour utiliser cette ressource, en heures ?'
+      title: 'Ajouter un titre à votre matériel de formation.'
+      resource_type: 'Sélectionner le type de ressource qui correspond le mieux au matériel de formation. '
+      url: 'URL préférée pour diriger les personnes vers la page d''accueil de votre matériel de formation.'
+      version: 'Indiquer la version actuelle du matériel de formation.'
+      visible: 'Indiquer si ce matériel doit être affiché ou non sur la page du matériel'
+  learning_paths:
+    hints:
+      authors: >
+        Ajouter les personnes et les organisations qui ont contribué à la préparation, la création ou la présentation du travail publié.
+      contact: >
+        Indiquer le prénom, le nom et les coordonnées de la personne ou de l’organisation qui peut être contactée au sujet du parcours d’apprentissage.
+      contributors: 'Ajouter les personnes et les organisations qui ont contribué au parcours d''apprentissage.'
+      date_created: 'Ajouter la date à laquelle le parcours d''apprentissage a été créé.'
+      date_modified: 'Ajouter la date à laquelle le parcours d''apprentissage a été modifié pour la dernière fois.'
+      date_published: 'Ajouter la date à laquelle le parcours d''apprentissage a été publié.'
+      description: 'Donner une description textuelle de votre parcours d''apprentissage, pour plus de contexte.'
+      difficulty: 'Indiquer le niveau de compétence attendu des apprenants dans le sujet couvert par le parcours d''apprentissage.'
+      doi: 'Inclure un DOI s''il en existe pour le parcours d''apprentissage.'
+      events: ''
+      fields: 'Sélectionner des domaines de recherche pour mieux classer votre parcours d''apprentissage.'
+      keywords: "Indiquer des mots ou des termes qui identifient clairement les sujets du parcours d'apprentissage."
+      licence: 'Sélectionner la licence pour le parcours d''apprentissage.'
+      objectives: >
+        Décrire les connaissances, les compétences ou les capacités que les apprenants devraient acquérir au cours de la réalisation ou de l'utilisation du parcours d'apprentissage.
+      other_types: 'Entrer les types de ressources qui ne figurent pas dans la liste ci-dessus.'
+      part_of: 'Décrire le service de formation auquel appartient ce parcours d''apprentissage.'
+      prerequisites: >
+        Quelles connaissances préalables les apprenants doivent-il avoir sur les sujets abordés dans le parcours d'apprentissage ?
+      providers: ''
+      resources: 'Existe-t-il des ressources externes liées au parcours de formation IS?'
+      status: 'Indiquer l''état actuel du parcours d''apprentissage.'
+      subsets: 'Ajouter des URL d''identification ou des DOI pour chaque sous-ensemble du parcours d''apprentissage.'
+      syllabus: 'Décrire le plan de cours ou donner un aperçu des sujets abordés.'
+      targets: 'Indiquer le type de public visé par votre parcours d''apprentissage.'
+      time: 'Quel est le temps estimé nécessaire pour utiliser cette ressource, en heures?'
+      title: 'Ajouter un titre à votre parcours d''apprentissage.'
+      resource_type: 'Sélectionner le type de ressource qui correspond le mieux au parcours d''apprentissage. '
+      url: 'URL préférée pour diriger les personnes vers la page d''accueil de votre parcours d''apprentissage.'
+      version: 'Indiquer la version actuelle du parcours d''apprentissage.'
+      public: "Si vous supprimez la coche dans cette case, ce parcours d'apprentissage sera masqué pour toute personne qui n'est pas le créateur ou un collaborateur."
+    next_topic: Sujet suivant
+    next_item: Suivant
+    end_of: Fin du parcours d'apprentissage
+    form:
+      my_topics: Mes sujets
+      all_topics: Tous les sujets
+      select_topic: Sélectionner un sujet...
+      search_for_topics: Rechercher des sujets...
+  profile:
+    user:
+      disclaimer: >
+        Veuillez noter que les informations suivantes sur l'utilisateur sont publiquement visibles et que, par conséquent, en mettant à jour ces champs, vous nous autorisez à partager ces informations via votre profil public d'utilisateur.
+    trainer:
+      gravitar:
+        help: >
+          L'image affichée avec votre profil est l'image Gravatar associée à l'adresse de courriel de contact fournie, sauf si vous téléchargez une autre image ci-dessus. Gravatar offre un moyen de lier un avatar à une adresse de courriel afin qu'il puisse être utilisé sur plusieurs sites et plateformes. Pour configurer un avatar qui sera lié, rendez-vous sur le site Gravatar:
+        url: https ://en.gravatar.com
+      disclaimer: >
+        En cliquant dans la case ci-dessous, vous nous autorisez à partager les informations de votre profil de formateur via une recherche publique des formateurs enregistrés.
+    hints:
+      public: 'Sélectionner si vous voulez publier votre profil de formateur.'
+      description: 'Pour plus de contexte, fournir une description textuelle de votre expérience de formation.'
+      email: 'Indiquer votre adresse de courriel préférée.'
+      website: 'Inclure une URL préférée pour votre profil professionnel.'
+      orcid: 'Inclure votre identifiant ORCID ou votre URL complète'
+      image_url: ''
+      location: 'Endroit où vous êtes principalement basé.'
+      experience: 'Sélectionner votre niveau d''expérience en tant que formateur.'
+      expertise_academic: 'Termes et expressions qui décrivent votre expertise académique.'
+      fields: 'Sélectionner des domaines de recherche pour mieux classer votre expérience de formation.'
+      expertise_technical: 'Termes et expressions qui décrivent votre expertise technique.'
+      language: 'Inclure les langues que vous maîtrisez.'
+      interest: 'Ajouter des mots-clés pour identifier vos principaux domaines d''intérêt.'
+      activity: 'Inclure toutes les activités ou connexions globales liées à vos compétences et à votre travail de formateur.'
+      social_media: 'Liens ou pseudonymes pour vos profils de médias sociaux.'
+  authentication:
+    password:
+      title: Connexion
+      description: ''
+      email_or_username: 'Courriel ou nom d''utilisateur'
+      password: 'Mot de passe'
+      remember_me: 'Se souvenir de moi'
+      log_in: 'Se connecter'
+    omniauth:
+      title: Connexion institutionnelle
+      description: ''
+      providers:
+        elixir_aai: Connexion LS
+        oidc: AAF (Australie)
+        oidc2: Tuakiri (Nouvelle-Zélande)
+      log_in_with: 'Se connecter avec %{Provider}'
+  ingestion:
+    categories:
+      events: 'Événements'
+      materials: 'Matériel'
+      any: 'N''importe quel'
+  sources:
+    info:
+      approval_notice: Cette source devra être approuvée par un administrateur avant d'être importée.
+      reapproval_notice: "Si l'URL source ou la méthode d'importation sont modifiées, l'approbation devra être demandée à nouveau."
+    hints:
+      url: 'URL de la source à acquérir.'
+      method: 'Méthode utilisée pour importer le contenu de l''URL source.'
+      token: "Certaines méthodes d'inmportation nécessitent un jeton d'authentification: en cas de doute, laisser vide."
+      enabled: Les sources qui ne sont pas activées ne seront pas importées.
+    approval_status:
+      not_approved: Non approuvé
+      requested: Approbation demandée
+      approved: Approuvé
+  scraper:
+    messages:
+      status: 'Scraper.run: %{status}'
+      processing: 'Source de traitement: %{source}'
+      skipped: 'Source ignorée: %{source}'
+      processed: 'Sources traitées = %{Processed}'
+      invalid: 'Erreur de validation: %{error_message}'
+      valid_source: 'Validation réussie'
+      bad_role: 'Le rôle de l''utilisateur n''est pas valide'
+      url_not_accessible: 'URL non accessible'
+      sources_size: 'Nombre de sources = %{sources_size}'
+      bad_source_save: 'Échec de l''enregistrement de la source avec: %{error_message}'
+      not_source_enabled: 'Source non activée.'
+  cookies:
+    notice: TeSS utilise certains cookies nécessaires pour fournir ses fonctionnalités de base.
+    google_analytics: "De plus, nous utilisons Google Analytics pour savoir comment les gens utilisent TeSS, afin de nous aider à améliorer le service. Pour vous désinscrire, choisir l'option pour autoriser les cookies nécessaires."
+    necessary_cookies_btn: Autoriser uniquement les cookies nécessaires
+    all_cookies_btn: Autoriser tous les cookies
+    no_consent: Aucun consentement aux cookies fourni
+    options:
+      tracking: "Cookies requis pour Google Analytics, pour aider TeESS à améliorer son service."
+      necessary: "Cookies nécessaires au fonctionnement de TeSS, par exemple pour fournir une authentification utilisateur et une protection contre la falsification."
+    buttons:
+      revoke: Révoquer le consentement aux cookies
+      all: Autoriser tous les cookies
+      necessary: Autoriser les cookies nécessaires
   facets:
+    categories:
+      user: Propriétaire
+      organizer: Organiseur
     titles:
       language: 'Langue'
+      date_added: 'Date d''ajout'
+  languages: # Only needed to override default names from I18nData
+    el: 'Grec'
+  errors:
+    500: "Veuillez nous excuser, TeSS a trouvé une erreur lors du traitement de votre requête (500 Erreur de serveur interne)."
+    503: "Veuillez nous excuser, TeSS est temporairement hors service ou non disponible pour cause de maintenance (503 Service non disponible)."
+    422: "La demande que vous avez faite était bien formée, mais la modification que vous souhaitez obtenir a été rejetée (422 Entité intraitable)."
+    404: "La page demandée n'a pas pu être trouvée; vous avez peut-être mal entré l'adresse ou la page a peut-être été déplacée (404 Introuvable)."
+    406: "Le format demandé n'est pas disponible (406 Non acceptable)."
+  warnings:
+    link_broken: "TeSS n'a pas pu accéder à l'URL de cette %{resource_type}depuis le %{fail_date}; la page a peut-être été déplacée."
+    archived: "Ce %{resource_type} a été archivé; son contenu n'est peut-être plus pertinent."
+    unverified: "Ce %{resource_type} ne sera pas visible publiquement tant que votre inscription n'aura pas été approuvée par un administrateur."
+  footer:
+    about: "À propos de %{title}"
+    funding: Financement et remerciements
+    privacy: Confidentialité
+    cookie_preferences: Préférences des cookies
+    version: 'Version:'
+    source_code: Code source
+    api_documentation: Documentation API
+    bioschemas_testing_tool: Outil de test Bioschemas
+    eu_funding_html: >
+      TeSS a reçu du financement de European Union’s Horizon 2020 research and innovation programme under grant agreement No. <a href="https://cordis.europa.eu/project/rcn/198519_en.html", target="_blank">676559</a>.
+  time:
+    formats:
+      time_short: "%H:%M"
+  mailer:
+    events_require_approval:
+      subject: "Événements de la semaine dernière sur %{site_name}"
+    materials_require_approval:
+      subject: "Matériel de la semaine dernière sur %{site_name}"
+  search_query: 'Requête de recherche:'
+  sidebar:
+    sort:
+      heading: Trier
+      values:
+        title_ascending: Titre croissant
+        title_descending: Titre décroissant
+        last_modified: Dernière modification
+        relevance: Pertinence
+        earliest: Plus tôt
+        latest: Plus tard
+        most_recent: Plus récent
+        last_finished: Terminé le
+    curate:
+      heading: " Éditer"
+      values:
+        last_checked: Dernière vérification
+        more_than: 'Il y a plus de %{value}'
+        one_day: '1 jour'
+        three_days: '3 jours'
+        one_week: '1 semaine'
+        one_month: '1 mois'
+    filter:
+      heading: 'Filtrer'
+      values:
+        clear_filters: 'Effacer les filtres'
+        show_past_events: 'Afficher les événements passés'
+        hide_past_events: 'Masquer les événements passés'
+        show_disabled_events: 'Afficher les événements désactivés'
+        hide_disabled_events: 'Masquer les événements désactivés'
+        show_disabled: 'Afficher %{resource} désactivé'
+        hide_disabled: 'Masquer %{resource} désactivé'
+        show_archived: 'Afficher %{resource} archivée'
+        hide_archived: 'Masquer %{resource} archivée'
+    hidden:
+      values:
+        show_hidden: 'Afficher les éléments masqués'
+        hide_hidden: 'Masquer les éléments cachés'
+  collections:
+    show:
+      curate_materials: "Éditer le matériel"
+      curate_events: "Éditer des événements"
+    hints:
+      reorder: Réorganiser les éléments en cliquant et en faisant glisser l'icône sur le côté gauche.
+      public: "Si vous supprimez la coche de cette case, cette collection sera masquée pour tous ceux qui ne sont pas le créateur ou un collaborateur."
+  workflows:
+    hints:
+      hide_child_nodes: "Cocher cette case pour masquer les nœuds enfants du diagramme, jusqu'à ce que vous cliquiez sur leur nœud parent."
+      public: "Si vous supprimez la coche de cette case, ce flux de travail sera masqué pour toute personne qui n'est pas le créateur ou un collaborateur."
+  menu:
+    user:
+      my_profile: 'Mon profil'
+      my_stars: 'Mes favoris'
+      view_stars: 'Afficher les favoris'
+      administration: 'Administration'
+      view_users: 'Afficher les utilisateurs'
+      view_sources: 'Afficher les sources'
+      view_ingestion_sources: 'Afficher les sources d''importation'
+      assign_scientific_topics: "Assigner des sujets scientifiques aux ressources %{title}"
+      curate_topics: 'Éditer les sujets'
+      curate_users: 'Éditer les utilisateurs'
+      view_admin_console: 'Afficher la console d''administration'
+      admin_console: 'Console d''administration'
+      log_out: 'Se déconnecter'
+      log_out_confirm: 'Voulez-vous vraiment vous déconnecter?'
