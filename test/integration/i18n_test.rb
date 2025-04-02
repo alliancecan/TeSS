@@ -8,17 +8,28 @@ class I18nTest < ActionDispatch::IntegrationTest
     @user = users(:regular_user)
   end
 
+
   teardown do
     reset_translations
   end
 
-  test 'can log in with email address' do
+  test 'can log in with email address (en)' do
     reset_translations
     get '/users/sign_in'
     post '/users/sign_in', params: { 'user[login]' => @user.email, 'user[password]' => 'hello' }
 
     follow_redirect!
     assert_equal 'Logged in successfully.', flash[:notice]
+  end
+
+  test 'can log in with email address (fr)' do
+    reset_translations
+    get '/users/sign_in'
+    post '/users/sign_in', params: { 'user[login]' => @user.email, 'user[password]' => 'hello',
+                                     'locale' => 'fr' }
+
+    follow_redirect!
+    assert_equal 'Connexion réussie.', flash[:notice]
   end
 
   test 'can log in with email address (en-AU)' do
