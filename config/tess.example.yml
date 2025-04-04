@@ -139,13 +139,13 @@ default: &default
     elearning_materials: false
     events: true
     invitation: false
-    materials: true
+    materials: false # CW: turned off
     nodes: false
     collections: false # CW: turned off
     content_providers: true
     subscription: true
     registration: true
-    trainers: false
+    trainers: false # CW: turned off
     workflows: true
     sources: true
     user_source_creation: false # CW: turned off
