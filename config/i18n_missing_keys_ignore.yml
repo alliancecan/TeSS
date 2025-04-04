@@ -1,0 +1,36 @@
+# Utilized with rake i18n:missing_keys
+
+en:
+- "i18n.transliterate.rule..*"
+- "datetime.distance_in_words.less_than_x_minutes.zero"
+- "datetime.distance_in_words.less_than_x_seconds.zero"
+# This seems to be missing in the devise gem
+- 'devise.invitations.new.legend'
+
+fr:
+# Don't know where these are from (will fix some on user request)
+- "will_paginate..*"
+- "views.pagination..*"
+- "helpers.page_entries_info..*"
+- "errors.messages.in_between"
+- "errors.messages.invalid_currency"
+- "errors.messages.spoofed_media_type"
+- "errors.unacceptable_request"
+- "errors.unavailable_session"
+- 'admin.actions.index.no_records'
+- 'admin.form.delete_file'
+- 'admin.js.clear'                                   
+- 'admin.js.does_not_contain'
+- 'admin.js.time'                                    
+- 'admin.misc.reset_filters'
+- 'admin.misc.root_navigation'
+- 'admin.misc.time_ago'                              
+- 'devise.mailer.email_changed.subject'
+- 'devise.mailer.password_change.subject'
+- 'devise.registrations.updated_but_not_signed_in'
+- 'errors.connection_refused'
+- 'errors.messages.email'
+- 'flash.actions.create.notice'
+- 'flash.actions.destroy.alert'
+- 'flash.actions.destroy.notice'
+- 'flash.actions.update.notice'
