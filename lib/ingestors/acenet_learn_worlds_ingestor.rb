@@ -160,7 +160,12 @@ module Ingestors
       if dash_day.count == 2
         days = (dash_day[0]..dash_day[1])
       else
-        days = match[2].split(',')&.map(&:to_i)
+        daystr = match[2].gsub('and', ',')
+        daystr = daystr.gsub('&', ',')
+        daystr = daystr.gsub(' ', '')
+
+        days = daystr.split(',')&.reject(&:empty?).map(&:to_i)
+
         return [] unless days.present?
       end
       days.each do |day|
