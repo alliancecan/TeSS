@@ -8,8 +8,10 @@
     <li><%= about_nav_link(t('about.sidebar.what_we_catalogue'), about_path, 'events') %></li>
     <li><%= about_nav_link(t('about.sidebar.subscribing_to_notifications'),
             about_path, 'subscribe') %></li>
-    <li><%= about_nav_link(t('about.sidebar.widgets_and_api'),
-            about_path, 'widget') %></li>
+    <% if TeSS::Config.feature['developer_tools'] == true %>
+      <li><%= about_nav_link(t('about.sidebar.widgets_and_api'),
+              about_path, 'widget') %></li>
+    <% end %>
   </ul>
 
   <!-- REGISTERING YOUR RESOURCES -->
@@ -37,15 +39,17 @@
     </ul>
   <% end %>
 
-  <!-- DEVELOPERS -->
-  <ul class="nav nav-stacked <%= show_active(show, 'developers') %>">
-    <li class="about-page-category">
-      <%= link_to t('about.sidebar.developers'), developers_path %>
-    </li>
-    <li><%= about_nav_link(t('about.sidebar.code_and_data'), developers_path, 'code_and_data') %></li>
-    <li><%= about_nav_link(t('about.sidebar.widgets'), developers_path, 'widgets') %></li>
-    <li><%= about_nav_link(t('about.sidebar.api'), developers_path, 'api') %></li>
-  </ul>
+  <% if TeSS::Config.feature['developer_tools'] == true %>
+    <!-- DEVELOPERS -->
+    <ul class="nav nav-stacked <%= show_active(show, 'developers') %>">
+      <li class="about-page-category">
+        <%= link_to t('about.sidebar.developers'), developers_path %>
+      </li>
+      <li><%= about_nav_link(t('about.sidebar.code_and_data'), developers_path, 'code_and_data') %></li>
+      <li><%= about_nav_link(t('about.sidebar.widgets'), developers_path, 'widgets') %></li>
+      <li><%= about_nav_link(t('about.sidebar.api'), developers_path, 'api') %></li>
+    </ul>
+  <% end %>
 
   <!-- ABOUT US -->
   <ul class="nav nav-stacked <%= show_active(show, 'us') %>">

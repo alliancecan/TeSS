@@ -108,14 +108,16 @@
       <% end %>
 
       <!-- WIDGET & API -->
-      <div id="widget" class="<%= next_about_block(@feature_count += 1) %>">
-        <h3><%= t('about.headings.widgets_and_api') %></h3>
-        <p><%== t 'about.widgets_and_api' %></p>
-        <%= link_to t('about.links.learn_more_widgets'),
-            developers_path(anchor: 'widgets'), class: 'btn btn-default' %>
-        <%= link_to t('about.links.learn_more_api'),
-            developers_path(anchor: 'api'), class: 'btn btn-default' %>
-      </div>
+      <% if TeSS::Config.feature['developer_tools'] == true %>
+        <div id="widget" class="<%= next_about_block(@feature_count += 1) %>">
+          <h3><%= t('about.headings.widgets_and_api') %></h3>
+          <p><%== t 'about.widgets_and_api' %></p>
+          <%= link_to t('about.links.learn_more_widgets'),
+              developers_path(anchor: 'widgets'), class: 'btn btn-default' %>
+          <%= link_to t('about.links.learn_more_api'),
+              developers_path(anchor: 'api'), class: 'btn btn-default' %>
+        </div>
+      <% end %>
     </div>
 
     <hr/>
