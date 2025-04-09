@@ -122,7 +122,7 @@ default: &default
     n_provider_ids: 5
     calendar_event_maxlength: 5
     content_provider_grid_long: true # true for full width in grid, false for short
-    show_provider_logo_in_event: false
+    show_provider_logo_in_event: true # CW: turned on
   mailer:
     delivery_method: sendmail
     location: /usr/sbin/sendmail
