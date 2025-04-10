@@ -2,7 +2,7 @@
 
 <% if user %>
   <%# Content provider  %>
-  <h4 class="nav-heading">User <small>(only visible to admins)</small></h4>
+  <h4 class="nav-heading"><%= t('sidebar.user_html') %></h4>
   <div class="nav-block">
     <p>
       <%= link_to user.name, user, class: "h5" %>

@@ -64,6 +64,10 @@ en:
           onsite: Face-to-face
           hybrid: Hybrid
         language: 'Language of instruction'
+        timezone: 'Timezone'
+        duration: 'Duration'
+        keywords: 'Keywords'
+        venue: 'Venue'
       source:
         default_language: 'Default language'
   about:
@@ -598,6 +602,8 @@ en:
     prompts:
       language: 'Select a language...'
     long: 'Long events'
+    date: 'Date:'
+    view_event: 'View event'
     pick_date: 'Pick a range of dates for a better collection of events.'
   materials:
     hints:
@@ -783,6 +789,10 @@ en:
     titles:
       language: 'Language'
       date_added: 'Date added'
+      start: 'Start'
+      content_provider: 'Content provider'
+      keywords: 'Keywords'
+      venue: 'Venue'
   languages: # Only needed to override default names from I18nData
     el: 'Greek'
   errors:
@@ -854,6 +864,8 @@ en:
       values:
         show_hidden: 'Show hidden items'
         hide_hidden: 'Hide hidden items'
+    content_provider: 'Content provider'
+    user_html: 'User <small>(only visible to admins)</small>'
   collections:
     show:
       curate_materials: "Curate materials"

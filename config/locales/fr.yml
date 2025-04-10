@@ -548,6 +548,7 @@ fr:
     titles:
       language: 'Langue'
       date_added: 'Date d''ajout'
+      content_provider: 'Fournisseur de contenu'
   languages: # Only needed to override default names from I18nData
     el: 'Grec'
   errors:
@@ -617,6 +618,7 @@ fr:
       values:
         show_hidden: 'Afficher les éléments masqués'
         hide_hidden: 'Masquer les éléments cachés'
+    content_provider: 'Fournisseur de contenu'
   collections:
     show:
       curate_materials: "Éditer le matériel"

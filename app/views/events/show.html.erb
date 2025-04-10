@@ -37,7 +37,7 @@
 
       <div class="content-actions">
         <div class="content-viewer-actions">
-          <%= external_link_button 'View event', @event.url, track: @event %>
+          <%= external_link_button t('events.view_event'), @event.url, track: @event %>
           <% if @event.persisted? %>
             <%= render partial: 'events/add_to_calendar_button', locals: { event: @event } if @event.start && @event.end %>
             <%= render partial: 'common/identifiers_dot_org_button', locals: { resource: @event } if TeSS::Config.identifiers_prefix %>
@@ -47,7 +47,7 @@
         <% if @event.persisted? %>
           <div class="content-manager-actions">
             <% if policy(@event).update? %>
-              <%= link_to 'Clone', clone_event_path(@event), class: 'btn btn-default' %>
+              <%= link_to t('helpers.links.clone'), clone_event_path(@event), class: 'btn btn-default' %>
               <%= edit_button(@event) %>
             <% end %>
             <%= delete_button(@event) if policy(@event).destroy? %>
@@ -58,7 +58,7 @@
       <div class="my-3">
         <!-- Field: start and end -->
         <p class="date no-spacing">
-          <strong class="text-primary"> Date: </strong>
+          <strong class="text-primary"><%= t('events.date') %> </strong>
           <%= neatly_printed_date_range(@event.start, @event.end) %>
         </p>
         <%= display_attribute(@event, :timezone) %>
