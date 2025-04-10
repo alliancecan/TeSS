@@ -68,10 +68,8 @@ class StaticController < ApplicationController
     Event.search_and_filter(
       nil,
       '',
-      { 'start' => "#{Date.tomorrow.beginning_of_day}/" },
       sort_by: 'early',
-      per_page: 5 * n_events
-    ).results.group_by(&:content_provider_id).map { |_p_id, p_events| p_events.first }.first(n_events)
+    ).results.first(n_events)
   end
 
   def set_count_strings

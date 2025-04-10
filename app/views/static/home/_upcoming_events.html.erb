@@ -6,5 +6,6 @@
         <%= render partial: 'common/masonry_grid', locals: { objects: @events } %>
       </ul>
     </div>
+    <p class="text-center"><%= link_to t('home.more_events'), events_path, class: 'btn btn-primary' %></p>
   </section>
 <% end %>

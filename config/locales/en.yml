@@ -543,6 +543,7 @@ en:
     local_content_banner:
       title: Connecting from %{country_name}?
       body: Visit the %{community_name} portal to browse local training.
+    more_events: 'More events ...'
   privacy:
     registration: |
       <p>When you register with TeSS we ask for a username, password and email address.</p>
