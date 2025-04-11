@@ -6,16 +6,25 @@
   font-family: 'Lato';
   src: font-url('Lato-Regular.ttf') format('truetype');
 }
-$primary-color: #023452;
-$secondary-color: #047EAA;
-$accent-color: #F47D21;
 
-$dark-color: #242526;
+$alliance-warm-white: #FBFAFA;
+$alliance-tomorrow-yellow: #D6AB00;
+$alliance-digital-grey: #32322F;
+$alliance-warm-grey: #B7B6B3;
+$alliance-accent-teal: #00DBA7;
+$alliance-accent-dark-teal: #1A7B7C;
+$alliance-accent-darkest-teal: #226161;
+
+$primary-color: $alliance-accent-darkest-teal;
+$secondary-color: $alliance-accent-dark-teal;
+$accent-color: $alliance-tomorrow-yellow;
+
+$dark-color: $alliance-digital-grey;
 $dark-60-color: #7b7c7c; // rgba(36, 37, 38, 0.6);
 $dark-30-color: #bcbdbd; // rgba(36, 37, 38, 0.3);
 $dark-05-color: #f3f4f4; // rgba(36, 37, 38, 0.05); // Unused
 
-$light-color: #F4F7FB;
+$light-color: $alliance-warm-white;
 $light-60-color: rgba(244, 247, 251, 0.6); // Unused
 $light-30-color: rgba(244, 247, 251, 0.3); // Unused
 $light-05-color: rgba(244, 247, 251, 0.05); // Unused
@@ -62,7 +71,7 @@ $brand-success: #129e37;
 $brand-warning: #f0be3e;
 $brand-info: #9fc7c5;
 
-$headings-color: $primary-color;
+$headings-color: $dark-color;
 
 $gray-darker: $dark-color;
 $gray-dark: darken($dark-60-color, 25%);
@@ -124,15 +133,15 @@ $pagination-active-bg: $secondary-color;
 $pagination-active-border: $secondary-color;
 
 // Links
-$link-color: $accent-color;
-$link-hover-color: darken(rgb(244, 125, 33), 15%);
+$link-color: $alliance-accent-dark-teal;
+$link-hover-color: $alliance-accent-teal;
 
 // Buttons
 $btn-default-color: $brand-secondary;
 $btn-default-bg: #fff;
 $btn-default-border: $brand-secondary;
 
-$btn-primary-color: $light-color;
+$btn-primary-color: $dark-color;
 $btn-primary-bg: $accent-color;
 $btn-primary-border: $accent-color;
 
