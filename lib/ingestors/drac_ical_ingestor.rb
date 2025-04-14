@@ -37,7 +37,9 @@ module Ingestors
 
     def ical_event_online?(calevent)
       # Events are online if location isn't specified
-      calevent.location.nil? || calevent.location.downcase.include?('online')
+      calevent.location.nil? ||
+        calevent.location.downcase.include?('online') ||
+        calevent.location.downcase.include?('virtual')
     end
 
     def extract_url(calevent)
