@@ -470,6 +470,7 @@ en:
         <li>Click the title of a topic to view it. 
         From the topic page, you can view all training materials, in order.</li></ol>
   home:
+    title: 'Home'
     welcome: |
       How can <span class="text-primary">TeSS</span> help you?
     subtitle: |

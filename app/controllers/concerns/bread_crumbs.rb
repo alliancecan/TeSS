@@ -23,13 +23,15 @@ module BreadCrumbs
 
   def add_base_breadcrumbs(con_name = controller_name)
     #Home
-    add_breadcrumb 'Home', root_path
+    add_breadcrumb I18n.t('home.title'), root_path
 
     #Index
     add_index_breadcrumb(con_name)
   end
 
   def add_index_breadcrumb(con_name, breadcrumb_name = nil)
+    i18n_key = "features.#{con_name}.long"
+    breadcrumb_name ||= I18n.t(i18n_key, default: nil)
     breadcrumb_name ||= con_name.singularize.humanize.pluralize
     add_breadcrumb breadcrumb_name, url_for(controller: "/#{con_name}", action: 'index')
   end
