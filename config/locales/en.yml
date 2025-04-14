@@ -147,6 +147,11 @@ en:
       conferences of interest to them. The service may be customised by selecting the relevant filters, and
       initiated via the subscribe button. Users may choose to receive email notifications about upcoming
       events, or have them automatically added to their preferred calendar application.
+    subscribe_search_html: >
+      Any event search can be subscribed to. Simply go to the
+      <a href="%{events_path}">events search page</a>
+      and after chosing search terms and/or the filters you would like, click on the "Subscribe" button to
+      get email alerts, or to track events in your calendar application.
     subscription_manager: >
       The <a href='%{subscriptions_path}'>subscriptions manager</a> page may be used to change the frequency of, or to remove, subscriptions.
     widgets_and_api: >
