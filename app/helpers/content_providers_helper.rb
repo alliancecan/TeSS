@@ -1,6 +1,22 @@
 # The helper for Content Providers
 module ContentProvidersHelper
-  CONTENT_PROVIDERS_INFO = I18n.t 'providers.info'
+  def content_providers_info_button
+    info_button(t('providers.info_button_header',
+                  site: TeSS::Config.site['title_short']), hide_text: true) do
+      content_providers_info
+    end
+  end
+
+  def content_providers_info_box(hide_text = true)
+    info_box(t('providers.info_button_header',
+               site: TeSS::Config.site['title_short'])) do
+      content_providers_info
+    end
+  end
+
+  def content_providers_info
+    I18n.t('providers.info')
+  end
 
   def carousel_content_providers
     provider_ids = TeSS::Config.site.dig('home_page', 'featured_providers')

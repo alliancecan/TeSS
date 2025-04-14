@@ -571,6 +571,7 @@ en:
     info: >
       Content providers are entities (such as academic institutions, non-profit organisations, portals etc.) that
       provide training materials of relevance to life sciences and ELIXIR.
+    info_button_header: 'What are content providers in %{site}?'
   events:
     hints:
       address: 'Where is this event being held?'
@@ -612,6 +613,14 @@ en:
     date: 'Date:'
     view_event: 'View event'
     pick_date: 'Pick a range of dates for a better collection of events.'
+    info_button_header: 'What are events in %{site}?'
+    info_button_body_html: >-
+      <p>An event in %{site} is a link to a single training event sourced by a
+      provider along with description and other meta information (e.g. date, location, audience,
+      ontological categorization, keywords, etc.).</p>
+      <p>Training events can be added manually or automatically harvested from a provider's website.</p>
+      <p>If your website contains training events that you wish to include in %{site},
+      <a href="%{url}">see here for details on automatic registration</a></p>
   materials:
     hints:
       authors: >

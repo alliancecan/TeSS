@@ -18,9 +18,7 @@
         <%= t('register.buttons.events') %>
       <% end %>
       <!-- Info -->
-      <%= info_button("What are events in #{TeSS::Config.site['title_short']}?", hide_text: true) do %>
-        <%= render_markdown(events_info) %>
-      <% end %>
+      <%= events_info_button %>
     <% end %>
     <% content_for :display_options do %>
       <ul class="nav nav-xs nav-pills index-display-options">

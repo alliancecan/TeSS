@@ -3,16 +3,24 @@
 require 'rss'
 
 module EventsHelper
-  EVENTS_INFO = "An event in #{TeSS::Config.site['title_short']} is a link to a single training event sourced by a\
-  provider along with description and other meta information (e.g. date, location, audience, ontological\
-  categorization, keywords, etc.).\n\n\
-  Training events can be added manually or automatically harvested from a provider's website.\n\n\
-  If your website contains training events that you wish to include in #{TeSS::Config.site['title_short']},\
-  %<link>s.".freeze
+
+  def events_info_button
+    info_button(t('events.info_button_header',
+                  site: TeSS::Config.site['title_short']), hide_text: true) do
+      events_info
+    end
+  end
+
+  def events_info_box
+    info_box(t('events.info_button_header',
+                  site: TeSS::Config.site['title_short'])) do
+      events_info
+    end
+  end
 
   def events_info
-    format(EVENTS_INFO, link: link_to('see here for details on automatic registration',
-                                      registering_resources_path(anchor: 'automatic')))
+    t('events.info_button_body_html', site: TeSS::Config.site['title_short'],
+      url: registering_resources_path(anchor: 'automatic'))
   end
 
   def google_calendar_export_url(event)
