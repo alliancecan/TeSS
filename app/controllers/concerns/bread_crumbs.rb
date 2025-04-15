@@ -30,7 +30,7 @@ module BreadCrumbs
   end
 
   def add_index_breadcrumb(con_name, breadcrumb_name = nil)
-    i18n_key = "features.#{con_name}.long"
+    i18n_key = "#{con_name}.breadcrumb_index"
     breadcrumb_name ||= I18n.t(i18n_key, default: nil)
     breadcrumb_name ||= con_name.singularize.humanize.pluralize
     add_breadcrumb breadcrumb_name, url_for(controller: "/#{con_name}", action: 'index')

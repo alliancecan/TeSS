@@ -621,6 +621,7 @@ en:
       <p>Training events can be added manually or automatically harvested from a provider's website.</p>
       <p>If your website contains training events that you wish to include in %{site},
       <a href="%{url}">see here for details on automatic registration</a></p>
+    breadcrumb_index: Events
   materials:
     hints:
       authors: >
@@ -659,6 +660,7 @@ en:
       url: 'Preferred URL to direct people to your training material landing page.'
       version: 'Indicate the current version of the training material.'
       visible: 'Whether this material should be shown or hidden from the materials page.'
+    breadcrumb_index: Materials
   learning_paths:
     hints:
       authors: >
@@ -937,6 +939,8 @@ en:
       parameter_change_html: changed <em>%{parameter}</em> to <strong>%{value}</strong>
       association_change_html: changed <em>%{parameter}</em> to <strong>%{name}</strong> (%{value})
       change_role_html: changed %{user} role from <strong>%{old}</strong> to <strong>%{new}</strong>
+  content_providers:
+    breadcrumb_index: 'Content providers'
   subscriptions:
     title: 'Subscriptions'
     none: 'You have no subscriptions.'
