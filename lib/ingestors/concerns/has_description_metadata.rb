@@ -61,6 +61,8 @@ module Ingestors::Concerns::HasDescriptionMetadata
     # We want to look for metadata in final "paragraph" of description
     last_paragraph = text_description.split(/\n\n/).last
 
+    return {} unless last_paragraph
+
     # Turn it into a hash ...
     key_values = last_paragraph.split(/\n/).
                                 collect {|line| line.split(':', 2) }
