@@ -114,6 +114,10 @@ module Ingestors
 
         event.description = item['description']
 
+        # For now, assume all events are online until we encounter an example
+        # of an event where this is not the case (as per discussion with Sarah Clarke)
+        event.online = true
+
         internal_events << event
       end
 

@@ -62,8 +62,11 @@ class AcenetLearnWorldsIngestorTest < ActiveSupport::TestCase
 
     # Check events now do exist
     new_events.each do |new_event|
-      event = Event.where(title: new_event[:title], url: new_event[:url]).any?
+      event = Event.where(title: new_event[:title], url: new_event[:url]).first
       assert event
+
+      # For now, all events should be online
+      assert_equal event.online?, true
     end
     # TODO: More checks to come ...
   end
