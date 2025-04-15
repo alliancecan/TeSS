@@ -1,7 +1,7 @@
 <%# for things like 'online' or for_profit. Check the box sets it as false.  %>
 <% facet_field ||= facet.field_name.to_s %>
-<% enable_text ||= 'Only show online events' %>
-<% disable_text ||= 'Show all events' %>
+<% enable_text ||= t('sidebar.filter.values.only_online_events') %>
+<% disable_text ||= t('sidebar.filter.values.show_all_events') %>
 <% count ||= facet.rows.first.count %>
 
 <%# Display all filter links %>

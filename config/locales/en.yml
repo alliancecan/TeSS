@@ -879,6 +879,8 @@ en:
         hide_disabled: 'Hide disabled %{resource}'
         show_archived: 'Show archived %{resource}'
         hide_archived: 'Hide archived %{resource}'
+        only_online_events: 'Only show online events'
+        show_all_events: 'Show all events'
     hidden:
       values:
         show_hidden: 'Show hidden items'
