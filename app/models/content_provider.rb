@@ -150,6 +150,7 @@ class ContentProvider < ApplicationRecord
                          method: source['method'],
                          enabled: true,
                          approval_status: :approved,
+                         default_language: source['default_language'],
                          user: owner)
         end
       end
