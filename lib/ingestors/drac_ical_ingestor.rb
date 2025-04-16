@@ -3,10 +3,6 @@ module Ingestors
 
     include Ingestors::Concerns::HasDescriptionMetadata
 
-    # The ics files from Google tend to embed the timezone in
-    # the calendar, not the events
-    attr_reader :default_timezone
-
     def self.config
       {
         key: 'drac_ical',
@@ -20,19 +16,6 @@ module Ingestors
     def full_url(url)
       # Don't append '?ical=true' to URL, Google doesn't like it
       url
-    end
-
-    def fetch_events(file_url)
-      # Fetch once, read twice (to get default timezone)
-      fetched = open_url(file_url, raise: true).set_encoding('utf-8')
-
-      # Note, each Calendar has events associated with it, but there may be
-      # ics files that have events and no calendar ...
-      icalendar = Icalendar::Calendar.parse(fetched)
-      @default_timezone = icalendar&.first&.custom_properties&.fetch('x_wr_timezone')&.first
-
-      fetched.rewind
-      Icalendar::Event.parse(fetched)
     end
 
     def ical_event_online?(calevent)

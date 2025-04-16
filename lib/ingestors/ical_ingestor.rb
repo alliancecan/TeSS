@@ -7,6 +7,10 @@ module Ingestors
   class IcalIngestor < Ingestor
     attr_reader :icalendars
 
+    # The ics files from Google tend to embed the timezone in
+    # the calendar, not the events
+    attr_reader :default_timezone
+
     def self.config
       {
         key: 'ical',
@@ -52,20 +56,21 @@ module Ingestors
       url
     end
 
-    def fetch_events(file_url)
-      Icalendar::Event.parse(open_url(file_url,
-                                      raise: true).set_encoding('utf-8'))
-    end
-
     def process_icalendar(url)
       # process individual ics file
       file_url = full_url(url)
 
       begin
         # process file
-        events = fetch_events(file_url)
-        events.each do |e|
-          process_event(e)
+        vcalendars =
+          Icalendar::Calendar
+            .parse(open_url(file_url, raise: true)
+                     .set_encoding('utf-8'))
+        vcalendars.each do |vcal|
+          @default_timezone = vcal&.custom_properties&.fetch('x_wr_timezone')&.first
+          vcal.events.each do |e|
+            process_event(e)
+          end
         end
       rescue Exception => e
         @messages << "Process file url[#{file_url}] failed with: #{e.message}"
