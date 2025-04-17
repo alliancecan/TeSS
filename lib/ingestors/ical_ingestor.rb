@@ -115,6 +115,8 @@ module Ingestors
           event.city = nil
           event.postcode = nil
           event.country = nil
+          # CW: wipe the venue when online too
+          event.venue = nil
         else
           location = convert_location(calevent.location)
           event.city = location['suburb'] unless location['suburb'].nil?
