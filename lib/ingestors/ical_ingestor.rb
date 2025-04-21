@@ -90,10 +90,12 @@ module Ingestors
 
     def extract_event_timezone(calevent)
       tzid = calevent.dtstart.ical_params['tzid']
-      # Sometimes it's a string ...
-      return tzid if tzid.is_a?(String)
       # Sometimes it's an array ...
-      return tzid.first.to_s if !tzid.nil? and tzid.size > 0
+      tzid = tzid.first if tzid.is_a? Array
+      tzid = tzid.to_s unless tzid.nil?
+
+      return default_timezone if (!default_timezone.nil? && (tzid.nil? || tzid == 'UTC'))
+      tzid
     end
 
     def extract_url(calevent)

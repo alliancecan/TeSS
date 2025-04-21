@@ -126,7 +126,6 @@ module Ingestors
 
     def extract_event_timezone(calevent)
       timezone = super(calevent)
-      timezone ||= default_timezone
 
       case timezone
       when nil
