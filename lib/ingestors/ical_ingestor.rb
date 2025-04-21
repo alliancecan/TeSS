@@ -89,7 +89,6 @@ module Ingestors
     end
 
     def extract_event_timezone(calevent)
-      return nil if calevent.dtstart.nil?
       tzid = calevent.dtstart.ical_params['tzid']
       # Sometimes it's a string ...
       return tzid if tzid.is_a?(String)
