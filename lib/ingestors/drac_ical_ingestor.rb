@@ -129,11 +129,11 @@ module Ingestors
 
       case timezone
       when /Toronto/
-	      return 'Eastern Time (US & Canada)'
+        return 'Eastern Time (US & Canada)'
       when /Vancouver/
-	      return 'Pacific Time (US & Canada)'
+        return 'Pacific Time (US & Canada)'
       when /Edmonton/
-	      return 'Mountain Time (US & Canada)'
+        return 'Mountain Time (US & Canada)'
       else
         timezone
       end
