@@ -128,17 +128,15 @@ module Ingestors
       timezone = super(calevent)
 
       case timezone
-      when nil
-        return
       when /Toronto/
 	      return 'Eastern Time (US & Canada)'
       when /Vancouver/
 	      return 'Pacific Time (US & Canada)'
       when /Edmonton/
 	      return 'Mountain Time (US & Canada)'
+      else
+        timezone
       end
-
-      timezone
     end
 
     def process_description_title(description, title, event)
