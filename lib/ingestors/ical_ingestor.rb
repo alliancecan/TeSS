@@ -84,8 +84,10 @@ module Ingestors
       calevent.location.downcase.include?('online')
     end
 
-    def extract_event_start(calevent)
-      calevent.dtstart&.to_time
+    # Return the start or end date of the iCalendar event as a Time
+    # object.
+    def extract_event_date(calevent, what)
+      calevent.send(("dt" + what.to_s).to_sym)&.to_time
     end
 
     def extract_event_timezone(calevent)
@@ -113,8 +115,8 @@ module Ingestors
 
         event.timezone = extract_event_timezone(calevent)
 
-        event.end = calevent.dtend&.to_time
-        event.start = extract_event_start(calevent)
+        event.start = extract_event_date(calevent, :start)
+        event.end = extract_event_date(calevent, :end)
 
         event.venue = calevent.location.to_s
         if ical_event_online?(calevent)
