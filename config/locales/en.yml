@@ -102,9 +102,9 @@ en:
       learn_more_widgets: Learn more about Widgets
       learn_more_api: Learn more about our API
     registry: >
-      TeSS is a platform that was developed to provide a one-stop shop for trainers and trainees to discover
+      Explora is a platform that was developed to provide a one-stop shop for trainers and trainees to discover
       online information and content, including training materials, events and interactive tutorials.
-      For training providers, TeSS provides opportunities to promote training events and news, and to contribute
+      For training providers, Explora provides opportunities to promote training events and news, and to contribute
       to a growing catalogue of materials; for trainers, the portal offers an environment for sharing materials
       and event information; for trainees, it offers a convenient gateway via which to identify relevant training
       events and resources, and to perform specific, guided analysis tasks via customised training workflows.
@@ -115,15 +115,15 @@ en:
       This requires access both to face-to-face training opportunities and to disparate training materials and resources,
       currently dispersed across Europe.
     events: >
-      Events in TeSS are defined as face-to-face or online training opportunities that have set start and end times.
-      These primarily take the form of workshops, courses, webinars, etc.; but TeSS also collects information about
+      Events in Explora are defined as face-to-face or online training opportunities that have set start and end times.
+      These primarily take the form of workshops, courses, webinars, etc.; but Explora also collects information about
       conferences, meetings and hackathons, as these may also provide opportunities for learning.
     nominatim: "<a href='https://wiki.openstreetmap.org/wiki/Nominatim' target='_blank' rel='noopener'>Nominatim</a>"
     materials: >
-      Materials in TeSS are defined as training resources that can be accessed at any time. These may be in
+      Materials in Explora are defined as training resources that can be accessed at any time. These may be in
       a variety of different formats, including online tutorials, videos, PowerPoint presentations, and so on.
     workflows: >
-      New to TeSS are graphical training tools termed 'Training Workflows'.
+      New to Explora are graphical training tools termed 'Training Workflows'.
       Three main types of workflow are in development: Educational Resources, Learning Pathways and Concept Maps.
       These encapsulate different types of, and/or approaches to, training, at different levels of granularity,
       within easy-to-use visual displays.
@@ -143,7 +143,7 @@ en:
       Educational Resources for introductory sequence and structural bioinformatics are currently being developed by
       ELIXIR TeSS, ELIXIR-UK and the UK Structural Bioinformatics group (via the FunPDBe project).
     subscribe: >
-      TeSS also provides a subscription feature to help users to stay informed about courses, workshops and
+      Explora also provides a subscription feature to help users to stay informed about courses, workshops and
       conferences of interest to them. The service may be customised by selecting the relevant filters, and
       initiated via the subscribe button. Users may choose to receive email notifications about upcoming
       events, or have them automatically added to their preferred calendar application.
@@ -155,7 +155,7 @@ en:
     subscription_manager: >
       The <a href='%{subscriptions_path}'>subscriptions manager</a> page may be used to change the frequency of, or to remove, subscriptions.
     widgets_and_api: >
-      To access TeSS data, organisations may readily import information about relevant events and materials to their site using widgets,
+      To access Explora data, organisations may readily import information about relevant events and materials to their site using widgets,
       or may create custom feeds using our API.
     collect_events: >
       %{site_name} collects event information from %{count} content providers, supplementing the data with geolocation information found using %{nominatim}.
@@ -269,17 +269,17 @@ en:
       bolster event attendance. Registering events and training materials makes them more findable in a variety ways
       to various user bases.</p>
     methods: >
-      <p>There are two ways to register training materials or events for display in TeSS:
+      <p>There are two ways to register training materials or events for display in Explora:
       <ol><li>Arrange for an <a href="#automatic">automatic registration</a> solution;</li>
       <li>Use our form to register them <a href="#manual">manually</a>.</li></ol></p>
     automatic: >
-      TeSS features several options for automatically "harvesting" resources from external sources.
+      Explora features several options for automatically "harvesting" resources from external sources.
       This can be helpful if you are maintaining a large collection of events and materials that changes frequently.
     structured: >
-      <p>To register resources in TeSS automatically, we need to be able to extract data from target
+      <p>To register resources in Explora automatically, we need to be able to extract data from target
       sources reliably. To this end, it is helpful if the data is structured according to some kind of standard format.</p>
-      <p>The following are examples of the kinds of structured data that TeSS can work with.</p>
-      <p>If your website currently includes no structured data, and you’d like your resources added to TeSS, we recommend using
+      <p>The following are examples of the kinds of structured data that Explora can work with.</p>
+      <p>If your website currently includes no structured data, and you’d like your resources added to Explora, we recommend using
       <a href="http://bioschemas.org" target="_blank">Bioschemas</a> to structure your site.</p>
     schema: >
       <p><a href='https://schema.org', target='_blank'>Schema.org</a> is a project run by a consortium of search engines.
@@ -293,7 +293,7 @@ en:
       <li>Defining usage profiles over the Schema.org types that identify the essential properties to use in describing a resource.</li>
       </ul>
       <p>
-      TeSS supports the following Bioschemas profiles:<br/>
+      Explora supports the following Bioschemas profiles:<br/>
       <strong>for events that are courses</strong>
       <ul>
       <li><a target='_blank', href='https://bioschemas.org/profiles/CourseInstance/1.0-RELEASE'>CourseInstance</a></li>
@@ -328,7 +328,7 @@ en:
       <p>Many organisations use calendar applications to organise and display their events.
       These may be custom-made or, more likely, utilise applications like Google Calendar. Calendar applications
       maintain an underlying file for event storage and retrieval, typically in the iCal (.ics) format.</p>
-      <p>TeSS can extract event descriptions, dates and locations from iCal files.</p>
+      <p>Explora can extract event descriptions, dates and locations from iCal files.</p>
     other_types: >
       <ul><li><b>RSS Feed</b>: an RSS feed is a type of news format. Many websites have such feeds, which list recent
       posts in a standard format. We can write scripts to parse this format;</li>
@@ -348,7 +348,7 @@ en:
       a content provider, click the button below.</p>
     advice: >
       Contact <a href="mailto:%{contact_email}">%{contact_email}</a> to discuss how to register your content
-      automatically in TeSS.
+      automatically in Explora.
     manual: >
       <p>Resources may be added manually to TeSS.</p>
       <p>To do so, first register for a free account. Members of academic institutions may be able to log-in via LS-Login.</p>
@@ -472,7 +472,7 @@ en:
   home:
     title: 'Home'
     welcome: |
-      How can <span class="text-primary">TeSS</span> help you?
+      How can <span class="text-primary">Explora</span> help you?
     subtitle: |
       Search the portal for courses, events, videos, presentations, learning pathways, handbooks...<br>
       All types of resources at all levels for leveraging <span class="text-primary">computational resources in the life sciences</span>.
@@ -562,9 +562,9 @@ en:
     personal: "You may additionally provide a profile, containing your name, a public email address, website link and avatar. This information is publicly available to all users."
     resources: "The details of any training materials and events that you register will be publicly visible and searchable. Any workflows and packages created can be opted to be made private, in which case only you, any collaborators you specify, and the TeSS administrators will be able to view and search for them."
     server: "When you browse TeSS, the server automatically records logs of which pages you access, when you accessed them, and your IP address. These logs are used to fix errors and are not shared with any third parties. Sensitive information (such as passwords) is automatically stripped out."
-    cookies: TeSS makes use of "strictly necessary cookies" for the site to function. These cookies are needed to establish your "session" with TeSS, which allows functionality such as user log-in, and secures against Cross Site Request Forgery (CSRF) attacks.
+    cookies: Explora makes use of "strictly necessary cookies" for the site to function. These cookies are needed to establish your "session" with Explora, which allows functionality such as user log-in, and secures against Cross Site Request Forgery (CSRF) attacks.
     analytics: "TeSS uses Google Analytics to track how users are discovering TeSS and interacting with the service. The information gathered includes which pages you visited, which search terms lead you to TeSS and information about your web browser. No personally identifiable information is sent to Google."
-    retention: "Your information will be retained by TeSS until you choose to remove it, you delete your account, or the TeSS service ceases to exist."
+    retention: "Your information will be retained by Explora until you choose to remove it, you delete your account, or the Explora service ceases to exist."
     code: "TeSS adheres to the <a href='https://wiki.refeds.org/display/CODE/Code+of+Conduct+for+Service+Providers'> GÉANT Data Protection Code of Conduct for Service Providers in EU/EEA </a>"
     controller: "The data controller for TeSS is The University of Manchester."
     post: "<strong>The TeSS Team</strong><br/>Room 1.17 c/o School of Computer Science,<br/>Kilburn Building,<br/>Oxford Road,<br/>Manchester,<br/>M13 9PL"
@@ -789,14 +789,14 @@ en:
       bad_source_save: 'Source save failed with: %{error_message}'
       not_source_enabled: 'Source not enabled.'
   cookies:
-    notice: TeSS makes use of some necessary cookies to provide its core functionality.
-    google_analytics: Additionally, we make use of Google Analytics to discover how people are using TeSS in order to help us improve the service. To opt out of this, choose the "Allow necessary cookies" option.
+    notice: Explora makes use of some necessary cookies to provide its core functionality.
+    google_analytics: Additionally, we make use of Google Analytics to discover how people are using Explora in order to help us improve the service. To opt out of this, choose the "Allow necessary cookies" option.
     necessary_cookies_btn: Only allow necessary cookies
     all_cookies_btn: Allow all cookies
     no_consent: No cookie consent provided
     options:
-      tracking: Cookies required for Google Analytics, to help TeSS improve its service.
-      necessary: Cookies necessary for TeSS to function, for example to provide user-authentication and forgery protection.
+      tracking: Cookies required for Google Analytics, to help Explora improve its service.
+      necessary: Cookies necessary for Explora to function, for example to provide user-authentication and forgery protection.
     buttons:
       revoke: Revoke cookie consent
       all: Allow all cookies
@@ -815,13 +815,13 @@ en:
   languages: # Only needed to override default names from I18nData
     el: 'Greek'
   errors:
-    500: "Apologies, TeSS encountered an error whilst handling your request (500 Internal Server Error)."
-    503: "Apologies, TeSS is temporarily down or unavailable due to maintenance (503 Service Unavailable)."
+    500: "Apologies, Explora encountered an error whilst handling your request (500 Internal Server Error)."
+    503: "Apologies, Explora is temporarily down or unavailable due to maintenance (503 Service Unavailable)."
     422: "The request you sent was well-formed but the change you wanted was rejected (422 Unprocessable Entity)."
     404: "The requested page could not be found - you may have mistyped the address or the page may have moved (404 Not Found)."
     406: "The requested format is not available (406 Not Acceptable)."
   warnings:
-    link_broken: TeSS has been unable to access this %{resource_type}'s URL since %{fail_date} - the page may have been moved.
+    link_broken: Explora has been unable to access this %{resource_type}'s URL since %{fail_date} - the page may have been moved.
     archived: This %{resource_type} has been archived, its content may no longer be relevant.
     unverified: This %{resource_type} will not be publicly visible until your registration has been approved by an administrator.
   footer:
