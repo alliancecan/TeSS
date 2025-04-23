@@ -14,11 +14,11 @@
       </div>
 
       <div class="col-sm-4 col-xs-6 text-left">
+      </div>
+
+      <div class="col-sm-4 col-xs-6 text-left">
         <div class="footer-item">
           <%= link_to t('footer.about', title: TeSS::Config.site['title_short']), about_path %>
-        </div>
-        <div class="footer-item">
-          <%= link_to t('footer.funding'), us_path(anchor: 'funding') %>
         </div>
         <div class="footer-item">
           <%= link_to t('footer.privacy'), privacy_path %>
@@ -28,20 +28,6 @@
             <%= link_to t('footer.cookie_preferences'), cookies_consent_path %>
           </div>
         <% end %>
-      </div>
-
-      <div class="col-sm-4 col-xs-6 text-left">
-        <div class="footer-item">
-          <%= t('footer.version') %> <code><%= app_version_text -%></code>
-        </div>
-
-        <div class="footer-item">
-          <%= link_to t('footer.source_code'), TeSS::Config.site['repository'], target: '_blank', rel: 'noopener' %>
-        </div>
-
-        <div class="footer-item">
-          <%= link_to t('footer.api_documentation'), asset_path('api/json_api', skip_pipeline: true) %>
-        </div>
 
         <% if TeSS::Config.feature['bioschemas_testing'] %>
           <div class="footer-item">
