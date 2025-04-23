@@ -67,7 +67,7 @@ module Ingestors
             .parse(open_url(file_url, raise: true)
                      .set_encoding('utf-8'))
         vcalendars.each do |vcal|
-          @default_timezone = vcal&.custom_properties&.fetch('x_wr_timezone')&.first
+          @default_timezone = vcal&.custom_properties&.[]('x_wr_timezone')&.first
           vcal.events.each do |e|
             process_event(e)
           end
