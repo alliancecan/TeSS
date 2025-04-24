@@ -103,6 +103,7 @@ module Ingestors
         event = OpenStruct.new
         event.url = extract_url(calevent)
         event.title = calevent.summary.to_s
+        event.external_id = calevent&.uid&.to_s
 
         event.timezone = extract_event_timezone(calevent)
 
