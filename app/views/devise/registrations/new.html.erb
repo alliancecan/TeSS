@@ -1,6 +1,6 @@
 <div class="account-form">
   <div class="page-header">
-    <%= page_title 'Registration' %>
+    <%= page_title t('devise.new.registration') %>
   </div>
   <% if !TeSS::Config.feature['registration'] %>
     <div class="panel panel-danger">
@@ -29,10 +29,10 @@
 
         <%= f.input :email, required: true %>
 
-        <%= f.input :publicize_email, as: :boolean, label: 'Make my email publicly visible' %>
+        <%= f.input :publicize_email, as: :boolean, label: t('devise.new.make_email_public') %>
 
         <%= f.input :password, required: true, input_html: { autocomplete: 'off' },
-                    hint: "(#{@minimum_password_length} characters minimum)" if @minimum_password_length %>
+                    hint: t('devise.new.password_minimum_length', length: @minimum_password_length) if @minimum_password_length %>
 
         <%= f.input :password_confirmation, required: true, input_html: { autocomplete: 'off' } %>
 
@@ -43,9 +43,10 @@
         <% end -%>
 
         <%= f.input :processing_consent, as: :boolean, input_html: { autocomplete: 'off' },
-                    label: "I have read and understood the&nbsp;#{link_to('privacy policy', privacy_path, target: '_blank')} and consent to #{TeSS::Config.site['title_short']} processing my data.".html_safe %>
+                    label: t('devise.new.i_have_read_privacy_policy_html',
+                             url: privacy_path, site_name: TeSS::Config.site['title_short']) %>
         <div class="actions">
-          <%= f.submit "Register", :class => 'btn btn-primary' %>
+          <%= f.submit t('devise.new.register'), :class => 'btn btn-primary' %>
         </div>
       <% end %>
 

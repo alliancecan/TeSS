@@ -64,6 +64,14 @@ en:
       didnt_receive_confirmation_instructions: "Didn’t receive confirmation instructions?"
       didnt_receive_unlock_instructions: "Didn't receive unlock instructions?"
       resend: 'Resend'
+    new:
+      registration: 'Registration'
+      make_email_public: 'Make my email publicly visible'
+      password_minimum_length: '(%{length} characters minimum)'
+      i_have_read_privacy_policy_html: >
+        I have read and understood the <a href="%{url}" target="_blank">privacy policy</a>
+        and consent to %{site_name} processing my data.
+      register: 'Register'
   errors:
     messages:
       already_confirmed: "was already confirmed, please try logging in"
