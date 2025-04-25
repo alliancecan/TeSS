@@ -801,6 +801,11 @@ en:
       revoke: Revoke cookie consent
       all: Allow all cookies
       necessary: Allow necessary cookies
+    see_privacy_policy_html: >-
+      See our <a href="%{url}">privacy policy</a> for more information.
+    you_can_modify_preferences_html: >-
+      You can modify your cookie preferences at any time <a href="%{url}">here</a>,
+      or from the link in the footer.
   facets:
     categories:
       user: Owner

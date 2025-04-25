@@ -3,5 +3,5 @@
   <%= t('cookies.google_analytics') if TeSS::Config.analytics_enabled %>
 </p>
 <p>
-  See our <%= link_to 'Privacy Policy', privacy_path %> for more information.
+  <%= t('cookies.see_privacy_policy_html', url: privacy_path) %>
 </p>

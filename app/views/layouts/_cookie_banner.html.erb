@@ -3,10 +3,7 @@
     <div class="row">
       <div class="col-lg-8 col-md-7">
         <%= render partial: 'common/cookie_info' %>
-        <p>
-          You can modify your cookie preferences at any time <%= link_to 'here', cookies_consent_path %>,
-          or from the link in the footer.
-        </p>
+        <p><%= t('cookies.you_can_modify_preferences_html', url: cookies_consent_path) %></p>
       </div>
 
       <div class="col-lg-4 col-md-5 text-right">
