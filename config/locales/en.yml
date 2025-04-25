@@ -914,6 +914,10 @@ en:
       admin_console: 'Admin console'
       log_out: 'Log out'
       log_out_confirm: 'Are you sure you want to log out?'
+    login:
+      login: 'Log in'
+      register: 'Register'
+      login_with_provider: 'Login with %{provider}'
   activity:
     empty: No activities recorded.
     deleted_owner: Someone
