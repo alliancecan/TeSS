@@ -90,7 +90,7 @@ default: &default
   site:
     title: 'Explora'
     title_short: 'Explora'
-    favicon: elixir/favicon.png
+    favicon: alliance/favicon.png
     logo: alliance/Alliance_logo_Symbol.png
     logo_alt: 'Training System'
     logo_open_graph: ''
