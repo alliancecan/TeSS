@@ -111,6 +111,7 @@ module Ingestors
 
         event.start = start_end.start
         event.end = start_end.end
+        event.timezone = start_end.timezone
 
         event.description = item['description']
 
@@ -147,6 +148,7 @@ module Ingestors
         start_end = OpenStruct.new
         start_end.start = get_datetime(date, start_with_meridian[0], start_with_meridian[1], timezone)
         start_end.end = get_datetime(date, end_with_meridian[0], end_with_meridian[1], timezone)
+        start_end.timezone = timezone&.name
 
         start_ends << start_end
       end
