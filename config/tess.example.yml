@@ -86,7 +86,8 @@ default: &default
     #
     # - Configuring Rails applications, §3.6 Configuring i18n
     #   https://guides.rubyonrails.org/v7.0/configuring.html#configuring-i18n
-    #fallbacks: ...
+    fallbacks:
+      - en
   site:
     title: 'Explora'
     title_short: 'Explora'
