@@ -30,12 +30,19 @@ module TeSS
       test_secrets = YAML.safe_load(File.read(Rails.root.join('test', 'config', 'test_secrets.yml'))).deep_symbolize_keys!
       config.secrets.merge!(test_secrets)
     end
-    config.tess = config_for(Rails.env.test? ? Pathname.new(Rails.root).join('test', 'config', 'test_tess.yml') : 'tess')
+
     config.tess_defaults = config_for('tess.example')
+    config.tess = if Rails.env.test?
+                    config_for(Pathname.new(Rails.root).join('test', 'config', 'test_tess.yml'))
+                  elsif File.exist?(Pathname.new(Rails.root).join('config', 'tess.yml'))
+                    config_for('tess')
+                  else
+                    config.tess_defaults
+                  end
 
     # locales
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', 'overrides', '**', '*.{rb,yml}')] unless Rails.env.test?
-    i18n_config = (config.tess_defaults.i18n || {}).deep_merge(config.tess.i18n || {})
+    i18n_config = (config.tess_defaults.i18n || {}).deep_merge(config.tess&.i18n || {})
     config.i18n.available_locales = i18n_config[:available_locales]&.map(&:to_sym)
     config.i18n.default_locale = i18n_config[:default_locale]&.to_sym
     case i18n_config[:fallback_strategy]

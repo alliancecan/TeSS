@@ -92,7 +92,7 @@ default: &default
     title_short: 'Explora'
     favicon: alliance/favicon.png
     logo: alliance/Alliance_logo_Symbol.png
-    logo_alt: 'Training System'
+    logo_alt: 'Explora'
     logo_open_graph: ''
     logo_email: ''
     # Colours of the SVG icons used throughout TeSS, requires `rake assets:precompile` if changed
@@ -116,7 +116,7 @@ default: &default
     # The order in which the tabs appear (if feature enabled)
     tab_order: ['about', 'events', 'materials', 'elearning_materials', 'workflows', 'collections', 'trainers', 'content_providers', 'nodes']
     # The tabs that should be collapsed under the "Directory" tab. Can be left blank to hide it.
-    directory_tabs: ['trainers', 'content_providers', 'nodes']
+    directory_tabs: []
     # The order in with the 'about us' tabs appear
     about_us_tab_order: ['tess_club', 'contact', 'team', 'funding', 'acknowledgements', 'cite']
     n_provider_ids: 10 # How many on carousel
@@ -186,28 +186,28 @@ default: &default
     # e.g., http://id.loc.gov/vocabulary/iso639-1/en
     - en # English
     - fr # French
-    - de # German
-    - es # Spanish
-    - nl # Dutch
-    - bg # Bulgarian
-    - hr # Croatian
-    - cs # Czech
-    - da # Danish
-    - et # Estonian
-    - fi # Finnish
-    - el # Greek
-    - hu # Hungarian
-    - ga # Irish
-    - it # Italian
-    - lv # Latvian
-    - lt # Lithuanian
-    - mt # Maltese
-    - pl # Polish
-    - pt # Portugeuse
-    - ro # Romanian
-    - sk # Slovak
-    - sl # Slovenian
-    - sv # Swedish
+    # - de # German
+    # - es # Spanish
+    # - nl # Dutch
+    # - bg # Bulgarian
+    # - hr # Croatian
+    # - cs # Czech
+    # - da # Danish
+    # - et # Estonian
+    # - fi # Finnish
+    # - el # Greek
+    # - hu # Hungarian
+    # - ga # Irish
+    # - it # Italian
+    # - lv # Latvian
+    # - lt # Lithuanian
+    # - mt # Maltese
+    # - pl # Polish
+    # - pt # Portugeuse
+    # - ro # Romanian
+    # - sk # Slovak
+    # - sl # Slovenian
+    # - sv # Swedish
   funders:
 #    - url: https://example.com/your-funders-website
 #      logo: foo.png
