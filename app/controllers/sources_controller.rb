@@ -115,6 +115,18 @@ class SourcesController < ApplicationController
     if test_results.nil?
       head :not_found
     else
+      now = Time.now
+      # Favour results in the near future first, then results in the near past second
+      no_start_events, has_start_events = test_results[:events].partition { |e| e[:start].blank? }
+      future_events = has_start_events.
+                        select {|e| e[:start] >= now }.
+                        sort_by {|e| e[:start] }
+      past_events = has_start_events.
+                      select {|e| e[:start] < now }.
+                      sort_by {|e| e[:start] }.reverse
+
+      test_results[:events] = future_events + past_events + no_start_events
+
       render partial: 'sources/test_results', object: test_results
     end
   end

@@ -20,7 +20,7 @@
 <% ['events', 'materials'].each do |type| %>
   <% resources = test_results[type.to_sym] || [] %>
   <% results_count += resources.count %>
-  <% sample = resources.sample(sample_size) %>
+  <% sample = resources.first(sample_size) %>
   <% next if resources.none? %>
 
   <%= collapsible_panel(pluralize(resources.count, type.singularize), type) do %>
