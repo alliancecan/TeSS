@@ -74,6 +74,16 @@ module Ingestors
       nil
     end
 
+    def extract_url_anywhere_on_line(text)
+      return nil unless text
+
+      m = text.match(/(http\S+)/)
+      unless m.nil?
+        return m[1]
+      end
+      nil
+    end
+
     def parse_description_url(description)
       return {} unless description
 
@@ -108,6 +118,11 @@ module Ingestors
         url = extract_url_in_parenthesis(line)
         url = extract_url_alone_on_line(line) unless url
         return url if url
+      end
+
+      # Really desperate hail Mary pass ... ?
+      lines.each_with_index do |line, index|
+        return extract_url_anywhere_on_line(line)
       end
 
       nil
