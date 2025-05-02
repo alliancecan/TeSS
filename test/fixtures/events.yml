@@ -493,3 +493,13 @@ hybrid_event:
   start: 2024-12-12 10:00:00
   end: 2024-12-12 12:00:00
   timezone: UTC
+
+html_description_event:
+  title: Nice event with a nice description
+  url: http://content-provider.portal/html_desc
+  description: This has a <b>great</b><br>description<br/>it really<br /><a href="huh">does</a>.
+  user: scraper_user
+  content_provider: portal_provider
+  start: 2024-12-12 10:00:00
+  end: 2024-12-12 12:00:00
+  timezone: UTC

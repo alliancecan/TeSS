@@ -486,6 +486,15 @@ class EventTest < ActiveSupport::TestCase
     assert event.hybrid?
   end
 
+  test 'html description is sanitized correctly' do
+    event = events(:html_description_event)
+    # silly ... but 'description=' does the sanitizing
+    event.description = event.description
+    assert event.valid?
+    event.save!
+    assert_equal event.description, "This has a great\ndescription\nit really\ndoes."
+  end
+
   test 'get event_type from keywords if scraped' do
     event = Event.new(title: 'An event', timezone: 'UTC', user: users(:regular_user), url: 'https://https-website.com/mat',
                       keywords: ['Workshops and courses'], scraper_record: true)

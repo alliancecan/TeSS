@@ -157,7 +157,8 @@ class Event < ApplicationRecord
   NOMINATIM_MAX_ATTEMPTS = 3
 
   def description=(desc)
-    super(Rails::Html::FullSanitizer.new.sanitize(desc))
+    # ensure that descriptions have their line breaks preserved before sanitizing
+    super(Rails::Html::FullSanitizer.new.sanitize(desc.gsub(/<br ?\/?>/, "\n")))
   end
 
   def start_utc
