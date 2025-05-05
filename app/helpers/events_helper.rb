@@ -85,7 +85,7 @@ module EventsHelper
 
           # optional fields
           description = ''
-          description += (neatly_printed_date_range(event.start, event.end) + "\n\n") if event.start.present?
+          description += (neatly_printed_date_range(event.start_local, event.end_local) + "\n\n") if event.start.present?
           description += (event.description + "\n\n") if event.description.present?
           description += event.organizer if event.organizer.present?
           item.description = description.to_s

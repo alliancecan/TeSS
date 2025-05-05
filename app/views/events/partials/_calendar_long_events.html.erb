@@ -6,7 +6,7 @@
         <%= event.title %>
         -
 
-        <%= neatly_printed_date_range(event.start, event&.end) %> 
+        <%= neatly_printed_date_range(event.start_local, event.end_local) %>
       <% end %>
     </li>
   <% end %>

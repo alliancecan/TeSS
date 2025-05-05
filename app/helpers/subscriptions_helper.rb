@@ -15,7 +15,7 @@ module SubscriptionsHelper
   end
 
   def digest_event_title(event)
-    title = neatly_printed_date_range(event.start, event.end)
+    title = neatly_printed_date_range(event.start_local, event.end_local)
 
     if event.city || event.country
       title << " | #{[event.city, event.country].reject(&:blank?).join(', ')}"
