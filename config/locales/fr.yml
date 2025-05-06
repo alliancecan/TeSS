@@ -101,9 +101,27 @@ fr:
     links:
       learn_more_widgets: En savoir plus sur les widgets
       learn_more_api: En savoir plus sur notre API
-    registry: >
-      Explora est une plateforme pour fournir un guichet unique aux formateurs et aux apprenants pour découvrir des informations et du contenu en ligne, y compris du matériel de formation, des événements et des tutoriels interactifs. Pour les prestataires de formation, Explora offre la possibilité de promouvoir les événements de formation et les actualités, et de contribuer à un catalogue croissant de contenu; pour les formateurs, le portail est un environnement pour lke partage de matériel et d'information sur les événements; pour les apprenants, c'est une passerelle pratique via laquelle identifier les événements et ressources de formation, et effectuer des tâches d'analyse spécifiques et guidées via des flux de formade formation personnalisés.
-    history: >
+    registry_html: >
+      <p>L’Alliance de recherche numérique du Canada et sa main-d’œuvre répartie
+      proposent à la communauté de recherche la formation dont elle a besoin pour
+      exploiter le plus efficacement possible l’infrastructure de recherche numérique
+      (IRN) du Canada. Forte d’un réseau national d’institutions, d’organisations et
+      de groupes d’experts, l’Alliance soutient un large éventail de possibilités de
+      formation, notamment des ateliers, des séminaires en ligne et des camps
+      d’entraînement. Ces événements de formation couvrent des sujets essentiels,
+      tels que le calcul informatique de pointe (CIP), la gestion des données de
+      recherche (GDR) et les logiciels de recherche (LR).</p>
+      <p>En rassemblant et en mettant de l’avant les activités de formation proposées
+      par ce réseau réparti aux quatre coins du Canada, l’Alliance s’assure que les
+      chercheurs et chercheuses, quelle que soit leur discipline ou l’étape où ils se
+      trouvent dans leur carrière, développent les connaissances et les compétences
+      nécessaires pour mener des recherches de pointe. Cet effort de collaboration,
+      rendu possible par les contributions d’une communauté diversifiée de formatrices
+      et formateurs, permet de renforcer les capacités de recherche nationales et
+      de favoriser un écosystème de recherche mieux relié et plus spécialisé.</p>
+    history_html: >
+      <hr>
+      Le logiciel qui fait fonctionner Explora s'appelle <a href="https://github.com/ElixirTeSS/TeSS">TeSS</a>.
       TeSS a été initialement développée dans le cadre de <a href='https ://elixir-europe.org/' target='_blank'>ELIXIR</a>, l'infrastructure distribuée européenne pour les données des sciences de la vie. L’un des objectifs d’ELIXIR est de former des chercheurs scientifiques à mieux utiliser les infrastructures de calcul pour solutionner des problématiques de recherche cruciales. Pour ce faire, il est nécessaire d'avoir accès à des possibilités de formation en présentiel et à des ressources et du matériel de formation, actuellement dispersés dans toute l'Europe.
     events: >
       Les événements dans Explora sont définis comme étant des occasions de formation en présentiel ou en ligne, avec des heures de début et de fin. Ceux-ci prennent principalement la forme d'ateliers, de cours, de webinaires, etc.; mais Explora recueille également des informations sur les conférences, les réunions et les marathons de programmation, car ceux-ci peuvent également être des occasions d'apprentissage.
@@ -253,9 +271,13 @@ fr:
     title: 'Accueil'
     welcome: |
       Comment la plateforme <span class="text-primary">Explora</span> peut-elle vous aider?
-    subtitle: |
-      Recherchez sur le portail des cours, des événements, des vidéos, des présentations, des parcours d'apprentissage, des manuels...<br>
-       tous les types de ressources de tous les niveaux, pour tirer parti des ressources de calcul <span class="text-primary"> pour les sciences de la vie.</span>.
+    subtitle: >-
+      Découvrez la formation canadienne en IRN. Effectuez une recherche dans Explora
+      pour découvrir des ateliers, des webinaires, des camps d’entraînement et d’autres
+      activités de formation à travers le Canada. Ces ressources sont conçues pour aider
+      les chercheurs et chercheuses, quelles que soient leur expérience et l’étape où
+      ils se trouvent dans leur carrière, à développer des compétences en calcul informatique
+      de pointe, en gestion des données de recherche et en logiciels de recherche.
     search_placeholder: >
       Rechercher %{site_name}...
     catalogue:

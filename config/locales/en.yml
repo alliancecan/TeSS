@@ -101,14 +101,23 @@ en:
     links:
       learn_more_widgets: Learn more about Widgets
       learn_more_api: Learn more about our API
-    registry: >
-      Explora is a platform that was developed to provide a one-stop shop for trainers and trainees to discover
-      online information and content, including training materials, events and interactive tutorials.
-      For training providers, Explora provides opportunities to promote training events and news, and to contribute
-      to a growing catalogue of materials; for trainers, the portal offers an environment for sharing materials
-      and event information; for trainees, it offers a convenient gateway via which to identify relevant training
-      events and resources, and to perform specific, guided analysis tasks via customised training workflows.
-    history: >
+    registry_html: >
+      <p>The Digital Research Alliance of Canada and its distributed workforce
+      provide researchers with the training they need to effectively use Canada’s
+      digital research infrastructure (DRI). Through a national network of institutions,
+      organizations, and expert groups, the Alliance supports a broad range of training
+      opportunities, including workshops, webinars, and bootcamps. These events cover
+      essential topics such as advanced research computing (ARC), research data
+      management (RDM), and research software (RS).</p>
+      <p>By aggregating and promoting training offered by this distributed network
+      across Canada, the Alliance ensures that researchers—regardless of discipline or
+      career stage—can access the knowledge and skills necessary to conduct cutting-edge
+      research. This collaborative effort, made possible by the contributions of a diverse
+      community of trainers, strengthens national research capacity and fosters a more
+      connected and skilled research ecosystem.</p>
+    history_html: >
+      <hr>
+      The software driving Expora is called <a href="https://github.com/ElixirTeSS/TeSS">TeSS</a>.
       TeSS was originally developed as part of <a href='https://elixir-europe.org/' target='_blank'>ELIXIR</a>,
       Europe's distributed infrastructure for life-science data. One of the goals of ELIXIR is to train research
       scientists to better use available computational infrastructures to address critical research questions.
@@ -473,9 +482,11 @@ en:
     title: 'Home'
     welcome: |
       How can <span class="text-primary">Explora</span> help you?
-    subtitle: |
-      Search the portal for courses, events, videos, presentations, learning pathways, handbooks...<br>
-      All types of resources at all levels for leveraging <span class="text-primary">computational resources in the life sciences</span>.
+    subtitle: >-
+      Discover Canadian DRI training. Search Explora for workshops, webinars, bootcamps,
+      and other training events across Canada designed to help researchers at any
+      career stage develop skills in advanced research computing, research data management,
+      and research software.
     search_placeholder: >
       Search %{site_name}...
     catalogue:
