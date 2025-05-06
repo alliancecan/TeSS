@@ -16,6 +16,7 @@ fr:
       destroy: "Supprimer"
       new: "Nouveau"
       edit: "Modifier"
+      clone: 'Clone'
     titles:
       edit: "Modifier %{model}"
       save: "Enregistrez %{model}"

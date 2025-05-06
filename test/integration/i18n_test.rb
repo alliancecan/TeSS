@@ -23,7 +23,6 @@ class I18nTest < ActionDispatch::IntegrationTest
   end
 
   test 'can log in with email address (fr)' do
-    skip 'TODO: re-enable this one after the cookie stuff has gone through translation'
     reset_translations
     get '/users/sign_in'
     post '/users/sign_in', params: { 'user[login]' => @user.email, 'user[password]' => 'hello',

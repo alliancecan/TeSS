@@ -64,6 +64,12 @@ fr:
           onsite: En présentiel
           hybrid: Hybride
         language: 'Langue d''enseignement'
+        duration: 'Durée'
+        keywords: 'Mots-clés'
+        timezone: 'Fuseau horaire'
+        venue: 'Venue'
+      source:
+        default_language: 'Langue par défaut'
   about:
     headings:
       events: Événements
@@ -112,6 +118,8 @@ fr:
       Dans ce type de flux de travail, les apprenants sont initiés à diverses tâches pratiques, liées à des outils en ligne et/ou des bases de données associées, dans des modules autonomes. Chaque module comprend i) des énoncés succincts des objectifs d'enseignement et des résultats d'apprentissage, pour transmettre aux apprenants ce qu'ils seront en mesure de faire à la fin du module; ii) une série de questions ou d'idées pour provoquer une réflexion critique sur les tâches qui ont été accomplies; iii) des informations générales supplémentaires et des lectures complémentaires pour consolider l'apprentissage et la recherche; et enfin iv) des questions à choix multiple pour évaluer la compréhension. Des ressources pédagogiques en introduction à la bio-informatique des séquences et structurale sont actuellement développées par ELIXIR TeSS, ELIXIR-UK et le groupe britannique de bio-informatique structurale (via le projet FunPDBe).
     subscribe: >
       Explora possède une fonction d'abonnement pour aider les utilisateurs à rester informés sur les cours, ateliers et conférences qui les intéressent. Le service peut être personnalisé en sélectionnant les filtres appropriés et il est lancé en cliquant sur le bouton pour s'abonner. Les utilisateurs peuvent choisir de recevoir des notifications par courriel sur les événements à venir ou de les ajouter automatiquement à leur application de calendrier préférée.
+    subscribe_search_html: >-
+      Il est possible de s'abonner à toute recherche d'événement. Il vous suffit de vous rendre sur la page <a href= "%{events_path}"> de recherche d'événements</a> et, après avoir choisi les termes de recherche et/ou les filtres que vous souhaitez, de cliquer sur le bouton "S'abonner" pour recevoir des alertes par courriel ou pour suivre les événements dans votre application de calendrier.
     subscription_manager: >
       La page <a href='%{subscriptions_path}'>Gestionnaire d'abonnements</a> peut être utilisée pour modifier la fréquence des abonnements ou pour les supprimer.
     widgets_and_api: >
@@ -242,6 +250,7 @@ fr:
       view_topics: >
         <ol> <li> dans l'onglet « parcours d'apprentissage », cliquez sur le bouton « gérer les sujets » en haut à droite.</li> <li>Vous pouvez parcourir les sujets du parcours d'apprentissage en utilisant les filtres à gauche pour sélectionner des mots-clés ou une date.</li> <li>Alternative, cliquez dans la zone de recherche et tapez une requête, puis appuyez sur entrée pour afficher les résultats.</li> <li>Cliquez sur le titre d'un sujet pour l'afficher.  À partir de la page des sujets, vous pouvez afficher tout le matériel.</li> </ol>
   home:
+    title: 'Accueil'
     welcome: |
       Comment la plateforme <span class="text-primary">Explora</span> peut-elle vous aider?
     subtitle: |
@@ -318,6 +327,8 @@ fr:
     local_content_banner:
       title: "Connexion depuis %{Country_name}?"
       body: "Visitez le portail %{Community_name} pour parcourir les formations locales."
+    upcoming_events: 'Événements à venir'
+    more_events: "Plus d'événements..."
   privacy:
     registration: |
       <p>Lorsque vous vous inscrivez auprès de TeSS, nous vous demandons un nom d'utilisateur, un mot de passe et une adresse de courriel.</p> 
@@ -339,6 +350,7 @@ fr:
   providers:
     info: >
       Les fournisseurs de contenu sont des entités (telles que les établissements universitaires, les organisations à but non lucratif, les portails, etc.) qui fournissent du matériel de formation pertinent pour les sciences de la vie et ÉLIXIR.
+    info_button_header: 'Quels sont les fournisseurs de contenu dans %{site} ?'
   events:
     hints:
       address: 'Où se tient cet événement ?'
@@ -375,7 +387,21 @@ fr:
     prompts:
       language: 'Sélectionner une langue...'
     long: 'Événements de longue durée'
+    date: 'Date'
+    view_event: 'Voir événement'
     pick_date: 'Choisissez une plage de dates pour une meilleure collection d''événements.'
+    info_button_header: 'Quels sont les événements dans %{site} ?'
+    info_button_body_html: >-
+      <p>Un événement dans %{site} est un lien vers un événement de formation unique
+      provenant d'un fournisseur, accompagné d'une description et d'autres méta-informations
+      (par exemple, la date, le lieu, le public, la catégorisation ontologique,
+      les mots clés, etc.)</p>
+      <p>Les événements de formation peuvent être ajoutés manuellement ou récoltés
+      automatiquement à partir du site web d'un fournisseur.</p>
+      <p>Si votre site Web contient des événements de formation que vous souhaitez inclure
+      dans %{site}, <a href="%{url}">voir ici pour plus de détails sur l'enregistrement
+      automatique</a></p>
+    breadcrumb_index: 'Evénements'
   materials:
     hints:
       authors: >
@@ -411,6 +437,7 @@ fr:
       url: 'URL préférée pour diriger les personnes vers la page d''accueil de votre matériel de formation.'
       version: 'Indiquer la version actuelle du matériel de formation.'
       visible: 'Indiquer si ce matériel doit être affiché ou non sur la page du matériel'
+    breadcrumb_index: Matériels
   learning_paths:
     hints:
       authors: >
@@ -511,10 +538,13 @@ fr:
       method: 'Méthode utilisée pour importer le contenu de l''URL source.'
       token: "Certaines méthodes d'inmportation nécessitent un jeton d'authentification: en cas de doute, laisser vide."
       enabled: Les sources qui ne sont pas activées ne seront pas importées.
+      default_language: 'Langue par défaut des événements/matériels ingérés'
     approval_status:
       not_approved: Non approuvé
       requested: Approbation demandée
       approved: Approuvé
+    prompts:
+      default_language: 'Sélectionner une langue par défaut...'
   scraper:
     messages:
       status: 'Scraper.run: %{status}'
@@ -541,6 +571,10 @@ fr:
       revoke: Révoquer le consentement aux cookies
       all: Autoriser tous les cookies
       necessary: Autoriser les cookies nécessaires
+    see_privacy_policy_html: >-
+      Voir notre <a href= "%{url}">politique de confidentialité</a> pour plus d'informations.
+    you_can_modify_preferences_html: >-
+      Vous pouvez modifier vos préférences en matière de témoins à tout moment <a href= "%{url}">ici</a>, ou à partir du lien situé dans le pied de page.
   facets:
     categories:
       user: Propriétaire
@@ -548,7 +582,10 @@ fr:
     titles:
       language: 'Langue'
       date_added: 'Date d''ajout'
+      start: 'Démarrage'
       content_provider: 'Fournisseur de contenu'
+      keywords: 'Mots-clés'
+      venue: 'Venue'
   languages: # Only needed to override default names from I18nData
     el: 'Grec'
   errors:
@@ -614,11 +651,14 @@ fr:
         hide_disabled: 'Masquer %{resource} désactivé'
         show_archived: 'Afficher %{resource} archivée'
         hide_archived: 'Masquer %{resource} archivée'
+        only_online_events: 'Afficher uniquement les événements en ligne'
+        show_all_events: 'Afficher tous les événements'
     hidden:
       values:
         show_hidden: 'Afficher les éléments masqués'
         hide_hidden: 'Masquer les éléments cachés'
     content_provider: 'Fournisseur de contenu'
+    user_html: 'Utilisateur <small>(visible uniquement aux administrateurs)</small>'
   collections:
     show:
       curate_materials: "Éditer le matériel"
@@ -646,3 +686,65 @@ fr:
       admin_console: 'Console d''administration'
       log_out: 'Se déconnecter'
       log_out_confirm: 'Voulez-vous vraiment vous déconnecter?'
+    login:
+      login: 'Se connecter'
+      register: 'Enregistrer'
+      login_with_provider: 'Se connecter au moyen de %{provider}'
+  content_providers:
+    breadcrumb_index: Fournisseurs de contenu
+  subscriptions:
+    title: "Abonnements"
+    none: "Vous n'avez pas d'abonnements."
+    created: "Abonnement créé avec succès."
+    cancelled: "Abonnement annulé."
+    problem_unsubscribing: "Un problème est survenu lors du désabonnement."
+    invalid_code: 'Code invalide'
+    breadcrumb: 'Abonnements'
+    modal:
+      subscribe_to_filter: "S'abonner au filtre"
+      close: 'Fermer'
+      url: URL
+      click_to_copy: 'Cliquez pour copier'
+    button:
+      title: "S'abonner"
+      via_email: "S'abonner par courriel"
+      add_to_calendar: 'Ajouter au calendrier'
+      to_rss: "S'abonner au flux RSS"
+      events_rss_feed: 'Flux RSS des événements'
+      email_title: 'Abonnement aux courriels'
+      submit_button: "S'abonner"
+      frequency: 'Fréquence'
+    show:
+      category: 'Catégorie'
+      frequency: 'Fréquence :'
+      last_email_sent: 'Dernier courriel envoyé'
+      email_never_sent: 'Jamais'
+      created_at: 'Créée'
+      query: 'Terme de recherche :'
+      filters: "Filtres :"
+      results: 'Résultats'
+      cancel: 'Annuler'
+    rss:
+      instructions_header: "Importer dans un lecteur RSS"
+      instructions_body_html: >-
+        Importez le <a href= "%{url}">feed URL</a> dans votre lecteur RSS pour vous
+        tenir au courant des nouveaux événements correspondant à vos filtres.
+        Pour plus d'informations sur le RSS, consultez
+        <a href="https://rss.com/blog/how-do-rss-feeds-work/"> cette page</a>.
+    calendar:
+      instructions_header: "Importer dans Google Calendar"
+      instructions_paragraph1_html: >-
+        Dans la colonne de gauche de l'affichage principal de
+        <a href="https://calendar.google.com/calendar" target="_blank" rel="noopener">Google Calendar</a>,
+        cliquez sur la flèche à droite de "Autres calendriers" et cliquez sur "Ajouter par URL".
+        Dans le formulaire qui s'affiche, collez l'URL figurant dans le champ ci-dessus et
+        cliquez sur le bouton pour confirmer.
+      instructions_paragraph2_html: >-
+        Remarque: les événements nouvellement créés dans %{title} peuvent prendre un certain
+        temps avant de se synchroniser avec votre Calendrier Google
+    unsubscribe:
+      success: 'Vous vous êtes désabonné avec succès.'
+    frequency_options:
+      daily: 'Quotidien'
+      weekly: 'Hebdomadaire'
+      monthly: 'Mensuel'
