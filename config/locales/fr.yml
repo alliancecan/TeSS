@@ -596,7 +596,7 @@ fr:
     see_privacy_policy_html: >-
       Voir notre <a href= "%{url}">politique de confidentialité</a> pour plus d'informations.
     you_can_modify_preferences_html: >-
-      Vous pouvez modifier vos préférences en matière de témoins à tout moment <a href= "%{url}">ici</a>, ou à partir du lien situé dans le pied de page.
+      Vous pouvez modifier vos préférences en matière de témoins à tout moment <a href="%{url}">ici</a>, ou à partir du lien situé dans le pied de page.
   facets:
     categories:
       user: Propriétaire
