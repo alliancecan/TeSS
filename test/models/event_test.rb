@@ -74,6 +74,36 @@ class EventTest < ActiveSupport::TestCase
     assert_equal 9, e.start.hour
   end
 
+  test 'start_local/end_local work with UTC' do
+    e = events(:one)
+    e.save
+    assert_equal e.timezone, 'UTC'
+    assert_equal e.start.to_s, '2015-11-23 10:16:33 UTC'
+    assert_equal e.end.to_s, '2015-11-23 10:16:33 UTC'
+    assert_equal e.start_local.to_s, '2015-11-23 10:16:33 UTC'
+    assert_equal e.end_local.to_s, '2015-11-23 10:16:33 UTC'
+  end
+
+  test 'start_local/end_local work with non-UTC' do
+    e = events(:event_with_report)
+    e.save
+    assert_equal e.timezone, 'Sydney'
+    assert_equal e.start.to_s, '2016-12-12 10:00:00 UTC'
+    assert_equal e.end.to_s, '2016-12-12 12:00:00 UTC'
+    assert_equal e.start_local.to_s, '2016-12-12 21:00:00 +1100'
+    assert_equal e.end_local.to_s, '2016-12-12 23:00:00 +1100'
+  end
+
+  test 'start_local/end_local work when timezone is not set' do
+    e = events(:no_timezone)
+    e.save
+    assert_nil e.timezone
+    assert_equal e.start.to_s, '2016-12-12 10:00:00 UTC'
+    assert_equal e.end.to_s, '2016-12-12 12:00:00 UTC'
+    assert_equal e.start_local.to_s, '2016-12-12 10:00:00 UTC'
+    assert_equal e.end_local.to_s, '2016-12-12 12:00:00 UTC'
+  end
+
   test 'lower precedence content provider does not overwrite' do
     e = events(:organisation_event)
 

@@ -189,6 +189,22 @@ online_event_with_no_end:
   postcode: 1010
   organizer: AnOrganizer
 
+no_timezone:
+  external_id: NoTimeZone
+  title: "no time zone"
+  subtitle: MyString
+  url: http://example.com/no-time-zone
+  organizer: MyString
+  description: MyText
+  event_types: ["workshops_and_courses"]
+  start: 2016-12-12 10:00:00
+  end: 2016-12-12 12:00:00
+  sponsors: ["MyString"]
+  language: 'en'
+  user: regular_user
+  content_provider: goblet
+  contact: MyContact
+
 organisation_event:
   title: Fun Training Day
   url: http://content-provider.org/event
