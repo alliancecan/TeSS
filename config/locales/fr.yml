@@ -67,7 +67,7 @@ fr:
         duration: 'Durée'
         keywords: 'Mots-clés'
         timezone: 'Fuseau horaire'
-        venue: 'Venue'
+        venue: 'Lieu'
       source:
         default_language: 'Langue par défaut'
   about:
@@ -607,7 +607,7 @@ fr:
       start: 'Démarrage'
       content_provider: 'Fournisseur de contenu'
       keywords: 'Mots-clés'
-      venue: 'Venue'
+      venue: 'Lieu'
   languages: # Only needed to override default names from I18nData
     el: 'Grec'
   errors:
