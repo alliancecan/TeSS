@@ -1,4 +1,4 @@
-<% cache(['home', 'featured_trainer', @featured_trainer]) do %>
+<% cache(['home', 'featured_trainer', @featured_trainer, I18n.locale]) do %>
   <section id="featured_trainer">
     <div class="tab-content">
       <h2 class="text-center"><%= link_to('Featured trainer', trainers_path, class: 'home-title-link' ) %></h2>

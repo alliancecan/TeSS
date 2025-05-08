@@ -1,4 +1,4 @@
-<% cache(node, expires_in: 6.hours) do %>
+<% cache([node, I18n.locale], expires_in: 6.hours) do %>
   <li class="masonry-brick media-item long">
     <%= link_to node, class: 'link-overlay' do %>
       <%= image_tag get_image_url_for(node), class: "media-image listing_image pull-right" %>

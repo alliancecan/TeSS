@@ -3,7 +3,7 @@
 <% providers = carousel_content_providers %>
 <% return unless providers&.any? %>
 
-<% cache(['home', 'provider-carousel', providers]) do %>
+<% cache(['home', 'provider-carousel', providers, I18n.locale]) do %>
   <section id="providers">
     <h2 class="text-center"><%= link_to(t('home.providers.title'), content_providers_path, class: 'home-title-link' ) %></h2>
     <div class="carousel slide multi-item-carousel" id="providers-carousel">
