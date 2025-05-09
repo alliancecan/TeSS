@@ -3,6 +3,10 @@
 .welcome-text {
   padding: 20px;
   text-align: center;
+  p {
+      max-width: 800px;
+      justify-self: center;
+  }
 }
 
 .searchbox {
