@@ -95,7 +95,7 @@ default: &default
     logo: alliance/Alliance_logo_Symbol.png
     logo_alt: 'Explora'
     logo_open_graph: ''
-    logo_email: ''
+    logo_email: alliance/Alliance_logo_Symbol.png
     # Colours of the SVG icons used throughout TeSS, requires `rake assets:precompile` if changed
     icon_primary_color: '#047EAA' # Blue by default
     icon_secondary_color: '#F47D21' # Orange by default

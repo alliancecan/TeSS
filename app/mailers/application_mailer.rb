@@ -1,4 +1,6 @@
 class ApplicationMailer < ActionMailer::Base
+  helper EmailEmbedImageHelper
+
   default from: TeSS::Config.sender_email
   layout 'mailer'
   before_action :set_headers
