@@ -33,6 +33,7 @@ class Event < ApplicationRecord
       # full text search fields
       text :title
       text :keywords
+      text :description
       text :url
       text :organizer
       text :venue
