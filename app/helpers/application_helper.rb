@@ -94,12 +94,14 @@ module ApplicationHelper
   end
 
   def icon_for(type, size = nil, options = {})
+    # Note: class with sr-only flags content for screen readers
+    message = options[:message] || ICONS[type][:message]
     options[:class] ||= "info-icon#{'-' + size.to_s if size}"
     "<i class=\"fa #{ICONS[type][:icon]} has-tooltip #{options[:class]}\"
     aria-hidden=\"true\"
     data-toggle=\"tooltip\"
     data-placement=\"auto\"
-    title=\"#{options[:message] || ICONS[type][:message]}\">
+    title=\"#{message}\"><span class=\"sr-only\">#{message}</span>
     </i>".html_safe
   end
 
