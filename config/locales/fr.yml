@@ -280,6 +280,7 @@ fr:
       de pointe, en gestion des données de recherche et en logiciels de recherche.
     search_placeholder: >
       Rechercher %{site_name}...
+    search_alt_text: 'Rechercher'
     catalogue:
       title: Parcourir le catalogue
       link_text: Lancer la navigation
@@ -770,3 +771,5 @@ fr:
       daily: 'Quotidien'
       weekly: 'Hebdomadaire'
       monthly: 'Mensuel'
+  next: 'Suivant'
+  previous: 'Précédent'
