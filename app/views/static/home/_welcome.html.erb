@@ -6,13 +6,16 @@
   </div>
 
   <%# Big search box %>
+  <% search_placeholder = t('home.search_placeholder', site_name: TeSS::Config.site['title_short']) %>
   <div class="searchbox">
     <%= form_tag search_path, method: :get, role: 'search' do %>
       <div class="searchbox-wrapper">
-        <input type="text" class="searchbox-field" name="q"
-               placeholder= "<%= t('home.search_placeholder', site_name: TeSS::Config.site['title_short']) %>" autofocus="autofocus">
+        <input type="text" class="searchbox-field" name="q" aria-label="<%= t('home.search_alt_text') %>"
+               placeholder= "<%= search_placeholder %>" autofocus="autofocus">
         <button type="submit" class="searchbox-btn">
-          <i class="icon icon-h3 search-icon"></i>
+          <i class="icon icon-h3 search-icon">
+            <span class="sr-only"><%= t('home.search_alt_text') %></span>
+          </i>
         </button>
       </div>
     <% end %>

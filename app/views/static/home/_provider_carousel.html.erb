@@ -16,15 +16,25 @@
           <div class="item<%= ' active' if active -%>">
             <% provider_pages.next.each do |p| %>
               <div class="col-xs-4">
-                <%= link_to(image_tag(p.image.url, class: 'img-responsive'), p, title: p.title) %>
+                <%= link_to(image_tag(p.image.url,
+                    class: 'img-responsive',
+                    alt: p.title), p, title: p.title) %>
               </div>
             <% end %>
           </div>
           <% active = false %>
         <% end %>
       </div>
-      <a class="left carousel-control" href="#providers-carousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-      <a class="right carousel-control" href="#providers-carousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+      <a class="left carousel-control" href="#providers-carousel" data-slide="prev">
+        <i class="glyphicon glyphicon-chevron-left">
+          <span class="sr-only"><%= t('previous') %></span>
+        </i>
+      </a>
+      <a class="right carousel-control" href="#providers-carousel" data-slide="next">
+        <i class="glyphicon glyphicon-chevron-right">
+          <span class="sr-only"><%= t('next') %></span>
+        </i>
+      </a>
     </div>
 
     <div class="text-center font-size-lg">

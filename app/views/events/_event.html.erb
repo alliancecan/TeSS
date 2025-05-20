@@ -51,7 +51,9 @@
       </div>
       <% if TeSS::Config.site.fetch('show_provider_logo_in_event', false) && event.content_provider&.image&.url.present? %>
         <div>
-          <%= image_tag(event.content_provider.image.url, class: 'small-avatar') %>
+          <%= image_tag(event.content_provider.image.url,
+              class: 'small-avatar',
+              alt: event.content_provider.title) %>
         </div>
       <% end %>
     </div>

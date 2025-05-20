@@ -489,6 +489,7 @@ en:
       and research software.
     search_placeholder: >
       Search %{site_name}...
+    search_alt_text: Search
     catalogue:
       title: Browse the catalogue
       link_text: Start browsing
@@ -1029,3 +1030,5 @@ en:
         check_broken_scrapers: Receive emails with scrapers that have not found anything last period.
       profile:
         language: Languages Spoken
+  next: Next
+  previous: Previous
