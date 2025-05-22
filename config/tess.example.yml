@@ -119,7 +119,7 @@ default: &default
     # The tabs that should be collapsed under the "Directory" tab. Can be left blank to hide it.
     directory_tabs: []
     # The order in with the 'about us' tabs appear
-    about_us_tab_order: ['tess_club', 'contact', 'team', 'funding', 'acknowledgements', 'cite']
+    about_us_tab_order: ['contact', 'team']
     n_provider_ids: 10 # How many on carousel
     calendar_event_maxlength: 5
     content_provider_grid_long: true # true for full width in grid, false for short
