@@ -77,15 +77,12 @@ module Ingestors
 
     def process_data(data)
       data.each do |item|
-        internal_events = item_to_events(item)
-        internal_events.each do |event|
-          add_event(event)
-        end
+        event = item_to_event(item)
+        add_event(event)
       end
     end
 
-    def item_to_events(item)
-      internal_events = []
+    def item_to_event(item)
 
       # Dates and times are encoded as text in the label
       datetimes = item['label']
@@ -95,34 +92,30 @@ module Ingestors
         return []
       end
 
-      # For now we have to inject multiple events for multiday events
-      start_ends.each_with_index do |start_end, i|
-        event = OpenStruct.new
-        event.slug = item['id']
-        event.external_id = "#{item['id']}-#{item['created']}"
-        event.title = item['title']
-        if start_ends.count > 1
-          event.external_id += "-part-#{i+1}-of-#{start_ends.count}"
-          event.slug += "-part-#{i+1}-of-#{start_ends.count}"
-          event.title += " (part #{i+1} of #{start_ends.count})"
-        end
+      # inject single event, be mindful of multiday events
+      event = OpenStruct.new
+      event.slug = item['id']
+      event.external_id = "#{item['id']}-#{item['created']}"
+      event.title = item['title']
 
-        event.url = "#{ACENET_COURSES_BASE_URL}/#{item['id']}"
+      event.description = item['description']
 
-        event.start = start_end.start
-        event.end = start_end.end
-        event.timezone = start_end.timezone
-
-        event.description = item['description']
-
-        # For now, assume all events are online until we encounter an example
-        # of an event where this is not the case (as per discussion with Sarah Clarke)
-        event.online = true
-
-        internal_events << event
+      if start_ends.count > 1
+        event.title += " (#{start_ends.count} parts)"
+        event.description = "#{datetimes}\n\n#{event.description}"
       end
 
-      return internal_events
+      event.url = "#{ACENET_COURSES_BASE_URL}/#{item['id']}"
+
+      event.start = start_ends[0].start
+      event.end = start_ends[0].end
+      event.timezone = start_ends[0].timezone
+
+      # For now, assume all events are online until we encounter an example
+      # of an event where this is not the case (as per discussion with Sarah Clarke)
+      event.online = true
+
+      return event
     end
 
     def datetimes_to_start_ends(datetimes)

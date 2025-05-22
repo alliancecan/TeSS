@@ -22,41 +22,54 @@ class AcenetLearnWorldsIngestorTest < ActiveSupport::TestCase
 
     ingestor = Ingestors::AcenetLearnWorldsIngestor.new
 
+    # March 9, this changes to daylight savings ...
+    AST_OFFSET = "-400"
+    ADT_OFFSET = "-300"
+
     # Check events doesn't already exist
     new_events =
       [{title: "Foundations of Machine Learning",
-        url: "https://www.acenet.training/course/basics-of-machine-learning"},
-       {title: "Introductory Programming with Python (part 1 of 2)",
-        url: "https://www.acenet.training/course/introduction-to-python-programming"},
-       {title: "Introductory Programming with Python (part 2 of 2)",
-        url: "https://www.acenet.training/course/introduction-to-python-programming"},
+        url: "https://www.acenet.training/course/basics-of-machine-learning",
+        start: DateTime.new(2025, 3, 14, 13, 30, 0, ADT_OFFSET),
+        end: DateTime.new(2025, 3, 14, 16, 30, 0, ADT_OFFSET)},
+
+       {title: "Introductory Programming with Python (2 parts)",
+        url: "https://www.acenet.training/course/introduction-to-python-programming",
+        start: DateTime.new(2025, 3, 4, 13, 00, 0, AST_OFFSET),
+        end: DateTime.new(2025, 3, 4, 16, 00, 0, AST_OFFSET),
+        description_include: "March 4, 6, 2025 | 1:00 - 4:00 pm (Atlantic)"},
+
        {title: "Using Spreadsheets for Organizing Data",
-        url: "https://www.acenet.training/course/using-spreadsheets-for-organizing-data"},
-       {title: "Big Data Analysis with Apache Spark (part 1 of 2)",
-        url: "https://www.acenet.training/course/apache-spark"},
-       {title: "Big Data Analysis with Apache Spark (part 2 of 2)",
-        url: "https://www.acenet.training/course/apache-spark"}]
+        url: "https://www.acenet.training/course/using-spreadsheets-for-organizing-data",
+        start: DateTime.new(2025, 2, 26, 13, 00, 0, AST_OFFSET),
+        end: DateTime.new(2025, 2, 26, 16, 00, 0, AST_OFFSET)},
+
+       {title: "Big Data Analysis with Apache Spark (2 parts)",
+        start: DateTime.new(2025, 3, 11, 13, 00, 0, ADT_OFFSET),
+        end: DateTime.new(2025, 3, 11, 16, 00, 0, ADT_OFFSET),
+        url: "https://www.acenet.training/course/apache-spark",
+        description_include: "March 11, 13, 2025 | 1:00 - 4:00 pm (Atlantic)"}]
 
     new_events.each do |new_event|
       refute Event.where(title: new_event[:title], url: new_event[:url]).any?
     end
 
     # run task
-    assert_difference 'Event.count', 6 do
+    assert_difference 'Event.count', 4 do
       freeze_time(2025) do
         # Note: VCR does strange things with multiple same query parameters (e.g., access)
         VCR.use_cassette("ingestors/acenet_learn_worlds") do
           ingestor.token = source.token
           ingestor.read(source.url)
-          #binding.pry
+
           ingestor.write(@user, @content_provider)
         end
       end
     end
 
-    assert_equal 6, ingestor.events.count
+    assert_equal 4, ingestor.events.count
     assert ingestor.materials.empty?
-    assert_equal 6, ingestor.stats[:events][:added]
+    assert_equal 4, ingestor.stats[:events][:added]
     assert_equal 0, ingestor.stats[:events][:updated]
     assert_equal 0, ingestor.stats[:events][:rejected]
 
@@ -67,6 +80,13 @@ class AcenetLearnWorldsIngestorTest < ActiveSupport::TestCase
 
       # For now, all events should be online
       assert_equal event.online?, true
+      # Multi-day events have the full dates in the description
+      if new_event.key?(:description_include)
+        refute_empty new_event[:description_include]
+        assert_match new_event[:description_include], event.description
+      end
+      assert_equal event.start, new_event[:start]
+      assert_equal event.end, new_event[:end]
     end
     # TODO: More checks to come ...
   end
