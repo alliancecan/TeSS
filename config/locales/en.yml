@@ -214,25 +214,16 @@ en:
       For enquiries, information, or assistance; contact us at <br>
       <a href="mailto:explora@alliancecan.ca">explora@alliancecan.ca</a>
     team: >
-      <h5>Leadership</h5>
-      <ul><li>Carole Goble</li><li>Hedi Peterson</li><li>Alexia Cardona</li></ul>
-      <h5>Project Management</h5>
-      <ul><li>Munazah Andrabi</li><li>Phil Reed</li></ul>
-      <h5>Software Engineering</h5>
-      <ul><li>Finn Bacall</li><li>Ivan Kuzmin</li></ul>
-      <h5>Community Engagement</h5>
-      <ul><li>Alexander Botzki</li><li>Olivier Sand</li></ul>
-      <h5>Past Members</h5>
-      <ul>
-        <li>Aleksandra Nenadic - Project Management/Software Engineering</li>
-        <li>Aleksandra Pawlik - Project Management</li>
-        <li>Teresa K. Attwood - Leadership</li>
-        <li>Susanna-Assunta Sansone - Leadership</li>
-        <li>Niall Beard - Project Management/Software Engineering</li>
-        <li>Milo Thurston - Software Engineering</li>
-        <li>Chris Child - Project Management/Software Engineering</li>
-        <li>Aitor Apaolaza - Software Engineering</li>
-      </ul>
+      <ul><li>Jennifer Abel, University of Calgary</li>
+      <li>Servilio Afre Puentes, SHARCNET</li>
+      <li>Ann Allan, Compute Ontario</li>
+      <li>Caroline Baril, Calcul Quebec</li>
+      <li>Catherine Di Vita, Digital Research Alliance of Canada</li>
+      <li>Andrew Keyser, Digital Research Alliance of Canada</li>
+      <li>Meghan Landry, ACENET</li>
+      <li>Joan Ngure, Digital Research Alliance of Canada</li>
+      <li>Ramses van Zon, SciNet</li>
+      <li>Chris Want, University of Alberta</li></ul>
     funding: >
       TeSS has been funded by:
       <ul>
