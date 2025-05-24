@@ -214,16 +214,29 @@ en:
       For enquiries, information, or assistance; contact us at <br>
       <a href="mailto:explora@alliancecan.ca">explora@alliancecan.ca</a>
     team: >
-      <ul><li>Jennifer Abel, University of Calgary</li>
-      <li>Servilio Afre Puentes, SHARCNET</li>
-      <li>Ann Allan, Compute Ontario</li>
-      <li>Caroline Baril, Calcul Quebec</li>
-      <li>Catherine Di Vita, Digital Research Alliance of Canada</li>
-      <li>Andrew Keyser, Digital Research Alliance of Canada</li>
-      <li>Meghan Landry, ACENET</li>
-      <li>Joan Ngure, Digital Research Alliance of Canada</li>
-      <li>Ramses van Zon, SciNet, University of Toronto</li>
-      <li>Chris Want, University of Alberta</li></ul>
+      <p>Explora is a national initiative led by the
+        <a href="https://www.alliancecan.ca/">Digital Research Alliance of Canada</a>,
+        developed under the guidance of the National Training Coordination Council (NTCC). The platform is built and maintained by a dedicated working group of the NTCC, reflecting the collaborative spirit and shared priorities of Canada’s digital research training community. The initiative was originally envisioned by Chris Want (University of Alberta), whose foundational work helped shape the direction of the portal. Since then, the project has been undertaken and expanded by the NTCC to support a unified, national approach to discovering training events.</p>
+      <p>The Explora Working Group includes members from institutions and organizations across the country, each bringing valuable insight and experience to the project.</p>
+      <p>Working Group Members (alphabetically):
+        <ul>
+          <li>Jennifer Abel, University of Calgary</li>
+          <li>Servilio Afre Puentes, SHARCNET</li>
+          <li>Ann Allan, Compute Ontario</li>
+          <li>Caroline Baril, Calcul Quebec</li>
+          <li>Catherine Di Vita, Digital Research Alliance of Canada</li>
+          <li>Andrew Keyser, Digital Research Alliance of Canada</li>
+          <li>Meghan Landry, ACENET</li>
+          <li>Joan Ngure, Digital Research Alliance of Canada</li>
+          <li>Ramses van Zon, SciNet, University of Toronto</li>
+          <li>Chris Want, University of Alberta</li>
+        </ul>
+      </p>
+      <p>Explora is powered by the
+        <a href="https://github.com/ElixirTeSS/TeSS">TeSS platform</a>,
+        which was developed and is actively maintained by the team at
+        <a href="https://elixir-europe.org/">ELIXIR</a>
+        — Europe’s distributed infrastructure for life science data. We acknowledge the expertise and ongoing efforts of the ELIXIR team, whose work has made it possible to adapt this open-source platform to serve the needs of Canada’s DRI training community.</p>
     funding: >
       TeSS has been funded by:
       <ul>

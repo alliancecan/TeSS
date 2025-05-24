@@ -179,16 +179,27 @@ fr:
     contact: >
       Pour toute demande de renseignements, d'informations ou d'assistance, contactez-nous à l'adresse <br><a href="mailto:explora@alliancecan.ca">explora@alliancecan.ca</a>
     team: >
-      <ul><li>Jennifer Abel, University of Calgary</li>
-      <li>Servilio Afre Puentes, SHARCNET</li>
-      <li>Ann Allan, Compute Ontario</li>
-      <li>Caroline Baril, Calcul Quebec</li>
-      <li>Catherine Di Vita, Digital Research Alliance of Canada</li>
-      <li>Andrew Keyser, Digital Research Alliance of Canada</li>
-      <li>Meghan Landry, ACENET</li>
-      <li>Joan Ngure, Digital Research Alliance of Canada</li>
-      <li>Ramses van Zon, SciNet, University of Toronto</li>
-      <li>Chris Want, University of Alberta</li></ul>
+      <p>Explora est une initiative nationale dirigée par
+        <a href="https://www.alliancecan.ca/">l’Alliance de recherche numérique du Canada</a>,
+        et sous la supervision du Conseil national de coordination de la formation (CNFC). L’équipe dédiée du CNFC, qui incarne l’esprit de collaboration et les priorités partagées de la communauté de la recherche numérique canadienne, est responsable du développement et de l’entretien de la plateforme. À l’origine, c’est Chris Want, de l’Université de l’Alberta, qui a eu l’idée d’un tel outil. Ses recherches précurseurs ont servi de base pour élaborer ce portail. Par la suite, le CNFC s’est approprié le projet, le faisant évoluer et favorisant ainsi une approche harmonisée et nationale de la diffusion des informations sur les formations.</p>
+      <p>Le groupe de travail « Explora » comprend des personnes issues de différentes organisations et institutions du pays, ce qui lui permet de profiter d’une grande variété de perspectives et d’expériences.</p>
+      <p>Membres du groupe de travail (par ordre alphabétique) :
+        <ul>
+          <li>Jennifer Abel, Université de Calgary</li>
+          <li>Servilio Afre Puentes, SHARCNET</li>
+          <li>Ann Allan, Calcul Ontario</li>
+          <li>Caroline Baril, Calcul Québec</li>
+          <li>Catherine Di Vita, Alliance de recherche numérique du Canada</li>
+          <li>Andrew Keyser, Alliance pour la recherche numérique au Canada</li>
+          <li>Meghan Landry, ACENET</li>
+          <li>Joan Ngure, Alliance de recherche numérique du Canada</li>
+          <li>Ramses van Zon, SciNet, Université de Toronto</li.
+          <li>Chris Want, Université de l’Alberta</li>
+        </ul>
+      </p>
+      <p>Explora fonctionne grâce à la plateforme
+        <a href="https://github.com/ElixirTeSS/TeSS">TeSS</a>, créée et constamment mise à jour par l’équipe
+        <a href="https://elixir-europe.org/">d’ÉLIXIR</a>, l’infrastructure européenne décentralisée de données biomédicales. Nous reconnaissons l’expertise et les efforts continus de l’équipe d’ELIXIR, dont le travail a permis d’adapter cette plateforme à code source ouvert pour répondre aux besoins de la communauté de formation en infrastructure de recherche numérique du Canada.</p>
     funding: >
       TeSS a été financée par: <ul> <li>European Commission, Horizon 2020 Research Infrastructures programme (ELIXIR-EXCELERATE, <a href="https://cordis.europa.eu/project/rcn/198519_en.html" target="_blank">grant agreement number 676559</a>);</li> <li>ELIXIR Implementation Study (Registry Integration from a User Perspective);</li> <li>ELIXIR Implementation Study (Learning Paths).</li> <li>BBSRC UK (Delivering ELIXIR-UK grant, grant agreement numbers
         <a href="https://bbsrc.ukri.org/research/grants/grants/AwardDetails.aspx?FundingReference=BB/L005050/1"
