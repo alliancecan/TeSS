@@ -230,6 +230,12 @@ fr:
       trainers: 'S''inscrire comme formateur'
       collections: 'Créer une collection'
     registering_resources_in: "Enregistrement des ressources dans %{site_name}"
+    description_html: >
+      <p>%{site_name} est présentement en phase d’évaluation. Par conséquent, elle ne peut accepter aucune soumission de matériel éducatif par le biais d’une inscription automatique ou manuelle. L’équipe d’%{site_name} travaille en étroite collaboration avec les fournisseurs de formation pour offrir aux chercheuses et chercheurs une expérience de découverte d’offres d’apprentissage uniforme et de haute qualité.</p>
+      <p>Si votre organisation offre une formation pertinente sur l’infrastructure de recherche numérique (IRN) canadienne, par exemple en calcul informatique de pointe, en gestion des données de recherche ou en logiciels de recherche, et que vous souhaitez qu’elle soit diffusée via %{site_name}, n’hésitez pas à communiquer avec nous. Notre équipe collaborera avec vous pour analyser et intégrer vos offres sur la plateforme.</p>
+      <p>Pour manifester votre intérêt ou pour obtenir plus d’information, vous pouvez communiquer avec nous par courriel à l’adresse suivante :
+        <a href="mailto:%{contact_email}">%{contact_email}</a>.
+      </p>
     resources: >
       <p>Les ressources de formation (événements et matériel) peuvent être ajoutées à TeSS pour rejoindre un public plus large, augmenter l'impact et renforcer la participation à l'événement. L'enregistrement d'événements et de matériel de formation les rend plus faciles à trouver de diverses manières par les utilisateurs.</p>
     methods: >

@@ -277,6 +277,12 @@ en:
       trainers: 'Register as trainer'
       collections: 'Create collection'
     registering_resources_in: "Registering Resources in %{site_name}"
+    description_html: >
+      <p>%{site_name} is currently in a curated phase and is not yet accepting direct submissions of training content through automated or manual registration. Instead, the %{site_name} team is working closely with training providers to ensure a consistent, high-quality discovery experience for researchers.</p>
+      <p>If your organization offers training relevant to Canada’s digital research infrastructure (DRI)—including areas such as advanced research computing (ARC), research data management (RDM), or research software (RS)—and you are interested in having it included on %{site_name}, we invite you to contact us directly. Our team will work with you to review and add your offerings to the platform.</p>
+      <p>To express interest or learn more, please reach out at
+        <a href="mailto:%{contact_email}">%{contact_email}</a>.
+      </p>
     resources: >
       <p>Training resources (events and materials) may be added to TeSS to reach bigger audiences, increase impact and
       bolster event attendance. Registering events and training materials makes them more findable in a variety ways
