@@ -24,6 +24,25 @@ module Ingestors
 
     private
 
+    def handle_location_and_times(event, url, attr)
+      # Pulling out the NL specific stuff so it can be subclassed
+      event.set_default_times
+      event.venue = attr.fetch('location', '')
+      if url.starts_with? 'https://vu-nl.libcal.com'
+        event.city = 'Amsterdam'
+        event.country = 'The Netherlands'
+        event.source = 'VU Amsterdam'
+      elsif url.starts_with? 'https://eur-nl.libcal.com'
+        event.city = 'Rotterdam'
+        event.country = 'The Netherlands'
+        event.source = 'EUR'
+      end
+
+      event.timezone = 'Amsterdam'
+      event.start = attr.fetch('startdt', '')
+      event.end = attr.fetch('enddt', '')
+    end
+
     def process_libcal(url)
       # execute REST request
       results = get_json_response url
@@ -41,22 +60,10 @@ module Ingestors
           event.url = attr.fetch('url', '')&.strip
           event.organizer = attr.fetch('org', '')
           event.description = convert_description attr.fetch('description', '')
-          event.start = attr.fetch('startdt', '')
-          event.end = attr.fetch('enddt', '')
-          event.set_default_times
-          event.venue = attr.fetch('location', '')
-          if url.starts_with? 'https://vu-nl.libcal.com'
-            event.city = 'Amsterdam'
-            event.country = 'The Netherlands'
-            event.source = 'VU Amsterdam'
-          elsif url.starts_with? 'https://eur-nl.libcal.com'
-            event.city = 'Rotterdam'
-            event.country = 'The Netherlands'
-            event.source = 'EUR'
-          end
           event.online = attr.fetch('online_event', '')
           event.contact = attr.fetch('orgurl', '')
-          event.timezone = 'Amsterdam'
+
+          handle_location_and_times(event, url, attr)
 
           # array fields
           event.keywords = []
@@ -69,7 +76,7 @@ module Ingestors
           end
 
           event.target_audience = []
-          attr.fetch('audiences', [])&.each { |audience| event.keywords << audience['name'] }
+          attr.fetch('audiences', [])&.each { |audience| event.target_audience << audience['name'] }
 
           event.host_institutions = []
           attr.fetch('host-institutions', [])&.each { |host| event.host_institutions << host }

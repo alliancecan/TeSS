@@ -267,6 +267,7 @@ class ActiveSupport::TestCase
      { url: 'https://www.eventbriteapi.com/v3/formats/', filename: 'eventbrite/formats.json' },
 
      { url: 'https://www.drac-ical.ca/stuff/drac-ical1.ics', filename: 'drac-ical/drac-ical1.ics' },
+     { url: 'https://www.libcal-bc.ca/ajax/calendar/list?c=7544&date=0000-00-00&cats=33865', filename: 'libcal_bc/libcal_bc.json' },
 
      { url: 'https://dummy.com', status: 404 },
      { url: 'https://dummy.com/events.csv', status: 404 },

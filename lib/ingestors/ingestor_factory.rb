@@ -16,7 +16,8 @@ module Ingestors
     def self.drac_ingestors
       [
         Ingestors::DracIcalIngestor,
-        Ingestors::AcenetLearnWorldsIngestor
+        Ingestors::AcenetLearnWorldsIngestor,
+        Ingestors::LibcalBcIngestor,
       ]
     end
 
