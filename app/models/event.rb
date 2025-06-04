@@ -236,12 +236,13 @@ class Event < ApplicationRecord
   def to_ical_event
     Icalendar::Event.new.tap do |ical_event|
       if start && self.end
+        tz = timezone || 'UTC'
         if all_day?
-          ical_event.dtstart = Icalendar::Values::Date.new(start, tzid: 'UTC') unless start.blank?
-          ical_event.dtend = Icalendar::Values::Date.new(self.end.tomorrow, tzid: 'UTC') unless self.end.blank?
+          ical_event.dtstart = Icalendar::Values::Date.new(start, tzid: tz) unless start.blank?
+          ical_event.dtend = Icalendar::Values::Date.new(self.end.tomorrow, tzid: tz) unless self.end.blank?
         else
-          ical_event.dtstart = Icalendar::Values::DateTime.new(start_utc, tzid: 'UTC') unless start.blank?
-          ical_event.dtend = Icalendar::Values::DateTime.new(end_utc, tzid: 'UTC') unless self.end.blank?
+          ical_event.dtstart = Icalendar::Values::DateTime.new(start_utc, tzid: tz) unless start.blank?
+          ical_event.dtend = Icalendar::Values::DateTime.new(end_utc, tzid: tz) unless self.end.blank?
         end
 
       end
