@@ -26,8 +26,13 @@ class UvaIngestorTest < ActiveSupport::TestCase
     new_url = 'https://uba.uva.nl/en/shared/subsites/data-science-centre/en/events/2023/03/the-societal-impact-of-ai-and-data-science.html?origin=ht%2ByU3HqRAGnIsBBlkOh%2Fw'
     refute Event.where(title: new_title, url: new_url).any?
 
+    # CW: Due to change in dictionary#best_match, this now only allows 8 events instead of 9
+    # Because of the very long  keyword "Research Institute Child Development and Education"
+    # Event#fix_keywords would convert this to an target_audience of "researcher".
+    # (Which is dumb and random, better to reject.)
+
     # run task
-    assert_difference 'Event.count', 9 do
+    assert_difference 'Event.count', 8 do
       freeze_time(2016) do
         VCR.use_cassette("ingestors/uva") do
           ingestor.read(source.url)
@@ -38,20 +43,21 @@ class UvaIngestorTest < ActiveSupport::TestCase
 
     assert_equal 9, ingestor.events.count
     assert ingestor.materials.empty?
-    assert_equal 9, ingestor.stats[:events][:added]
+    assert_equal 8, ingestor.stats[:events][:added]
     assert_equal 0, ingestor.stats[:events][:updated]
-    assert_equal 0, ingestor.stats[:events][:rejected]
+    assert_equal 1, ingestor.stats[:events][:rejected]
 
-    # check event does exist
+    # check event does not exist
     event = Event.where(title: new_title, url: new_url).first
-    assert event
-    assert_equal new_title, event.title
-    assert_equal new_url, event.url
+    assert_nil event
+
+    #assert_equal new_title, event.title
+    #assert_equal new_url, event.url
 
     # check other fields
-    assert_equal 'UvA', event.source
-    assert_equal 'Amsterdam', event.timezone
-    assert_equal Time.zone.parse('Mon, 24 Mar 2023 10:00:00.000000000 UTC +00:00'), event.start
-    assert_equal Time.zone.parse('Mon, 24 Mar 2023 12:30:00.000000000 UTC +00:00'), event.end
+    #assert_equal 'UvA', event.source
+    #assert_equal 'Amsterdam', event.timezone
+    #assert_equal Time.zone.parse('Mon, 24 Mar 2023 10:00:00.000000000 UTC +00:00'), event.start
+    #assert_equal Time.zone.parse('Mon, 24 Mar 2023 12:30:00.000000000 UTC +00:00'), event.end
   end
 end

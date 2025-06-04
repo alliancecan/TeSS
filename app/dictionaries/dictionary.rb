@@ -31,7 +31,16 @@ class Dictionary
         end
       end
     end
-    return best_key if best_score > 0.3
+    # TODO: dive deeper into this because this is horrible and error-prone.
+    # Elixir has this set to 0.3, bumping it higher breaks a lot of tests.
+    # The issue here is that a keyword of "Research Commons" matches the
+    # TargetAudience dictionary key "researcher".
+    # in Event#fix_keywords, this keyword gets shifted to the target_audience
+    # (which is dumb, random, and error-prone).
+    # Ultimately, fix_keywords needs some better logic (or this function does).
+    if best_score > 0.3
+      return best_key unless (best_key == "researcher" && id !~ /researcher/i)
+    end
   end
 
   # Returns an array: [id, values]
