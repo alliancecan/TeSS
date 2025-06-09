@@ -4,6 +4,7 @@ module Ingestors
       [
         Ingestors::BioschemasIngestor,
         Ingestors::EventbriteIngestor,
+        Ingestors::EventbriteQuasiScraperIngestor,
         Ingestors::EventCsvIngestor,
         Ingestors::IcalIngestor,
         Ingestors::LibcalIngestor,

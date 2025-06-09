@@ -3,6 +3,18 @@ require 'csv'
 
 module Ingestors
   class EventbriteIngestor < Ingestor
+    API_BASE = 'https://www.eventbriteapi.com/v3'
+    ORGANIZER_ENDPOINT = "#{API_BASE}/organizers/%<id>s/"
+    FORMATS_ENDPOINT = "#{API_BASE}/formats/"
+    VENUE_ENDPOINT = "#{API_BASE}/venues/%<id>s/"
+    CATEGORIES_ENDPOINT = "#{API_BASE}/categories/"
+    CATEGORIES_PAGE_ENDPOINT = "#{API_BASE}/categories/?page=%<page>d"
+
+    EVENTS_ENDPOINT = '%<url>s/events/?status=live'
+    EVENTS_PAGE_ENDPOINT = '%<url>s/events/?page=%<page>d'
+
+    attr_reader :url
+
     def self.config
       {
         key: 'eventbrite',
@@ -17,9 +29,10 @@ module Ingestors
     end
 
     def read(url)
+      @url = url
       begin
         # process url
-        process_eventbrite(url)
+        process_eventbrite
       rescue Exception => e
         @messages << "#{self.class.name} failed with: #{e.message}"
       end
@@ -30,14 +43,14 @@ module Ingestors
 
     private
 
-    def process_eventbrite(url)
-      records_read = 0
-      records_inactive = 0
-      records_expired = 0
+    def process_eventbrite
+      @records_read = 0
+      @records_inactive = 0
+      @records_expired = 0
 
       begin
         # initialise next_page
-        next_page = "#{url}/events/?status=live"
+        next_page = format(EVENTS_ENDPOINT, url: url)
 
         while next_page
           # execute REST request
@@ -49,7 +62,7 @@ module Ingestors
           begin
             if !(pagination.nil? or pagination['has_more_items'].nil? or pagination['page_number'].nil?) && (pagination['has_more_items'])
               page = pagination['page_number'].to_i
-              next_page = "#{url}/events/?page=#{page + 1}"
+              next_page = format(EVENTS_PAGE_ENDPOINT, url: url, page: page + 1)
             end
           rescue Exception => e
             puts "format next_page failed with: #{e.message}"
@@ -60,85 +73,10 @@ module Ingestors
           next if events.nil? or events.empty?
 
           events.each do |item|
-            records_read += 1
-            if item['status'].nil? or item['status'] != 'live'
-              records_inactive += 1
-            else
-              # create new event
-              event = OpenStruct.new
+            event = process_event(item)
 
-              # check for expired
-              event.timezone = item['start']['timezone']
-              event.start = item['start']['local']
-              event.end = item['end']['local']
-              if event.expired?
-                records_expired += 1
-              else
-                # set required attributes
-                event.title = item['name']['text'] unless item['name'].nil?
-                event.url = item['url']
-                event.description = convert_description item['description']['html'] unless item['description'].nil?
-                event.online = if item['online_event'].nil? or item['online_event'] == false
-                                 false
-                               else
-                                 true
-                               end
-
-                # organizer
-                organizer = get_eventbrite_organizer item['organizer_id']
-                event.organizer = organizer['name'] unless organizer.nil?
-
-                # address fields
-                venue = get_eventbrite_venue item['venue_id']
-                unless venue.nil? or venue['address'].nil?
-                  address = venue['address']
-                  venue = address['address_1']
-                  venue += (', ' + address['address_2']) unless address['address_2'].blank?
-                  event.venue = venue
-                  event.city = address['city']
-                  event.country = address['country']
-                  event.postcode = address['postal_code']
-                  event.latitude = address['latitude']
-                  event.longitude = address['longitude']
-                end
-
-                # set optional attributes
-                event.keywords = []
-                category = get_eventbrite_category item['category_id']
-                subcategory = get_eventbrite_subcategory(
-                  item['subcategory_id'], item['category_id']
-                )
-                event.keywords << category['name'] unless category.nil?
-                event.keywords << subcategory['name'] unless subcategory.nil?
-
-                event.capacity = item['capacity'].to_i unless item['capacity'].nil? or item['capacity'] == 'null'
-
-                event.event_types = []
-                format = get_eventbrite_format item['format_id']
-                unless format.nil?
-                  type = convert_event_types format['short_name']
-                  event.event_types << type unless type.nil?
-                end
-
-                event.eligibility = if item['invite_only'].nil? or !item['invite_only']
-                                      'open_to_all'
-                                    else
-                                      'by_invitation'
-                                    end
-
-                if item['is_free'].nil? or !item['is_free']
-                  event.cost_basis = 'charge'
-                  event.cost_currency = item['currency']
-                else
-                  event.cost_basis = 'free'
-                end
-
-                # add event to events array
-                add_event(event)
-              end
-            end
-          rescue Exception => e
-            @messages << "Extract event fields failed with: #{e.message}"
+            # add event to events array
+            add_event(event) if event
           end
         end
       rescue Exception => e
@@ -146,8 +84,100 @@ module Ingestors
       end
 
       # finished
-      @messages << "Eventbrite events ingestor: records read[#{records_read}] inactive[#{records_inactive}] expired[#{records_expired}]"
+      @messages << "Eventbrite events ingestor: records read[#{@records_read}] "\
+                   "inactive[#{@records_inactive}] expired[#{@records_expired}]"
       nil
+    end
+
+    def process_event(item)
+      @records_read += 1
+
+      if item['status'].nil? or item['status'] != 'live'
+        @records_inactive += 1
+        return
+      end
+
+      event = OpenStruct.new
+
+      # check for expired
+      get_event_times_from_item(event, item)
+      if event.expired?
+        @records_expired += 1
+        return
+      end
+
+      # set required attributes
+      event.title = item['name']['text'] unless item['name'].nil?
+      event.url = item['url']
+      event.description = convert_description item['description']['html'] unless item['description'].nil?
+      event.online = if item['online_event'].nil? or item['online_event'] == false
+                       false
+                     else
+                       true
+                     end
+
+      # organizer
+      organizer = get_eventbrite_organizer item['organizer_id']
+      event.organizer = organizer['name'] unless organizer.nil?
+
+      event.external_id = item['id']
+
+      # address fields
+      venue = get_eventbrite_venue item['venue_id']
+      unless venue.nil? or venue['address'].nil?
+        address = venue['address']
+        venue = address['address_1']
+        venue += (', ' + address['address_2']) unless address['address_2'].blank?
+        event.venue = venue
+        event.city = address['city']
+        event.country = address['country']
+        event.postcode = address['postal_code']
+        event.latitude = address['latitude']
+        event.longitude = address['longitude']
+      end
+
+      # set optional attributes
+      event.keywords = []
+      category = get_eventbrite_category item['category_id']
+      subcategory = get_eventbrite_subcategory(item['subcategory_id'], item['category_id'])
+      event.keywords << category['name'] unless category.nil?
+      event.keywords << subcategory['name'] unless subcategory.nil?
+
+      event.capacity = item['capacity'].to_i unless item['capacity'].nil? or item['capacity'] == 'null'
+
+      event.event_types = []
+      format = get_eventbrite_format item['format_id']
+      unless format.nil?
+        type = convert_event_types format['short_name']
+        event.event_types << type unless type.nil?
+      end
+
+      event.eligibility = if item['invite_only'].nil? or !item['invite_only']
+                            'open_to_all'
+                          else
+                            'by_invitation'
+                          end
+
+      if item['is_free'].nil? or !item['is_free']
+        event.cost_basis = 'charge'
+        event.cost_currency = item['currency']
+      else
+        event.cost_basis = 'free'
+      end
+
+      return event
+    rescue Exception => e
+      @messages << "Extract event fields failed with: #{e.message}"
+    end
+
+    def get_event_times_from_item(event, item)
+      event.timezone = item['start']['timezone']
+      event.start = item['start']['local']
+      event.end = item['end']['local']
+    end
+
+    def normalize_timezone(input)
+      return input
     end
 
     def get_eventbrite_format(id)
@@ -163,8 +193,7 @@ module Ingestors
 
     def populate_eventbrite_formats
       # get formats from Eventbrite
-      url = "https://www.eventbriteapi.com/v3/formats/"
-      response = get_json_response url
+      response = get_json_response(FORMATS_ENDPOINT)
       # process formats
       response['formats'].each do |format|
         # add each item to the cache
@@ -190,7 +219,7 @@ module Ingestors
 
     def add_eventbrite_venue(id)
       # get from query and add to cache if found
-      url = "https://www.eventbriteapi.com/v3/venues/#{id}/"
+      url = format(VENUE_ENDPOINT, id: id)
       venue = get_json_response url
       @eventbrite_objects[:venues][id] = venue unless venue.nil?
     rescue Exception => e
@@ -214,8 +243,7 @@ module Ingestors
     def populate_eventbrite_categories
       # initialise pagination
       has_more_items = true
-      url = "https://www.eventbriteapi.com/v3/categories/"
-
+      url = CATEGORIES_ENDPOINT
       # query until no more pages
       while has_more_items
         # infinite loop guard
@@ -238,7 +266,7 @@ module Ingestors
 
         has_more_items = pagination['has_more_items']
         page_number = pagination['page_number'] + 1
-        url = "https://www.eventbriteapi.com/v3/categories/?page=#{page_number}"
+        url = format(CATEGORIES_PAGE_ENDPOINT, page: page_number)
       end
     rescue Exception => e
       @messages << "get Eventbrite format failed with: #{e.message}"
@@ -297,7 +325,7 @@ module Ingestors
 
     def populate_eventbrite_organizer(id)
       # get from query and add to cache if found
-      url = "https://www.eventbriteapi.com/v3/organizers/#{id}/"
+      url = format(ORGANIZER_ENDPOINT, id: id)
       organizer = get_json_response url
       # add to cache
       @eventbrite_objects[:organizers][id] = organizer unless organizer.nil?

@@ -163,7 +163,7 @@ default: &default
     collection_curation: true
     developer_tools: false
   restrict_content_provider_selection: false
-  user_ingestion_methods: ['bioschemas', 'ical', 'drac_ical', 'acenet_learn_worlds', 'libcal_bc_event', 'libcal_ab_event', 'libcal_on_event']
+  user_ingestion_methods: ['bioschemas', 'ical', 'drac_ical', 'acenet_learn_worlds', 'libcal_bc_event', 'libcal_ab_event', 'libcal_on_event', 'eventbrite_quasi_scraper']
   placeholder:
     collection: 'placeholder-collection.svg'
     content_provider: 'placeholder-organization.svg'
