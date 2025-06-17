@@ -752,6 +752,8 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'calendar export should be set to utc dates' do
+    # TODO: Add some additional tests that touch the timezone cases in `to_ical_event`
+
     # get the event
     local = events(:calendar_event)
 
