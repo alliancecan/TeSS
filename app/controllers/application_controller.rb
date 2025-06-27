@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :locale_from_params_or_session
+  before_action :timezone_from_params_or_session
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -155,6 +156,17 @@ class ApplicationController < ActionController::Base
                     Rails.application.config.i18n.default_locale
                   end
     session['locale'] = I18n.locale.to_s
+  end
+
+  def timezone_from_params_or_session
+    # TODO? have a list of acceptable time zones, maybe via config?
+    tz = params[:tz] || session['tz']
+
+    session['tz'] = if (tz.blank? || tz == 'reset')
+                      nil
+                    elsif ActiveSupport::TimeZone[tz].present?
+                      tz
+                    end
   end
 
 end
