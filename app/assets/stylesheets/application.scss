@@ -1022,3 +1022,13 @@ span.translation_missing {
 span.translation_present {
   background-color: #ccffcc;
 }
+
+#timezone-controls {
+  overflow: auto;
+  // font-size: 0.7em;
+  label { font-weight: inherit; }
+  fieldset legend { font-size: inherit; }
+  #timezone-display .unselected { display: none; }
+  .center-block { width: 80%; }
+  .close-timezone-controls { float: right; }
+}
