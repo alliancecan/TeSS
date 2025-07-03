@@ -2,14 +2,14 @@ require 'open-uri'
 require 'csv'
 
 module Ingestors
-  class LibcalBcIngestor < LibcalIngestor
-    TIMEZONE = 'Pacific Time (US & Canada)'
+  class LibcalAbIngestor < LibcalIngestor
+    TIMEZONE = 'Mountain Time (US & Canada)'
     CONVERT_TIMES_TO_UTC = true
 
     def self.config
       {
-        key: 'libcal_bc_event',
-        title: 'Libcal Events API (BC)',
+        key: 'libcal_ab_event',
+        title: 'Libcal Events API (AB)',
         category: :events
       }
     end

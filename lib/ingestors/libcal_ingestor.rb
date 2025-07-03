@@ -3,6 +3,9 @@ require 'csv'
 
 module Ingestors
   class LibcalIngestor < Ingestor
+    TIMEZONE = 'Amsterdam'
+    CONVERT_TIMES_TO_UTC = false
+
     def self.config
       {
         key: 'libcal_event',
@@ -28,19 +31,34 @@ module Ingestors
       # Pulling out the NL specific stuff so it can be subclassed
       event.set_default_times
       event.venue = attr.fetch('location', '')
-      if url.starts_with? 'https://vu-nl.libcal.com'
-        event.city = 'Amsterdam'
-        event.country = 'The Netherlands'
-        event.source = 'VU Amsterdam'
-      elsif url.starts_with? 'https://eur-nl.libcal.com'
-        event.city = 'Rotterdam'
-        event.country = 'The Netherlands'
-        event.source = 'EUR'
-      end
 
-      event.timezone = 'Amsterdam'
+      event.timezone = self.class::TIMEZONE
       event.start = attr.fetch('startdt', '')
       event.end = attr.fetch('enddt', '')
+
+      # No timezone present in output, so we assume the times are local
+      if self.class::CONVERT_TIMES_TO_UTC
+        if event.start.present?
+          event.start = Time.zone.parse(event.start)&.change(zone: event.timezone)
+        end
+        if event.end.present?
+          event.end = Time.zone.parse(event.end)&.change(zone: event.timezone)
+        end
+      end
+
+      if self.class::TIMEZONE == 'Amsterdam'
+        # Do some legacy upstream stuff to make the test suite happy
+        event.venue = attr.fetch('location', '')
+        if url.starts_with? 'https://vu-nl.libcal.com'
+           event.city = 'Amsterdam'
+           event.country = 'The Netherlands'
+           event.source = 'VU Amsterdam'
+        elsif url.starts_with? 'https://eur-nl.libcal.com'
+          event.city = 'Rotterdam'
+          event.country = 'The Netherlands'
+          event.source = 'EUR'
+        end
+      end
     end
 
     def process_libcal(url)
