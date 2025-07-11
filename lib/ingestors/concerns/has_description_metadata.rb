@@ -21,7 +21,10 @@ module Ingestors::Concerns::HasDescriptionMetadata
 
     # Could be HTML?
     # TODO: is there something more elegant?
-    text_description = Nokogiri::HTML(description.to_s.gsub('<br>', "\n")).text
+    text_description = Nokogiri::HTML(description.to_s.
+                                        gsub('<p><br></p>', "\n\n").
+                                        gsub('<p></p>', "\n").
+                                        gsub('<br>', "\n")).text
 
     key_values = parse_description_metadata(text_description)
 
