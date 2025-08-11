@@ -19,6 +19,7 @@ module Ingestors
         Ingestors::DracIcalIngestor,
         Ingestors::LibcalAbIngestor,
         Ingestors::LibcalBcIngestor,
+        Ingestors::LibcalOnIngestor,
       ]
     end
 
