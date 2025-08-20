@@ -330,6 +330,12 @@ class ContentProvidersControllerTest < ActionController::TestCase
     assert_select 'a.btn[href=?]', content_provider_path(@content_provider), count: 0 # No Edit
   end
 
+  test 'do not show "Register Event" button when not owner or admin' do
+    sign_in users(:another_regular_user)
+    get :show, params: { id: @content_provider }
+    assert_select '.btn-primary', {count: 0, text: /Register event/}
+  end
+
   test 'show action buttons when owner' do
     sign_in @content_provider.user
     get :show, params: { id: @content_provider }
@@ -337,11 +343,23 @@ class ContentProvidersControllerTest < ActionController::TestCase
     assert_select 'a.btn[href=?]', content_provider_path(@content_provider), text: 'Delete', count: 1
   end
 
+  test 'show "Register event" button when owner' do
+    sign_in @content_provider.user
+    get :show, params: { id: @content_provider }
+    assert_select '.btn-primary', {count: 1, text: /Register event/}
+  end
+
   test 'show action buttons when admin' do
     sign_in users(:admin)
     get :show, params: { id: @content_provider }
     assert_select 'a.btn[href=?]', edit_content_provider_path(@content_provider), count: 1
     assert_select 'a.btn[href=?]', content_provider_path(@content_provider), text: 'Delete', count: 1
+  end
+
+  test 'show "Register event" button when admin' do
+    sign_in users(:admin)
+    get :show, params: { id: @content_provider }
+    assert_select '.btn-primary', {count: 1, text: /Register event/}
   end
 
   # API Actions

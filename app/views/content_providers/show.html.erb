@@ -14,6 +14,13 @@
                    locals: { resource: @content_provider } if TeSS::Config.identifiers_prefix %>
       </div>
       <div class="content-manager-actions">
+        <% if policy(@content_provider).can_modify_events? %>
+          <%= link_to new_event_path(content_provider_id: @content_provider.id),
+              class: 'btn btn-primary' do %>
+            <%= t('register.buttons.events') %>
+          <% end %>
+        <% end %>
+
         <%= edit_button(@content_provider) if policy(@content_provider).update? %>
         <%= delete_button(@content_provider) if policy(@content_provider).destroy? %>
       </div>

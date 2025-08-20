@@ -35,6 +35,14 @@ class EventsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:events)
   end
 
+  test 'should not see "register event" on index page' do
+    sign_in users(:regular_user)
+    get :index
+    assert_response :success
+    assert_select '.btn-primary', {count: 0, text: /Register event/}
+  end
+
+
   test 'should get index with solr enabled' do
     with_settings(solr_enabled: true) do
       Event.stub(:search_and_filter, MockSearch.new(Event.all)) do

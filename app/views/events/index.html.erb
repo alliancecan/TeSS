@@ -13,10 +13,7 @@
       <% if TeSS::Config.feature['subscription'] %>
         <%= render partial: 'subscriptions/subscribe_button', locals: { type: Event.name } %>
       <% end %>
-      <!-- Register button -->
-      <%= link_to new_event_path, class: 'btn btn-primary' do %>
-        <%= t('register.buttons.events') %>
-      <% end %>
+      <!-- Register button moved to content provider page -->
       <!-- Info -->
       <%= events_info_button %>
     <% end %>

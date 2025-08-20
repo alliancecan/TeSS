@@ -89,6 +89,9 @@ class EventsController < ApplicationController
     authorize Event
     @event = Event.new(start: DateTime.now.change(hour: 9),
                        end: DateTime.now.change(hour: 17))
+    if params[:content_provider_id]
+      @event.content_provider_id = params[:content_provider_id]
+    end
   end
 
   # GET /events/1/clone
