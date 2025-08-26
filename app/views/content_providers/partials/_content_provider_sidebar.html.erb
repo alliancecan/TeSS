@@ -36,10 +36,12 @@
 <%= render partial: 'content_providers/partials/twitter_card',
            locals: { content_provider: @content_provider } %>
 <% unless TeSS::Config.feature['content_providers_disabled'].include?('owner') %>
-  <h4 class="nav-heading">Owner</h4>
-  <div class="nav-block">
-    <%= link_to content_provider.user.name, content_provider.user %>
-  </div>
+  <% if policy(@content_provider).can_modify_events? %>
+    <h4 class="nav-heading">Owner</h4>
+    <div class="nav-block">
+      <%= link_to content_provider.user.name, content_provider.user %>
+    </div>
+  <% end %>
 <% end %>
 <% unless !content_provider.editors.any? || TeSS::Config.feature['content_providers_disabled'].include?('editors') %>
   <h4 class="nav-heading"><%= ContentProvider.human_attribute_name(:editors) %></h4>

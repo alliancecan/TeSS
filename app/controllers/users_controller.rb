@@ -3,8 +3,8 @@
 # The controller for actions related to the Users model
 class UsersController < ApplicationController
   before_action -> { feature_enabled?('invitation') }, only: [:invitees]
-  prepend_before_action :set_user, only: %i[show edit update destroy change_token]
-  prepend_before_action :init_user, only: [:create]
+  prepend_before_action :set_user, only: [:show, :edit, :update, :destroy, :change_token]
+  prepend_before_action :init_user, only: [:index, :show, :create]
   before_action :set_breadcrumbs
   before_action :check_profile_id, only: [:update]
 
@@ -13,6 +13,8 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    authorize @user
+
     @users = User.visible
     @users = @users.with_query(params[:q].chomp('*')) if params[:q].present?
     @users = @users.paginate(page: params[:page], per_page: 50)
@@ -39,6 +41,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    authorize @user
+
     respond_to do |format|
       format.html
       format.json

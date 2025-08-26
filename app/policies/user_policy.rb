@@ -1,13 +1,13 @@
 class UserPolicy < ApplicationPolicy
 
   def index?
-    true
+    @user && @user.is_admin?
   end
 
   def show?
     # Anyone (not even logged in) can see users' pages, with restrictions in view
     # that owners and admins only can see their authentication token and email
-    true
+    @user && (@user == @record || @user.is_admin?)
   end
 
   def create?

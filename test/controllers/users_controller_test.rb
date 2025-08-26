@@ -10,28 +10,33 @@ class UsersControllerTest < ActionController::TestCase
     @admin = users(:admin)
   end
 
-  test 'should get index page for everyone' do
+  test 'should get index page only for admin' do
     get :index
-    assert_response :success
+    assert_nil assigns(:users)
+    assert_response :forbidden
+
     sign_in users(:regular_user)
-    assert_not_nil assigns(:users)
     get :index
-    assert_response :success
+    assert_nil assigns(:users)
+    assert_response :forbidden
+
+    sign_in users(:admin)
+    get :index
     assert_not_nil assigns(:users)
+    assert_response :success
+
   end
 
-  test 'should get index as json-api' do
+  test 'should not get index as json-api' do
+    # TODO: Maybe it does it when logged in as admin? Maybe test for that too
+    # See earlier revisions for how to test
     get :index, params: { format: :json_api }
-    assert_response :success
-    assert_not_nil assigns(:users)
-    assert_valid_json_api_response
-    body = nil
-    assert_nothing_raised do
-      body = JSON.parse(response.body)
-    end
+    assert_response :forbidden
+    assert_nil assigns(:users)
 
-    assert body['data'].any?
-    assert_equal users_path, body['links']['self']
+    body = JSON.parse(response.body)
+    assert body['error'].any?
+    assert_equal body['error']['message'], 'You are not authorised to perform this action.'
   end
 
   # User new is handled by devise
@@ -64,16 +69,21 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  test "should show user if admin" do
+  test "should only show user if admin or self" do
+    get :show, params: { id: @user }
+    assert_response :forbidden
+
+    sign_in users(:another_regular_user)
+    get :show, params: { id: @user }
+    assert_response :forbidden
+
     sign_in users(:admin)
     get :show, params: { id: @user }
     assert_response :success
-  end
 
-  test "should show other users page if not admin or self" do
-    sign_in users(:another_regular_user)
+    sign_in @user
     get :show, params: { id: @user }
-    assert_response :success #FORBIDDEN PAGE!?
+    assert_response :success
   end
 
   test "should show user with email address as username" do
@@ -83,24 +93,20 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should show user as json" do
+  test "should not show user as json" do
     sign_in users(:another_regular_user)
     get :show, params: { id: @user, format: 'json' }
-    assert_response :success #FORBIDDEN PAGE!?
+    assert_response :forbidden
   end
 
-  test 'should show user as json-api' do
+  test 'should not show user as json-api' do
     get :show, params: { id: @user, format: :json_api }
-    assert_response :success
-    assert assigns(:user)
-    assert_valid_json_api_response
-    body = nil
-    assert_nothing_raised do
-      body = JSON.parse(response.body)
-    end
+    assert_response :forbidden
+    assert_nil assigns(:users)
 
-    assert_equal @user.profile.firstname, body['data']['attributes']['firstname']
-    assert_equal user_path(assigns(:user)), body['data']['links']['self']
+    body = JSON.parse(response.body)
+    assert body['error'].any?
+    assert_equal body['error']['message'], 'You are not authorised to perform this action.'
   end
 
   test "should only allow edit for admin and self" do
@@ -372,15 +378,25 @@ class UsersControllerTest < ActionController::TestCase
     assert_equal true, profile.public
   end
 
-  test 'should be able to filter user index with a query' do
+  test 'only admin should be able to filter user index with a query' do
     get :index, params: { q: 'Reg' }
+    assert_response :forbidden
+    assert_nil assigns(:users)
 
+    sign_in @user
+    get :index, params: { q: 'Reg' }
+    assert_response :forbidden
+    assert_nil assigns(:users)
+
+    sign_in @admin
+    get :index, params: { q: 'Reg' }
     assert_response :success
     assert assigns(:users).include?(users(:regular_user))
     refute assigns(:users).include?(users(:another_regular_user))
   end
 
   test 'should not show banned or basic users in index' do
+    sign_in @admin
     get :index
     assert_response :success
     all_users = assigns(:users).to_a
@@ -452,19 +468,31 @@ class UsersControllerTest < ActionController::TestCase
     assert_select '#events a[href=?]', events_path(user: user.username, include_expired: true)
   end
 
-  test 'should be able to filter for new user with a query' do
-    get :index, params: { q: 'unver' }
+  test 'only admin should be able to filter for new user with a query' do
+    ['unver', 'naugh', 'basic'].each do |query|
+      get :index, params: { q: query }
+      assert_response :forbidden
+      assert_nil assigns(:users)
+    end
 
+    sign_in(@user)
+    ['unver', 'naugh', 'basic'].each do |query|
+      get :index, params: { q: query }
+      assert_response :forbidden
+      assert_nil assigns(:users)
+    end
+
+    # CW: not sure I know what any of this means ...?
+    sign_in(@admin)
+    get :index, params: { q: 'unver' }
     assert_response :success
     assert assigns(:users).include?(users(:unverified_user))
 
     get :index, params: { q: 'naugh' }
-
     assert_response :success
     refute assigns(:users).include?(users(:shadowbanned_unverified_user))
 
     get :index, params: { q: 'basic' }
-
     assert_response :success
     refute assigns(:users).include?(users(:basic_user))
   end
