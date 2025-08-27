@@ -38,8 +38,16 @@ module ApplicationHelper
   # Languages that have priority in the trainer language selection menu. Using ISO 639-1 Alpha2 code.
   PRIORITY_LANGUAGES = ['EN']
 
-  # Country timezones that have priority in the timezone selection menu. Using ISO 3166-1 Alpha2 country code.
-  PRIORITY_TIME_ZONES = %w[NL GB]
+  # Canadian provinces get priority, going left to right
+  PRIORITY_TIME_ZONES = [
+    "Pacific Time (US & Canada)",
+    "Mountain Time (US & Canada)",
+    "Saskatchewan",
+    "Central Time (US & Canada)",
+    "Eastern Time (US & Canada)",
+    "Atlantic Time (Canada)",
+    "Newfoundland"
+  ]
 
   # Currencies that have priority in the currency selection menu. Using ISO 4217 code.
   PRIORITY_CURRENCIES = %w[EUR GBP]
@@ -618,8 +626,8 @@ module ApplicationHelper
   end
 
   def priority_time_zones
-    PRIORITY_TIME_ZONES.flat_map do |code|
-      ActiveSupport::TimeZone.country_zones(code)
+    PRIORITY_TIME_ZONES.map do |zone_name|
+      ActiveSupport::TimeZone[zone_name]
     end
   end
 
