@@ -162,12 +162,13 @@ class Event < ApplicationRecord
     super(Rails::Html::FullSanitizer.new.sanitize(desc.gsub(/<br ?\/?>/, "\n")))
   end
 
+  # We are by default in UTC
   def start_utc
-    convert_local_to_utc start
+    start
   end
 
   def end_utc
-    convert_local_to_utc self.end
+    self.end
   end
 
   def start_local
@@ -513,12 +514,6 @@ class Event < ApplicationRecord
     end
 
     errors.add(:url, 'not valid') if disallowed
-  end
-
-  def convert_local_to_utc(datetime)
-    set_to_local(datetime).in_time_zone('UTC')
-  rescue StandardError
-    datetime
   end
 
   def set_to_local(datetime)
