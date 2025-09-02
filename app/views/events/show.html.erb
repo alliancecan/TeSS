@@ -39,7 +39,9 @@
         <div class="content-viewer-actions">
           <%= external_link_button t('events.view_event'), @event.url, track: @event %>
           <% if @event.persisted? %>
-            <%= render partial: 'events/add_to_calendar_button', locals: { event: @event } if @event.start && @event.end %>
+            <% if TeSS::Config.feature['subscription'] %>
+              <%= render partial: 'events/add_to_calendar_button', locals: { event: @event } if @event.start && @event.end %>
+            <% end %>
             <%= render partial: 'common/identifiers_dot_org_button', locals: { resource: @event } if TeSS::Config.identifiers_prefix %>
             <%= star_button(@event) if user_signed_in? %>
           <% end %>
