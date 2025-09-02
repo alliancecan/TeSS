@@ -245,11 +245,11 @@ class Event < ApplicationRecord
             'UTC'
           end
         if all_day?
-          ical_event.dtstart = Icalendar::Values::Date.new(start, tzid: tz) unless start.blank?
-          ical_event.dtend = Icalendar::Values::Date.new(self.end.tomorrow, tzid: tz) unless self.end.blank?
+          ical_event.dtstart = Icalendar::Values::Date.new(start_local, tzid: tz) unless start.blank?
+          ical_event.dtend = Icalendar::Values::Date.new(self.end_local.tomorrow, tzid: tz) unless self.end.blank?
         else
-          ical_event.dtstart = Icalendar::Values::DateTime.new(start_utc, tzid: tz) unless start.blank?
-          ical_event.dtend = Icalendar::Values::DateTime.new(end_utc, tzid: tz) unless self.end.blank?
+          ical_event.dtstart = Icalendar::Values::DateTime.new(start_local, tzid: tz) unless start.blank?
+          ical_event.dtend = Icalendar::Values::DateTime.new(end_local, tzid: tz) unless self.end.blank?
         end
 
       end
