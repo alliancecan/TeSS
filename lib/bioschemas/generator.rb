@@ -153,7 +153,7 @@ module Bioschemas
         p << {
           '@type' => 'Organization',
           'name' => node.full_title,
-          'url' => node.url
+          'url' => node.home_page
         }
       end
 
