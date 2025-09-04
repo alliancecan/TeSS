@@ -796,4 +796,84 @@ class EventTest < ActiveSupport::TestCase
     refute event.valid?
     assert event.errors.added?(:keywords, :too_long, count: 20)
   end
+
+  test 'check_exists handles a number of common cases' do
+    user = users(:regular_user)
+    provider1 = content_providers(:goblet)
+    provider2 = content_providers(:iann)
+    start_time = Time.now + 1.day
+    end_time = start_time + 1.hour
+
+    event1 = Event.create!(title: 'Event1',
+                           url: 'https://example.com/events/1',
+                           user: user,
+                           start: start_time,
+                           end: end_time)
+    event2 = provider1.events.create!(title: 'Event2',
+                                       url: 'https://example.com/events/2',
+                                       user: user,
+                                       start: start_time,
+                                       end: end_time)
+    event3 = provider2.events.create!(title: 'Event3',
+                                       url: 'https://example.com/events/3',
+                                       external_id: '90210',
+                                       user: user,
+                                       start: start_time,
+                                       end: end_time)
+
+    # Match title and url, no external id
+    event = Event.new(title: 'Event1', url: 'https://example.com/events/1')
+    assert_equal Event.check_exists(event), event1
+
+    # Don't match url, no external id
+    event = Event.new(title: 'Event1', url: 'https://example.com/events/x')
+    assert_nil Event.check_exists(event)
+
+    # Don't match url, match title, no external id
+    event = Event.new(title: 'EventX', url: 'https://example.com/events/1')
+    assert_equal Event.check_exists(event), event1
+
+    # Match url, match external id
+    event = Event.new(title: 'EventX',
+                      url: 'https://example.com/events/3',
+                      external_id: '90210')
+    assert_equal Event.check_exists(event), event3
+
+    # Match url, don't match external id
+    # This one is for Compute Ontairo/SHARCNET who reuses URLs for events
+    event = Event.new(title: 'EventX',
+                      url: 'https://example.com/events/3',
+                      external_id: '90211')
+    assert_nil Event.check_exists(event)
+
+    # Match content provider, title, and start time
+    event = Event.new(title: 'Event2',
+                      url: 'https://example.com/events/X',
+                      content_provider: provider1,
+                      start: start_time)
+    assert_equal Event.check_exists(event), event2
+
+    # Match content provider, title, don't match start time
+    event = Event.new(title: 'Event2',
+                      url: 'https://example.com/events/X',
+                      content_provider: provider1,
+                      start: start_time + 1.minute)
+    assert_nil Event.check_exists(event)
+
+    # Match content provider and external ID
+    event = Event.new(title: 'EventX',
+                      url: 'https://example.com/events/X',
+                      content_provider: provider2,
+                      external_id: '90210',
+                      start: start_time + 1.minute)
+    assert_equal Event.check_exists(event), event3
+
+    # Don't match content provider, match external ID
+    event = Event.new(title: 'EventX',
+                      url: 'https://example.com/events/X',
+                      content_provider: provider1,
+                      external_id: '90210',
+                      start: start_time + 1.minute)
+    assert_nil Event.check_exists(event)
+  end
 end

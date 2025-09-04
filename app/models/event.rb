@@ -347,6 +347,10 @@ class Event < ApplicationRecord
 
     event ||= where(content_provider_id: provider_id, title: given_event.title, start: given_event.start).last if given_event.title.present? && given_event.start.present?
 
+    # Last chance, match the content provider and the external ID
+    event ||= where(content_provider_id: provider_id,
+                    external_id: given_event.external_id).last if given_event.external_id.present?
+
     event
   end
 
