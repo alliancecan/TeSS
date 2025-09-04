@@ -116,7 +116,7 @@ module Bioschemas
       a = []
 
       if markdown.start_with?(' * ')
-        matches = markdown.scan(/ \* (.+)\n/)
+        matches = markdown.scan(/ \* (.+)(?:\n|\z)/)
         if matches.any?
           a += matches.flatten
         else
