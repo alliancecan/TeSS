@@ -111,7 +111,7 @@ class EventbriteIngestorTest < ActiveSupport::TestCase
     # timezone: Australia/Sydney, start: 2022-06-01T13:00:00, end: 2022-06-01T15:00:00
     title = 'Getting Started with Nectar Research Cloud Training'
     url = 'https://www.eventbrite.com.au/e/getting-started-with-nectar-research-cloud-training-tickets-315896965327'
-    desc = 'Learn the basics of using the **ARDC Nectar Cloud** for your research.'
+    desc = 'Learn the basics of using the **ARDC Nectar Cloud** for your research. This is a hybrid event.'
     event = get_event nil, title, url
     refute_nil event
     assert_equal desc, event.description
@@ -120,7 +120,9 @@ class EventbriteIngestorTest < ActiveSupport::TestCase
     assert_equal Time.utc(2022, 6, 1, 13, 0, 0), event.start
     assert_equal Time.utc(2022, 6, 1, 15, 0, 0), event.end
     assert_equal 10, event.capacity
-    assert event.online?
+    # Since the word "Hybrid" is in the description ...
+    refute event.online?
+    assert_equal event.presence, 'hybrid'
     assert_equal 2, event.keywords.size
     assert_includes event.keywords, 'Science & Technology'
     assert_includes event.keywords, 'High Tech'

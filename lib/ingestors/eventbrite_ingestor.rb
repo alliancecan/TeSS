@@ -116,6 +116,9 @@ module Ingestors
                        true
                      end
 
+      # This is a bit of a kludge: Eventbrite handles in-person and online events, not hybrid
+      event.presence = :hybrid if event.description =~ /\b[Hh]ybrid\b/
+
       # organizer
       organizer = get_eventbrite_organizer item['organizer_id']
       event.organizer = organizer['name'] unless organizer.nil?
