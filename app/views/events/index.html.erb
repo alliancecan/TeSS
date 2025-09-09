@@ -36,8 +36,8 @@
     <%# ACTUAL RESULTS LIST %>
     <% unless @events.blank? %>
       <div class="tab-content">
+        <%= render partial: 'events/event_timezone_control' %>
         <div id="home" class="tab-pane fade in active">
-          <%= render partial: 'events/event_timezone_control' %>
           <%= render partial: 'common/masonry_grid', locals: { objects: @events } %>
 
           <%= render partial: "search/common/pagination_bar", locals: { resources: @events } %>
