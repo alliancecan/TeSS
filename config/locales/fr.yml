@@ -442,6 +442,17 @@ fr:
       dans %{site}, <a href="%{url}">voir ici pour plus de détails sur l'enregistrement
       automatique</a></p>
     breadcrumb_index: 'Evénements'
+    timezone_controls:
+      all_events_in_local_html: >
+        Remarque : Toutes les heures sont affichées selon <b>le fuseau horaire
+        dans lequel l’événement a lieu.</b>
+      all_events_in_timezone_html: >
+        Remarque : Toutes les heures sont affichées selon le fuseau horaire <b>%{timezone}</b>.
+      controls_show: 'Modifier...'
+      controls_legend: "Pour l’affichage des heures, utilisez"
+      local_time_select: 'le fuseau horaire dans lequel l’événement a lieu'
+      timezone_select_html: 'fuseau horaire <b>%{timezone}</b> timezone (détecté par votre navigateur)'
+      close: 'Fermer'
   materials:
     hints:
       authors: >
