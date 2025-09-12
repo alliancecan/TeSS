@@ -78,7 +78,7 @@ module Ingestors
     def process_data(data)
       data.each do |item|
         event = item_to_event(item)
-        add_event(event)
+        add_event(event) if event.present?
       end
     end
 
@@ -89,7 +89,7 @@ module Ingestors
       start_ends = datetimes_to_start_ends(datetimes)
       if start_ends.blank?
         Rails.logger.error("Datetimes (label) not parsable for #{item['id']}: #{datetimes}")
-        return []
+        return nil
       end
 
       # inject single event, be mindful of multiday events
