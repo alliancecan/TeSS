@@ -92,7 +92,9 @@ default: &default
     title: 'Explora'
     title_short: 'Explora'
     favicon: alliance/favicon.png
-    logo: alliance/Alliance_logo_Symbol.png
+    logo: alliance/explora2x.png
+    sponsor_logo: alliance/Alliance_logo_Symbol.png
+    sponsor_url: https://alliancecan.ca
     logo_alt: 'Explora'
     logo_open_graph: ''
     logo_email: alliance/Alliance_logo_Symbol.png
