@@ -2,6 +2,7 @@ module Ingestors
   class DracIcalIngestor < IcalIngestor
 
     include Ingestors::Concerns::HasDescriptionMetadata
+    include Ingestors::Concerns::NormalizeTimezone
 
     def self.config
       {
@@ -127,16 +128,7 @@ module Ingestors
     def extract_event_timezone(calevent)
       timezone = super(calevent)
 
-      case timezone
-      when /Toronto/
-        return 'Eastern Time (US & Canada)'
-      when /Vancouver/
-        return 'Pacific Time (US & Canada)'
-      when /Edmonton/
-        return 'Mountain Time (US & Canada)'
-      else
-        timezone
-      end
+      normalize_timezone(timezone)
     end
 
     def process_description_title(description, title, event)

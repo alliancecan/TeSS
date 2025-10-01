@@ -7,6 +7,9 @@ module Ingestors
     # events unless you (as a user) are a member of that organization
     # This ingestor uses web scraping to index the events, then uses
     # the API to get the event details.
+
+    include Ingestors::Concerns::NormalizeTimezone
+
     EVENT_ENDPOINT = "#{API_BASE}/events/%<id>s/?expand=venue"
 
     # Note: the token used is the private token (not secret key) from Eventbrite
@@ -77,25 +80,6 @@ module Ingestors
       event.timezone = normalize_timezone(item['start']['timezone'])
       event.start = item['start']['utc']
       event.end = item['end']['utc']
-    end
-
-    def normalize_timezone(input)
-      # Common Canadian time zones seen in the wild.
-      # These don't appear in ActiveSupport::TimeZone::MAPPING
-      # TODO: put this in Ingestor or in WithTimezone concern
-      # TODO: refactor similar code in DracIcalIngestor
-      case input
-      when /Vancouver/
-        return 'Pacific Time (US & Canada)'
-      when /Edmonton/
-        return 'Mountain Time (US & Canada)'
-      when /Toronto/, /Montreal/
-        return 'Eastern Time (US & Canada)'
-      when /Moncton/
-        return 'Atlantic Time (Canada)'
-      end
-
-      input
     end
 
   end
