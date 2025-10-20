@@ -16,7 +16,7 @@
         <label class="btn btn-lg btn-secondary <%= 'active' if active %>">
           <%= f.radio_button 'online', presence, class: 'location', data: { role: 'online-switch' },
                              checked: active, autocomplete: 'off' %>
-          <i class="icon icon-lg <%= presence %>-event-icon"></i> <%= t("activerecord.attributes.event.presence.#{presence}") %>
+          <i class="icon icon-lg <%= presence %>-event-icon"></i> <%= presence(presence) %>
         </label>
       <% end %>
     </div>

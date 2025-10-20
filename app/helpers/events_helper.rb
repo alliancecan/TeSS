@@ -194,4 +194,11 @@ module EventsHelper
     formatter.format(Time.now)
   end
 
+  def presence(presence)
+    I18n.t("events.presence.#{presence}")
+  end
+
+  def event_presence(event)
+    presence(event.presence)
+  end
 end

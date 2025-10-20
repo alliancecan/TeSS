@@ -59,10 +59,6 @@ en:
         surname: 'Last name'
       event:
         county: Region
-        presence:
-          online: Online
-          onsite: Face-to-face
-          hybrid: Hybrid
         language: 'Language of instruction'
         timezone: 'Timezone'
         duration: 'Duration'
@@ -634,6 +630,10 @@ en:
       language: 'Select a language...'
     long: 'Long events'
     date: 'Date'
+    presence:
+      online: Online
+      onsite: Face-to-face
+      hybrid: Hybrid
     labels:
       start: 'Start (in specified time zone)'
       end: 'End (in specified time zone)'

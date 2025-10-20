@@ -6,7 +6,7 @@
     <div class="with-left-icon">
       <div class="icon-container hidden-xs">
         <i class="icon icon-h2 <%= event.presence %>-event-icon"></i><br/>
-        <span class="muted"><%= t("activerecord.attributes.event.presence.#{event.presence}") %></span>
+        <span class="muted"><%= event_presence(event.presence) %></span>
       </div>
 
       <div class="right-container">
@@ -44,7 +44,7 @@
         <% end %>
         <p class="visible-xs-block">
           <i class="icon icon-md <%= event.presence %>-event-icon"></i>
-          <span class="muted"><%= t("activerecord.attributes.event.presence.#{event.presence}") %></span>
+          <span class="muted"><%= event_presence(event) %></span>
         </p>
 
         <%= keywords_and_topics(event) %>

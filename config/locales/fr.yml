@@ -59,10 +59,6 @@ fr:
         surname: 'Nom de famille'
       event:
         county: Région
-        presence:
-          online: En ligne
-          onsite: En présentiel
-          hybrid: Hybride
         language: 'Langue d''enseignement'
         duration: 'Durée'
         keywords: 'Mots-clés'
@@ -428,6 +424,13 @@ fr:
       language: 'Sélectionner une langue...'
     long: 'Événements de longue durée'
     date: 'Date'
+    presence:
+      online: En ligne
+      onsite: En présentiel
+      hybrid: Hybride
+    labels:
+      start: 'Début (dans le fuseau horaire spécifié)'
+      end: 'Fin (dans le fuseau horaire spécifié)'
     view_event: 'Voir événement'
     pick_date: 'Choisissez une plage de dates pour une meilleure collection d''événements.'
     info_button_header: 'Quels sont les événements dans %{site} ?'
