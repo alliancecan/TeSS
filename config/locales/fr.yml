@@ -433,6 +433,10 @@ fr:
       end: 'Fin (dans le fuseau horaire spécifié)'
     view_event: 'Voir événement'
     pick_date: 'Choisissez une plage de dates pour une meilleure collection d''événements.'
+    export:
+      content_from_explora_md: '* Cet événement a été exporté de la plateforme [**Explora**](%{explora_url})'
+      content_provider_is_md: '* Le contenu de cet événement provient de [%{content_provider}](%{content_provider_url})'
+      register_at_actual_url_md: '* **Il est possible que vous deviez vous inscrire à cet événement.** Pour les détails, lisez la fiche description en cliquant sur %{url}'
     info_button_header: 'Quels sont les événements dans %{site} ?'
     info_button_body_html: >-
       <p>Un événement dans %{site} est un lien vers un événement de formation unique

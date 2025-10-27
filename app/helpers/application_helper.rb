@@ -1,7 +1,10 @@
 require 'i18n_data'
+require 'markdown_to_html'
 
 # The core application helper
 module ApplicationHelper
+  include MarkdownToHtml
+
   IGNORED_FILTERS = %w[user].freeze
 
   # def bootstrap_class_for flash_type
@@ -128,13 +131,7 @@ module ApplicationHelper
   end
 
   def render_markdown(markdown_text, options = {}, renderer_options = {})
-    if markdown_text
-      options.reverse_merge!(filter_html: true, tables: true, autolink: true)
-      renderer_options.reverse_merge!(hard_wrap: true, link_attributes: { target: '_blank', rel: 'noopener' })
-      Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(renderer_options), options).render(markdown_text).html_safe
-    else
-      ''
-    end
+    markdown_to_html(markdown_text, options, renderer_options)
   end
 
   def render_sanitized_markdown(markdown_text, options = {}, renderer_options = {})

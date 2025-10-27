@@ -39,10 +39,10 @@ module EventsHelper
 
     event_params = {
       text: event.title,
-      dates:,
+      dates: dates,
       ctz: event.timezone,
-      details: "#{event_url(event)}",
-      location:,
+      details: event.full_html_description,
+      location: location,
       sf: true,
       output: 'xml'
     }

@@ -805,7 +805,12 @@ class EventsControllerTest < ActionController::TestCase
     cal_event = Icalendar::Calendar.parse(@response.body).first.events.first
 
     assert_equal @event.title, cal_event.summary
-    assert_equal @event.description, cal_event.description
+
+    # We expect the description to be HTML
+    assert_equal @event.full_html_description, cal_event.description
+    assert cal_event.description.include?(@event.description)
+    assert cal_event.description.include?('Explora')
+
     assert !@event.all_day?, 'not an all day event'
     # Need to call .to_f, or Ruby thinks these two dates are not equal despite looking the same
     assert_equal @event.start.to_datetime.to_f, cal_event.dtstart.to_f

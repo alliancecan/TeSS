@@ -146,7 +146,7 @@ default: &default
     nodes: false
     collections: false # CW: turned off
     content_providers: true
-    subscription: false
+    subscription: true
     registration: true
     trainers: false # CW: turned off
     workflows: true

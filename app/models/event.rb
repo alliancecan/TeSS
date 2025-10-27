@@ -19,6 +19,7 @@ class Event < ApplicationRecord
   include WithTimezone
   include HasEdamTerms
   include HasLanguage
+  include MarkdownToHtml
 
   before_validation :fix_keywords, on: :create, if: :scraper_record
   before_validation :presence_default
@@ -254,10 +255,44 @@ class Event < ApplicationRecord
 
       end
       ical_event.summary = title
-      ical_event.description = description
+      set_ical_description(ical_event)
       ical_event.location = venue unless venue.blank?
       ical_event.url = url
     end
+  end
+
+  def full_md_description
+    # Ensure that the exported description says where it came from, and where to register
+    out_md = I18n.t('events.export.content_from_explora_md',
+                    explora_url: Rails.application.routes.url_helpers.root_url) + "\n"
+    if content_provider
+      content_provider_url = Rails.application.routes.url_helpers.content_provider_url(content_provider)
+      out_md += I18n.t('events.export.content_provider_is_md',
+                       content_provider: content_provider.title,
+                       content_provider_url: content_provider_url) + "\n"
+    end
+
+    out_md += I18n.t('events.export.register_at_actual_url_md', url: url)
+
+    # Horizontal rule followed by description
+    out_md += "\n\n***\n\n" + description if description
+  end
+
+  def full_html_description
+    out_html = markdown_to_html(full_md_description)
+    # Google calendar doesn't ignore new lines (!?!)
+    out_html = out_html.gsub("\n", '')
+    out_html = "<html>#{out_html}</html>"
+  end
+
+  def set_ical_description(ical_event)
+    # This would be ideal ... (But doesn't work with Google)
+    # ical_event.description = full_md_description
+    # ical_event.append_custom_property("X-ALT-DESC;FMTTYPE=text/html",
+    #                                   full_html_description)
+
+    # This is what we are trying ... (Works with Google, don't know about others)
+    ical_event.description = full_html_description
   end
 
   def show_map?

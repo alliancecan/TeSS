@@ -639,6 +639,10 @@ en:
       end: 'End (in specified time zone)'
     view_event: 'View event'
     pick_date: 'Pick a range of dates for a better collection of events.'
+    export:
+      content_from_explora_md: '* This event was exported from [**Explora**](%{explora_url})'
+      content_provider_is_md: '* The content provider for this event is: [%{content_provider}](%{content_provider_url})'
+      register_at_actual_url_md: '* **Registration may be required for the event**, please visit the following URL to learn more: %{url}'
     info_button_header: 'What are events in %{site}?'
     info_button_body_html: >-
       <p>An event in %{site} is a link to a single training event sourced by a
