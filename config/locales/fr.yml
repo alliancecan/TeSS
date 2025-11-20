@@ -732,6 +732,10 @@ fr:
         hide_archived: 'Masquer %{resource} archivée'
         only_online_events: 'Afficher uniquement les événements en ligne'
         show_all_events: 'Afficher tous les événements'
+        show_broken_links_events: 'Afficher les événements avec des liens non fonctionnels'
+        hide_broken_links_events: 'Masquer les événements avec des liens non fonctionnels'
+        show_broken_links_materials: 'Afficher le matériel avec des liens non fonctionnels'
+        hide_broken_links_materials: 'Masquer le matériel avec des liens non fonctionnels'
     hidden:
       values:
         show_hidden: 'Afficher les éléments masqués'

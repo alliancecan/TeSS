@@ -8,7 +8,8 @@ module Facets
     max_age: ->(c) { %w[Event Material].include?(c.name) },
     start: ->(c) { c.name == 'Event' },
     running_during: ->(c) { c.name == 'Event' },
-    include_hidden: ->(c) { c.method_defined?(:user_requires_approval?) }
+    include_hidden: ->(c) { c.method_defined?(:user_requires_approval?) },
+    include_broken_links: ->(c) { c.method_defined?(:link_monitor) }
   }.with_indifferent_access.freeze
 
   CONVERSIONS = {
@@ -31,7 +32,8 @@ module Facets
                         nil
                       end
                     },
-    include_hidden: ->(value) { value == 'true' }
+    include_hidden: ->(value) { value == 'true' },
+    include_broken_links: ->(value) { value == 'true' }
   }
 
   class << self
@@ -110,6 +112,10 @@ module Facets
         # Hide unverified/rejected users' things, except from curators and admins
         without(:unverified, true) unless user && ((user.is_curator? || user.is_admin?) && value)
       end
+    end
+
+    def include_broken_links(scope, value, _)
+      sunspot_scoped(scope) { without(:failing, true) } unless value
     end
 
     def days_since_scrape(scope, days, _)

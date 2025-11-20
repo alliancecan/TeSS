@@ -941,6 +941,10 @@ en:
         hide_archived: 'Hide archived %{resource}'
         only_online_events: 'Only show online events'
         show_all_events: 'Show all events'
+        show_broken_links_events: 'Show events with broken links'
+        hide_broken_links_events: 'Hide events with broken links'
+        show_broken_links_materials: 'Show materials with broken links'
+        hide_broken_links_materials: 'Hide materials with broken links'
     hidden:
       values:
         show_hidden: 'Show hidden items'
