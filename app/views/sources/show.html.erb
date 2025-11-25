@@ -59,6 +59,15 @@
                 </p>
               <% end %>
 
+              <!-- Field: exclude_patterns -->
+              <% if @source.exclude_patterns.present? %>
+                <% if current_user && (current_user.is_curator? || current_user.is_admin?) %>
+                  <p><strong><%= Source.human_attribute_name(:exclude_patterns) %>:</strong><br>
+                    <%= display_exclude_patterns(@source) %>
+                  </p>
+                <% end %>
+              <% end %>
+
               <!-- Field: enabled -->
               <p>
                 <strong>Source is:</strong>

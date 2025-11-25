@@ -242,4 +242,58 @@ class SourceTest < ActiveSupport::TestCase
       source.save!
     end
   end
+
+  test 'can set exclude patterns manually' do
+    source = sources(:first_source)
+
+    assert_equal source.exclude_patterns, nil
+
+    source.exclude_patterns = {'title' => ['what'],
+                               'description' => ['huh', 'whoa']}
+    assert source.valid?
+
+    source.exclude_patterns = []
+    refute source.valid?
+    assert_includes source.errors.full_messages.join, "wrong type"
+
+    source.exclude_patterns = {"title" => "not array"}
+    refute source.valid?
+    assert_includes source.errors.full_messages.join, "bad format"
+
+    source.exclude_patterns = {"title" => [5]}
+    refute source.valid?
+    assert_includes source.errors.full_messages.join, "bad value"
+
+    source.exclude_patterns = {"title" => ['']}
+    refute source.valid?
+    assert_includes source.errors.full_messages.join, "empty value"
+
+    source.exclude_patterns = {"seagull" => ['where']}
+    refute source.valid?
+    assert_includes source.errors.full_messages.join, "incorrect field"
+  end
+
+  test 'can set exclude patterns through some utility methods' do
+    source = sources(:first_source)
+
+    assert_equal source.exclude_patterns, nil
+
+    source.exclude_patterns_title = ['hello', 'world']
+    assert_equal source.exclude_patterns_title, ['hello', 'world']
+    assert_equal source.exclude_patterns, { 'title' => ['hello', 'world'] }
+
+    source.exclude_patterns_description = ['goodbye', 'moon']
+    assert_equal source.exclude_patterns_description, ['goodbye', 'moon']
+    assert_equal source.exclude_patterns, { 'title' => ['hello', 'world'],
+                                           'description' => ['goodbye', 'moon'] }
+
+    source.exclude_patterns_title = []
+    assert_equal source.exclude_patterns_title, nil
+    assert_equal source.exclude_patterns, { 'description' => ['goodbye', 'moon'] }
+
+    source.exclude_patterns_description = nil
+    assert_equal source.exclude_patterns_description, nil
+    assert_equal source.exclude_patterns, {}
+  end
+
 end

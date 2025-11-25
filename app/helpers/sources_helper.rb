@@ -43,4 +43,19 @@ module SourcesHelper
       Ingestors::IngestorFactory.ingestor_config.dig(key, :title)
     end
   end
+
+  def display_exclude_patterns(source)
+    return unless source.exclude_patterns
+    list = ""
+    Source::EXCLUDE_PATTERNS_FIELDS.each do |field|
+      values = source.exclude_patterns[field.to_s]
+      if values.present?
+        terms = values.map { |value| content_tag(:code, value) }.join(", ")
+        list += content_tag(:li) do
+          (content_tag(:em, t("sources.exclude_patterns.#{field}")) + ": " + terms.html_safe)
+        end
+      end
+    end
+    content_tag(:ul, list.html_safe).html_safe
+  end
 end

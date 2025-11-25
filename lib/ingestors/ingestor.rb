@@ -149,7 +149,13 @@ module Ingestors
         end
 
         resource = set_resource_defaults(resource)
-        if resource.valid?
+
+        if source&.exclude_resource?(resource)
+          @stats[key][:rejected] += 1
+          title = resource.title
+          title = "[#{title}](#{resource.url})" if resource.url
+          @messages << "\n#{type.model_name.human} excluded by source: #{title}\n"
+        elsif resource.valid?
           resource.save!
           activity_params = {}
           if source

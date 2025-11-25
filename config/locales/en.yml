@@ -66,6 +66,7 @@ en:
         venue: 'Venue'
       source:
         default_language: 'Default language'
+        exclude_patterns: 'Exclude patterns'
   about:
     headings:
       events: Events
@@ -802,18 +803,26 @@ en:
     info:
       approval_notice: This source will need to be approved by an administrator before being ingested.
       reapproval_notice: If the source URL or ingestion method are changed, approval will need to be requested again.
+    labels:
+      exclude_patterns_title: 'Exclude content on ingestion if any of these patterns are in the title'
+      exclude_patterns_description: 'Exclude content on ingestion if any of these patterns are in the description'
     hints:
       url: 'The URL of the source to be ingested.'
       method: 'The method used to ingest the contents of the source URL.'
       token: Some ingestion methods require an authentication token, leave blank if you aren't sure.
       enabled: Sources that are not enabled will not be ingested.
       default_language: 'Default language of ingested events/materials'
+      exclude_patterns:
+        'This can be a string to match (e.g., "dog") or a regular expression (e.g., "/dog\s+catcher/i")'
     approval_status:
       not_approved: Not approved
       requested: Approval requested
       approved: Approved
     prompts:
       default_language: 'Select a default language...'
+    exclude_patterns:
+      title: Title
+      description: Description
   scraper:
     messages:
       status: 'Scraper.run: %{status}'

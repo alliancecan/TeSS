@@ -66,6 +66,7 @@ fr:
         venue: 'Lieu'
       source:
         default_language: 'Langue par défaut'
+        exclude_patterns: "Ignorer le ou les éléments suivants"
   about:
     headings:
       events: Événements
@@ -591,18 +592,25 @@ fr:
     info:
       approval_notice: Cette source devra être approuvée par un administrateur avant d'être importée.
       reapproval_notice: "Si l'URL source ou la méthode d'importation sont modifiées, l'approbation devra être demandée à nouveau."
+    labels:
+      exclude_patterns_title: "Ne pas importer le contenu dont le titre contient le ou les éléments suivants"
+      exclude_patterns_description: "Ne pas importer le contenu dont la description contient le ou les éléments suivants"
     hints:
       url: 'URL de la source à acquérir.'
       method: 'Méthode utilisée pour importer le contenu de l''URL source.'
       token: "Certaines méthodes d'inmportation nécessitent un jeton d'authentification: en cas de doute, laisser vide."
       enabled: Les sources qui ne sont pas activées ne seront pas importées.
       default_language: 'Langue par défaut des événements/matériels ingérés'
+      exclude_patterns: 'Entrez un chaîne de caractères (p. ex. "chien") ou une expression régulière (p. ex. "/chien\s+chaud/i").'
     approval_status:
       not_approved: Non approuvé
       requested: Approbation demandée
       approved: Approuvé
     prompts:
       default_language: 'Sélectionner une langue par défaut...'
+    exclude_patterns:
+      title: Titre
+      description: Description
   scraper:
     messages:
       status: 'Scraper.run: %{status}'

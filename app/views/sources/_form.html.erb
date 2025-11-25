@@ -27,6 +27,12 @@
               prompt: t('sources.prompts.default_language'), include_blank: true,
               hint: t('sources.hints.default_language') %>
 
+  <% Source::EXCLUDE_PATTERNS_FIELDS.each do |field| %>
+    <%= f.multi_input "exclude_patterns_#{field}".to_sym,
+        label: t("sources.labels.exclude_patterns_#{field}"),
+        hint: t('sources.hints.exclude_patterns') %>
+  <% end %>
+
   <%= f.input :enabled, hint: t('sources.hints.enabled') %>
 
   <% if policy(@source).approve? %>

@@ -11,6 +11,11 @@ class Source < ApplicationRecord
 
   APPROVAL_STATUS_CODES = APPROVAL_STATUS.invert.freeze
 
+  # The fields that have patterns that allow a resource to be skipped on ingestion
+  # Each field has an array with strings, strings can hold a regexp pattern
+  # e.g., { 'title' => ['exclude', '/refuse/i'] }
+  EXCLUDE_PATTERNS_FIELDS = [:title, :description]
+
   include PublicActivity::Model
   include Searchable
 
@@ -25,6 +30,7 @@ class Source < ApplicationRecord
   validates :default_language, controlled_vocabulary: { dictionary: 'LanguageDictionary',
                                                         allow_blank: true }
   validate :check_method
+  validate :validate_exclude_patterns
 
   before_create :set_approval_status
   before_update :log_approval_status_change
@@ -130,11 +136,86 @@ class Source < ApplicationRecord
     CurationMailer.source_requires_approval(self, User.current_user).deliver_later
   end
 
+  # Dynamically set up some getter/setters for the exclude_patterns column.
+  # These methods facilitate setting up the form elements.
+  EXCLUDE_PATTERNS_FIELDS.each do |field|
+    define_method "exclude_patterns_#{field}" do
+      return nil unless exclude_patterns.present?
+      exclude_patterns[field.to_s]
+    end
+
+    define_method "exclude_patterns_#{field}=" do |value|
+      self.exclude_patterns ||= {}
+      exclude_patterns[field.to_s] = value&.reject(&:blank?)
+      if exclude_patterns[field.to_s].blank?
+        exclude_patterns.delete(field.to_s)
+      end
+    end
+  end
+
+  def validate_exclude_patterns
+    # In essence, this field can either be nil or it can be a hash of arrays:
+    # * hash keys are from EXCLUDE_PATTERNS_FIELDS (e.g., title)
+    # * hash values are arrays of patterns to check on the field to prevent ingestion
+    return unless exclude_patterns
+    errors.add(:exclude_patterns, 'is wrong type') unless exclude_patterns.is_a?(Hash)
+    exclude_patterns.each do |field, values|
+      if !EXCLUDE_PATTERNS_FIELDS.include?(field.to_sym)
+        errors.add(:exclude_patterns, "has incorrect field #{field}")
+        next
+      end
+      if !values.is_a?(Array)
+        errors.add(:exclude_patterns, "has bad format in field #{field} #{values}")
+        next
+      end
+      values.each do |value|
+        errors.add(:exclude_patterns, "has bad value in field #{field} (#{value})") unless value.is_a?(String)
+        errors.add(:exclude_patterns, "has empty value in field #{field}") if value.blank?
+      end
+    end
+  end
+
+  def exclude_resource?(resource)
+    # Design choice: match a plain string, or a string that looks like a regex
+    return false unless exclude_patterns.present?
+
+    exclude_patterns.each do |field, values|
+      if resource.respond_to?(field)
+        field_value = resource.send(field)
+        values.each do |value|
+          regex = as_regex(value)
+          if regex
+            return true if field_value =~ regex
+          else
+            return true if field_value&.include?(value)
+          end
+        end
+      end
+    end
+    return false
+  end
+
   def self.approval_required?
     TeSS::Config.feature['user_source_creation'] && !User.current_user&.is_admin?
   end
 
   private
+
+  def as_regex(value)
+    # Return mil if string value could be a regex, return nil otherwise
+    # This isn't an industrial-grade conversion
+    # (surprised Ruby doesn't have something better built-in for this)
+    return nil unless value[0] == '/'
+    body = nil
+    case_insensitive = (value[-1] == 'i')
+    if case_insensitive
+      body = value[1..-3] if (value[-2] == '/')
+    else
+      body = value[1..-2] if (value[-1] == '/')
+    end
+    return false unless body
+    Regexp.new(body, case_insensitive)
+  end
 
   def set_approval_status
     if self.class.approval_required?

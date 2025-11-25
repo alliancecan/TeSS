@@ -163,9 +163,15 @@ class SourcesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def source_params
     permitted = [:url, :method, :token, :default_language, :enabled]
+
+    # These fields each accept an array
+    # They populate the exclude_patterms JSON column
+    Source::EXCLUDE_PATTERNS_FIELDS.each do |field|
+      permitted << { "exclude_patterns_#{field}".to_sym => [] }
+    end
+
     permitted << :approval_status if policy(Source).approve?
     permitted << :content_provider_id if policy(Source).index?
-
     params.require(:source).permit(permitted)
   end
 
