@@ -11,9 +11,17 @@ User.get_default_user
 
 # Nodes
 puts "\nSeeding nodes"
-path = File.join(Rails.root, 'config', 'data', 'elixir_nodes.json')
+path = File.join(Rails.root, 'config', 'data', 'nodes.json')
 hash = JSON.parse(File.read(path))
 Node.load_from_hash(hash, verbose: false)
+
+# Content providers (stored in a separate repository)
+path = File.join(Rails.root, 'config', 'data', 'providers.yaml')
+if File.file?(path)
+  puts "\nSeeding providers"
+  array = YAML.load(File.read(path))
+  ContentProvider.load_from_array(array)
+end
 
 # Admin User
 if ENV["ADMIN_USERNAME"]
