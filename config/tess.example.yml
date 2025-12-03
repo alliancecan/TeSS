@@ -88,17 +88,17 @@ default: &default
     #   https://guides.rubyonrails.org/v7.0/configuring.html#configuring-i18n
     #fallbacks: ...
   site:
-    title: 'TeSS (Training eSupport System)'
-    title_short: TeSS
+    title: 'Explora'
+    title_short: 'Explora'
     favicon: elixir/favicon.png
-    logo: elixir/elixir-tess.svg
-    logo_alt: 'Training eSupport System'
+    logo: alliance/Alliance_logo_Symbol.png
+    logo_alt: 'Training System'
     logo_open_graph: ''
     logo_email: ''
     # Colours of the SVG icons used throughout TeSS, requires `rake assets:precompile` if changed
     icon_primary_color: '#047EAA' # Blue by default
     icon_secondary_color: '#F47D21' # Orange by default
-    repository: 'https://github.com/ElixirTeSS/TeSS'
+    repository: 'https://github.com/ComputeCanada/TeSS'
     supported_by: 'elixir_supported_by'
     widget_example:
     home_page: # Configuration for the sections displayed on the front page
@@ -141,14 +141,14 @@ default: &default
     invitation: false
     materials: true
     nodes: false
-    collections: true
+    collections: false # CW: turned off
     content_providers: true
     subscription: true
     registration: true
     trainers: false
     workflows: true
     sources: false
-    user_source_creation: true
+    user_source_creation: false # CW: turned off
     edit_suggestions: false
     geocoding: false
     # Possible features to disable:
