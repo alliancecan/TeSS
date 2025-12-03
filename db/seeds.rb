@@ -16,7 +16,9 @@ hash = JSON.parse(File.read(path))
 Node.load_from_hash(hash, verbose: false)
 
 # Content providers (stored in a separate repository)
-path = File.join(Rails.root, 'config', 'data', 'providers.yaml')
+root = ENV['TESS_PROVIDER_SEEDS']
+root ||= Rails.root
+path = File.join(root, 'config', 'data', 'providers.yaml')
 if File.file?(path)
   puts "\nSeeding providers"
   array = YAML.load(File.read(path))
