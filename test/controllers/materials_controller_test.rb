@@ -445,7 +445,13 @@ class MaterialsControllerTest < ActionController::TestCase
 
     get :show, params: { id: material }
     assert_response :success
-    assert_select 'h2', text: 'Material with suggestions', count: 1
+
+    # CW: we are more concious of screen readers, which causes problems for this test
+    # Switch test to regex for main h2 body text ...
+    assert_select 'h2', text: /Material with suggestions/, count: 1
+    # Here is the screen reader text ...
+    assert_select 'h2 span.sr-only', text: "This record has one or more suggested scientific topics", count: 1
+
     assert_select 'i.fa-commenting-o', count: 1
     assert_select 'ul[data-uri=?]', 'http://edamontology.org/topic_3168', count: 1
     assert_select 'ul[data-uri=?]', 'http://edamontology.org/topic_0199', count: 1

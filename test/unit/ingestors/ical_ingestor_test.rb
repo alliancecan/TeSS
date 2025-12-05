@@ -119,7 +119,10 @@ class IcalIngestorTest < ActiveSupport::TestCase
     %w[Supercomputing Seminar].each do |keyword|
       assert event.keywords.include?(keyword), "event title[#{event.title}] keyword[#{keyword}] not found"
     end
-    assert_equal 'Online, Virtual, Australia', event.venue, "event title[#{event.title}] venue not matched"
+
+    # CW: note upstream says 'Online, Virtual, Australia', we force venue to nil due to online
+    assert_nil event.venue, "event title[#{event.title}] venue not matched"
+
     assert event.city.nil?, "event title[#{event.title}] city not matched"
     assert event.postcode.nil?, "event title[#{event.title}] postcode not matched"
     assert event.country.nil?, "event title[#{event.title}] country not matched"
@@ -131,7 +134,10 @@ class IcalIngestorTest < ActiveSupport::TestCase
     %w[Supercomputing Conference Visualisation].each do |keyword|
       assert event.keywords.include?(keyword), "event title[#{event.title}] keyword[#{keyword}] not found"
     end
-    assert_equal 'Online, Virtual, Australia', event.venue, "event title[#{event.title}] venue not matched"
+
+    # CW: note upstream says 'Online, Virtual, Australia', we force venue to nil due to online
+    assert_nil event.venue, "event title[#{event.title}] venue not matched"
+
     assert event.postcode.nil?, "event title[#{event.title}] postcode not matched"
     assert event.city.nil?, "event title[#{event.title}] city not matched"
     assert event.country.nil?, "event title[#{event.title}] country not matched"
