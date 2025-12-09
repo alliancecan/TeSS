@@ -1,5 +1,11 @@
 # TeSS
 
+Please note that this is the fork of TeSS by the [Digital Research Alliance of Canada](https://alliancecan.ca)
+to support the [Explora](https://explora.alliancecan.ca) website. You can find the original TeSS repository
+from Elixir here: https://github.com/ElixirTeSS/TeSS
+
+---
+
 [![Actions Status](https://github.com/ElixirTeSS/TeSS/workflows/CI/badge.svg)](https://github.com/ElixirTeSS/TeSS/actions)
 
 [ELIXIR's](https://www.elixir-europe.org/) **T**raining **e**-**S**upport **S**ervice - A Ruby on Rails application providing a portal for registering and discovering training events and materials.
