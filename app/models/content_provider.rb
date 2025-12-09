@@ -107,20 +107,30 @@ class ContentProvider < ApplicationRecord
     'p'
   end
 
-  def self.logo_directory
-    File.join(File.path(Rails.root), 'config', 'data', 'logos')
+  def self.logo_directory(root=nil)
+    root ||= Rails.root
+    File.join(File.path(root), 'config', 'data', 'logos')
   end
 
-  def self.find_logo_file_name(slug)
-    if File.exist?(File.join(logo_directory, "#{slug}.jpg"))
+  def self.find_logo_file_name(slug, root=nil)
+    root ||= Rails.root
+    if File.exist?(File.join(logo_directory(root), "#{slug}.jpg"))
       return "#{slug}.jpg"
-    elsif File.exist?(File.join(logo_directory, "#{slug}.png"))
+    elsif File.exist?(File.join(logo_directory(root), "#{slug}.png"))
       return "#{slug}.png"
     end
     nil
   end
 
-  def self.load_from_array(array)
+  def self.load_from_yaml(root=nil)
+    root ||= Rails.root
+    path = File.join(root, 'config', 'data', 'providers.yaml')
+    array = YAML.load(File.read(path))
+    ContentProvider.load_from_array(array, root)
+  end
+
+  def self.load_from_array(array, root=nil)
+    root ||= Rails.root
     owner = User.get_default_user
     array.each do |provider|
       slug = provider["slug"]
@@ -134,10 +144,10 @@ class ContentProvider < ApplicationRecord
       content_provider.user = owner
       content_provider.save!
 
-      image_file_name = find_logo_file_name(slug)
+      image_file_name = find_logo_file_name(slug, root)
       if image_file_name
         content_provider.image_file_name = image_file_name
-        File.open(File.join(logo_directory, image_file_name)) do |f|
+        File.open(File.join(logo_directory(root), image_file_name)) do |f|
           content_provider.image = f
           content_provider.save!
         end

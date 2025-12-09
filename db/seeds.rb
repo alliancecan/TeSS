@@ -21,8 +21,7 @@ root ||= Rails.root
 path = File.join(root, 'config', 'data', 'providers.yaml')
 if File.file?(path)
   puts "\nSeeding providers"
-  array = YAML.load(File.read(path))
-  ContentProvider.load_from_array(array)
+  ContentProvider.load_from_yaml(root)
 end
 
 # Admin User
