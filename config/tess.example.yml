@@ -149,7 +149,7 @@ default: &default
     subscription: true
     registration: true
     trainers: false # CW: turned off
-    workflows: true
+    workflows: false # CW: turned off
     sources: true
     user_source_creation: false # CW: turned off
     edit_suggestions: false
