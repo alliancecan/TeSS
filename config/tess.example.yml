@@ -144,7 +144,7 @@ default: &default
     invitation: false
     materials: true # CW: turned off
     nodes: false
-    collections: false # CW: turned off
+    collections: true # CW: turned on for UAT
     content_providers: true
     subscription: true
     registration: true
