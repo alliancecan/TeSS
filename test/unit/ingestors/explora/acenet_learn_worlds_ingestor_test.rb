@@ -20,7 +20,7 @@ class AcenetLearnWorldsIngestorTest < ActiveSupport::TestCase
       enabled: true
     )
 
-    ingestor = Ingestors::AcenetLearnWorldsIngestor.new
+    ingestor = Ingestors::Explora::AcenetLearnWorldsIngestor.new
 
     # March 9, this changes to daylight savings ...
     AST_OFFSET = "-400"

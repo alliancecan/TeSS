@@ -10,17 +10,17 @@ module Ingestors
         Ingestors::MaterialCsvIngestor,
         Ingestors::TessEventIngestor,
         Ingestors::ZenodoIngestor,
-      ] + drac_ingestors + taxila_ingestors + llm_ingestors
+      ] + explora_ingestors + taxila_ingestors + llm_ingestors
     end
 
-    def self.drac_ingestors
+    def self.explora_ingestors
       [
-        Ingestors::AcenetLearnWorldsIngestor,
-        Ingestors::DracIcalIngestor,
-        Ingestors::EventbriteQuasiScraperIngestor,
-        Ingestors::LibcalAbIngestor,
-        Ingestors::LibcalBcIngestor,
-        Ingestors::LibcalOnIngestor,
+        Ingestors::Explora::AcenetLearnWorldsIngestor,
+        Ingestors::Explora::DracIcalIngestor,
+        Ingestors::Explora::EventbriteQuasiScraperIngestor,
+        Ingestors::Explora::LibcalAbIngestor,
+        Ingestors::Explora::LibcalBcIngestor,
+        Ingestors::Explora::LibcalOnIngestor,
       ]
     end
 

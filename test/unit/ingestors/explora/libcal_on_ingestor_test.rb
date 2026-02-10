@@ -21,7 +21,7 @@ class LibcalOnIngestorTest < ActiveSupport::TestCase
     # override time
     assert_difference('Event.count', 3) do
       freeze_time(2019) do
-        ingestor = Ingestors::LibcalOnIngestor.new
+        ingestor = Ingestors::Explora::LibcalOnIngestor.new
         source = @content_provider.sources.build(
           url: 'https://www.libcal-bc.ca/ajax/calendar/list?c=7544&date=0000-00-00&cats=33865',
           method: 'libcal_event_on', enabled: true
