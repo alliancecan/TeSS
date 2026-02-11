@@ -1,4 +1,3 @@
-require 'date'
 require 'airrecord'
 
 module Ingestors
@@ -68,7 +67,7 @@ module Ingestors
         event.language = item['Event language']&.first&.slice(0, 2)
         event.presence = (item['Delivery method'] == 'Virtual') ? 'online' : 'onsite'
 
-        event.start = DateTime.parse(item['Event date/time'])
+        event.start = Time.parse(item['Event date/time'])
         duration = item['Duration'].to_i
         event.end = event.start + duration.seconds
         event.timezone = TIMEZONE
