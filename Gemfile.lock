@@ -116,6 +116,10 @@ GEM
       activesupport (>= 5.2)
       device_detector
       safely_block (>= 0.2.1)
+    airrecord (1.0.12)
+      faraday (>= 1.0, < 3.0)
+      faraday-net_http_persistent
+      net-http-persistent
     ansi (1.5.0)
     ast (2.4.2)
     attr_required (1.0.1)
@@ -208,6 +212,9 @@ GEM
       multipart-post (~> 2.0)
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
+    faraday-net_http_persistent (2.3.1)
+      faraday (~> 2.5)
+      net-http-persistent (>= 4.0.4, < 5)
     ffi (1.15.5)
     ffi-icu (0.5.3)
       ffi (~> 1.0, >= 1.0.9)
@@ -817,6 +824,7 @@ DEPENDENCIES
   active_model_serializers
   activerecord-session_store
   ahoy_matey
+  airrecord
   auto_strip_attributes
   better_errors
   binding_of_caller

@@ -21,6 +21,7 @@ module Ingestors
         Ingestors::Explora::LibcalAbIngestor,
         Ingestors::Explora::LibcalBcIngestor,
         Ingestors::Explora::LibcalOnIngestor,
+        Ingestors::Explora::CrdcnAirtableIngestor,
       ]
     end
 
