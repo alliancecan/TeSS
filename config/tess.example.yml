@@ -139,7 +139,7 @@ default: &default
       focused: 13
   header_notice: # HTML to display above the header
   feature:
-    elearning_materials: false
+    elearning_materials: true # CW: turned on for UAT
     events: true
     invitation: false
     materials: true # CW: turned off
