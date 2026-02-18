@@ -151,7 +151,7 @@ default: &default
     trainers: false # CW: turned off
     workflows: false # CW: turned off
     sources: true
-    user_source_creation: false # CW: turned off
+    user_source_creation: true # CW: turned on for UAT
     edit_suggestions: false
     geocoding: false
     # Possible features to disable:
