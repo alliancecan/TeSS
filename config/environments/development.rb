@@ -8,6 +8,12 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.enable_reloading = true
 
+  # Assumption: you are developing on your own machine, probably through docker compose.
+  # Otherwise: watch out for this setting.
+  if ENV['WEBCONSOLE_ALLOWS_ALL']
+    config.web_console.permissions = '0.0.0.0/0'
+  end
+
   # Do not eager load code on boot.
   config.eager_load = false
 
