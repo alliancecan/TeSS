@@ -121,6 +121,9 @@ class Scraper
       # get ingestor
       ingestor = Ingestors::IngestorFactory.get_ingestor(source.method)
 
+      @sta = ingestor
+      @out = output
+
       # set token
       ingestor.token = source.token
 
@@ -135,7 +138,7 @@ class Scraper
       # write resources
       ingestor.write(user, source.content_provider, source: source)
       unless ingestor.messages.blank?
-        output.concat "\n## Writing\n\n"
+       output.concat "\n## Writing\n\n"
         ingestor.messages.each { |m| output.concat "#{m}\n" }
         ingestor.messages.clear
       end
@@ -149,7 +152,14 @@ class Scraper
       log "Source URL[#{source.url}] resources read[#{source.records_read}]" +
           ", added[#{source.resources_added}]" +
           ", updated[#{source.resources_updated}]" +
-          ", rejected[#{source.resources_rejected}]", 2
+          ", rejected[#{source.resources_rejected}]" +
+          ", failed[#{ingestor.failed}]", 2
+      if ingestor.failed > 0
+        log "Failures:", 2
+        ingestor.failure_log.each do |message|
+          log message, 3
+        end
+      end
     end
   rescue StandardError => e
     output.concat "\n**Failed:** #{e.message}\n\n"

@@ -8,16 +8,17 @@ module Ingestors
     def initialize
       @messages = []
       @stats = {
-        events: { processed: 0, added: 0, updated: 0, rejected: 0 },
-        materials: { processed: 0, added: 0, updated: 0, rejected: 0 }
+        events: { processed: 0, added: 0, updated: 0, rejected: 0, failed: 0 },
+        materials: { processed: 0, added: 0, updated: 0, rejected: 0, failed: 0 }
       }
       @token = ''
       @events = []
       @materials = []
+      @failure_log = []
     end
 
     # accessor methods
-    attr_reader :messages, :stats, :events, :materials
+    attr_reader :messages, :stats, :events, :materials, :failure_log
     attr_accessor :token
 
     def self.config
@@ -118,6 +119,10 @@ module Ingestors
       @stats.values.sum { |s| s[:rejected] }
     end
 
+    def failed
+      @stats.values.sum { |s| s[:failed] }
+    end
+
     private
 
     def set_resource_defaults(resource)
@@ -129,55 +134,62 @@ module Ingestors
 
     def write_resources(type, resources, user, provider, source: nil)
       resources.each_with_index do |resource, i|
-        key = type.model_name.collection.to_sym
-        @stats[key][:processed] += 1
+        begin
+          key = type.model_name.collection.to_sym
+          @stats[key][:processed] += 1
 
-        # check for matched events
-        resource.user_id ||= user.id
-        resource.content_provider_id ||= provider.id
-        existing_resource = find_existing(type, resource)
+          # check for matched events
+          resource.user_id ||= user.id
+          resource.content_provider_id ||= provider.id
+          existing_resource = find_existing(type, resource)
 
-        update = existing_resource
-        resource = if update
-                     update_resource(existing_resource, resource.to_h)
-                   else
-                     type.new(resource.to_h)
-                   end
+          update = existing_resource
+          resource = if update
+                       update_resource(existing_resource, resource.to_h)
+                     else
+                       type.new(resource.to_h)
+                     end
 
-        if resource.has_attribute?(:language) && resource.new_record?
-          resource.language ||= source&.default_language
-        end
-
-        resource = set_resource_defaults(resource)
-
-        if source&.exclude_resource?(resource)
-          @stats[key][:rejected] += 1
-          title = resource.title
-          title = "[#{title}](#{resource.url})" if resource.url
-          @messages << "\n#{type.model_name.human} excluded by source: #{title}\n"
-        elsif resource.valid?
-          resource.save!
-          activity_params = {}
-          if source
-            activity_params[:source] = {
-              id: source.id,
-              url: source.url,
-              method: source.method
-            }
+          if resource.has_attribute?(:language) && resource.new_record?
+            resource.language ||= source&.default_language
           end
-          resource.create_activity(update ? :update : :create, owner: user, parameters: activity_params)
-          @stats[key][update ? :updated : :added] += 1
-        else
-          @stats[key][:rejected] += 1
-          title = resource.title
-          title = "[#{title}](#{resource.url})" if resource.url
-          @messages << "\n#{type.model_name.human} failed validation: #{title}\n"
-          resource.errors.full_messages.each do |m|
-            @messages << " - #{m}"
-          end
-        end
 
-        resources[i] = resource
+          resource = set_resource_defaults(resource)
+
+          if source&.exclude_resource?(resource)
+            @stats[key][:rejected] += 1
+            title = resource.title
+            title = "[#{title}](#{resource.url})" if resource.url
+            @messages << "\n#{type.model_name.human} excluded by source: #{title}\n"
+          elsif resource.valid?
+            resource.save!
+            activity_params = {}
+            if source
+              activity_params[:source] = {
+                id: source.id,
+                url: source.url,
+                method: source.method
+              }
+            end
+            resource.create_activity(update ? :update : :create, owner: user, parameters: activity_params)
+            @stats[key][update ? :updated : :added] += 1
+          else
+            @stats[key][:rejected] += 1
+            title = resource.title
+            title = "[#{title}](#{resource.url})" if resource.url
+            @messages << "\n#{type.model_name.human} failed validation: #{title}\n"
+            resource.errors.full_messages.each do |m|
+              @messages << " - #{m}"
+            end
+          end
+
+          resources[i] = resource
+        rescue Exception => e
+          message = "#{type.model_name.human} raised an exception while writing \"#{resource.title}\": #{e.inspect}\n"
+          @messages << message
+          @failure_log << message
+          @stats[key][:failed] += 1
+        end
       end
     end
 
