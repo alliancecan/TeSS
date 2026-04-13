@@ -27,6 +27,10 @@ class OntologyTerm
 
   alias_method :eql?, :==
 
+  def multilingual?
+    false
+  end
+
   def inspect
     "<#{self.class} @ontology=#{self.ontology.class.name}, @uri=#{self.uri}, label: #{self.label}>"
   end

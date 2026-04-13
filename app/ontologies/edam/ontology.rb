@@ -2,6 +2,8 @@ module Edam
   class Ontology < ::Ontology
     include Singleton
 
+    URI_PREFIX = 'http://edamontology.org'
+
     def initialize
       super('EDAM_unstable-1.26_dev_2024-09-24.owl', Edam::Term)
     end
