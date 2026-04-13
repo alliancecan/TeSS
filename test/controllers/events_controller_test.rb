@@ -291,7 +291,9 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should show event as json-api' do
-    @event.scientific_topic_uris = ['http://edamontology.org/topic_0654']
+    # TODO: make EDAM/CRDC work together
+    @event.scientific_topic_uris = ['https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF6020209',
+                                    'http://edamontology.org/topic_0654']
     @event.materials << @material
     @event.collections << @collection
     @event.save!
@@ -307,7 +309,12 @@ class EventsControllerTest < ActionController::TestCase
     end
 
     assert_equal @event.title, body['data']['attributes']['title']
-    assert_equal @event.scientific_topic_uris.first, body['data']['attributes']['scientific-topics'].first['uri']
+    assert_equal body['data']['attributes']['scientific-topics'].count, 2
+
+    # Order is not important
+    data_uris = Set.new(body['data']['attributes']['scientific-topics'].map {|node| node['uri']})
+    assert_equal data_uris, Set.new(@event.scientific_topic_uris)
+
     assert_equal event_path(assigns(:event)), body['data']['links']['self']
     assert_equal @material.id.to_s, body['data']['relationships']['materials']['data'][0]['id']
     assert_equal @collection.id.to_s, body['data']['relationships']['collections']['data'][0]['id']

@@ -361,7 +361,7 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   test 'should show material as json' do
-    @material.scientific_topic_uris = ['http://edamontology.org/topic_0654']
+    @material.scientific_topic_uris = ['https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF1010113']
     @material.events << events(:one)
     @material.collections << collections(:one)
     @material.save!
@@ -376,7 +376,7 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   test 'should show material as json-api' do
-    @material.scientific_topic_uris = ['http://edamontology.org/topic_0654']
+    @material.scientific_topic_uris = ['https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF1010113']
     @material.events << @event
     @material.collections << @collection
     @material.save!
@@ -902,22 +902,28 @@ class MaterialsControllerTest < ActionController::TestCase
         assert_equal(response.body,'[]')
         end
 =end
+
   test 'finds multiple preferred labels' do
-    topic_one = Edam::Ontology.instance.lookup('http://edamontology.org/topic_0154')
-    topic_two = Edam::Ontology.instance.lookup('http://edamontology.org/topic_0078')
+    topic_one = CRDC::Ontology.instance.lookup('https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF10103')
+    topic_two = CRDC::Ontology.instance.lookup('https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF1010111')
     topics = [topic_one.preferred_label, topic_two.preferred_label]
     @material.scientific_topic_names = topics
     assert_not_empty @material.scientific_topics
     assert_equal [topic_one, topic_two], @material.scientific_topics
   end
+
   test 'finds single preferred label' do
-    topic_one = Edam::Ontology.instance.lookup('http://edamontology.org/topic_0154')
+    # TODO: I wish I could easily find a way to handle multiple ontologies ...
+    # topic_one = Edam::Ontology.instance.lookup('http://edamontology.org/topic_0154')
+    topic_one = CRDC::Ontology.instance.lookup('https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF10103')
     topics = topic_one.preferred_label
     @material.scientific_topic_names = topics
     assert_not_empty @material.scientific_topics
     assert_equal [topic_one], @material.scientific_topics
   end
 
+  # NOTE: CRDC doesn't have synonyms ...
+=begin
   test 'find scientific topic that has an exact synonym of parameter' do
     synonym_topic = Edam::Ontology.instance.lookup('http://edamontology.org/topic_0092')
     topics = synonym_topic.has_exact_synonym
@@ -931,6 +937,7 @@ class MaterialsControllerTest < ActionController::TestCase
     @material.scientific_topic_names = topics
     assert_equal [narrow_topic], @material.scientific_topics
   end
+=end
 
   test 'set topics to nil if empty array passed' do
     topics = []
