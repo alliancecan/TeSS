@@ -1,4 +1,7 @@
 class OntologyTermLink < ApplicationRecord
+  ONTOLOGIES = [Edam::Ontology.instance,
+                CRDC::Ontology.instance]
+
   belongs_to :resource, polymorphic: true
 
   def ontology_term
@@ -6,6 +9,7 @@ class OntologyTermLink < ApplicationRecord
   end
 
   def ontology
-    Edam::Ontology.instance
+    @ontology ||= ONTOLOGIES.find { |ontology| ontology.term_uri_matches?(term_uri) }
   end
+
 end

@@ -15,7 +15,7 @@ class Material < ApplicationRecord
   include IdentifiersDotOrg
   include HasFriendlyId
   include HasDifficultyLevel
-  include HasEdamTerms
+  include HasCRDCTerms
 
   if TeSS::Config.solr_enabled
     # :nocov:
@@ -92,8 +92,10 @@ class Material < ApplicationRecord
   has_many :event_materials, dependent: :destroy
   has_many :events, through: :event_materials
 
-  has_ontology_terms(:scientific_topics, branch: EDAM.topics)
+  # has_ontology_terms(:scientific_topics, branch: EDAM.topics)
   has_ontology_terms(:operations, branch: EDAM.operations)
+
+  has_ontology_terms(:scientific_topics, ontology: CRDC::Ontology.instance)
 
   has_many :stars, as: :resource, dependent: :destroy
 
