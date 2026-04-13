@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   get 'edam/topics' => 'edam#topics'
   get 'edam/operations' => 'edam#operations'
 
+  get 'crdc/topics' => 'crdc#topics'
+
   #get 'static/home'
   get 'about' => 'about#tess', as: 'about'
   get 'about/registering' => 'about#registering', as: 'registering_resources'
