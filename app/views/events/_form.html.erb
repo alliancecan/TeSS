@@ -118,7 +118,7 @@
 
   <!-- Field: Topics -->
   <% if !TeSS::Config.feature['disabled'].include? 'topics' %>
-    <%= f.autocompleter :scientific_topics, url: edam_topics_path, template: 'autocompleter/term', label: 'Topics',
+    <%= f.autocompleter :scientific_topics, url: crdc_topics_path, template: 'autocompleter/term', label: 'Topics',
                         id_field: :uri, label_field: :preferred_label, input_html: { title: t('events.hints.topics') } %>
   <% end %>
 

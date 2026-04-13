@@ -66,8 +66,8 @@ module HasOntologyTerms
         [names].flatten.each do |name|
           unless name.blank?
             st = [ontology.scoped_lookup_by_name(name, branch)].compact # FIXME: This is probably too EDAM specific
-            st = ontology.find_by(OBO.hasExactSynonym, name) if st.empty?
-            st = ontology.find_by(OBO.hasNarrowSynonym, name) if st.empty?
+            # st = ontology.find_by(OBO.hasExactSynonym, name) if st.empty?
+            # st = ontology.find_by(OBO.hasNarrowSynonym, name) if st.empty?
             terms += st
           end
         end

@@ -17,7 +17,7 @@ class Event < ApplicationRecord
   include HasFriendlyId
   include FuzzyDictionaryMatch
   include WithTimezone
-  include HasEdamTerms
+  include HasCRDCTerms
   include HasLanguage
   include MarkdownToHtml
 
@@ -123,8 +123,10 @@ class Event < ApplicationRecord
   has_many :materials, through: :event_materials
   has_many :widget_logs, as: :resource
 
-  has_ontology_terms(:scientific_topics, branch: EDAM.topics)
+  # has_ontology_terms(:scientific_topics, branch: EDAM.topics)
   has_ontology_terms(:operations, branch: EDAM.operations)
+
+  has_ontology_terms(:scientific_topics, ontology: CRDC::Ontology.instance)
 
   has_many :stars, as: :resource, dependent: :destroy
 
