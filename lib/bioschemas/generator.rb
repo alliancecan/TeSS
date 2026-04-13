@@ -70,11 +70,16 @@ module Bioschemas
     end
 
     def self.term(term)
+      name_method = if term.multilingual?
+                      :label_en
+                    else
+                      :label
+                    end
       {
         "@type" => "DefinedTerm",
         "@id" => term.uri,
+        "name" => term.send(name_method),
         "inDefinedTermSet" => term.ontology.uri,
-        "name" => term.label,
         "url" => term.uri
       }
     end

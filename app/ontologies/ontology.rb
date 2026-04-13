@@ -6,6 +6,10 @@ class Ontology
     @query_cache = {}
   end
 
+  def term_uri_matches?(uri)
+    uri.starts_with?(self.class::URI_PREFIX) if self.class::URI_PREFIX
+  end
+
   def lookup(uri)
     @term_cache[RDF::URI(uri)] ||= fetch(uri)
   end
