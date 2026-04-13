@@ -295,13 +295,17 @@ class MaterialTest < ActiveSupport::TestCase
 
   test 'can still retrieve deprecated topics' do
     material = materials(:good_material)
-    material.scientific_topic_uris = ['http://edamontology.org/topic_0213'] # Deprecated "Mice or rats" topic
+    # TODO: make EDAM and CRDC work together
+    # material.scientific_topic_uris = ['http://edamontology.org/topic_0213'] # Deprecated "Mice or rats" topic
+    material.scientific_topic_uris = ['https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF1010101']
     material.save!
 
-    assert_includes material.reload.scientific_topic_names, 'Mice or rats'
+    assert_includes material.reload.scientific_topic_names, 'Algebra'
     topic = material.scientific_topics.last
-    assert_equal 'Mice or rats', topic.label
-    assert topic.deprecated?
+    assert_equal 'Algebra', topic.label
+    # CRDC doesn't have deprecated terms
+
+    assert !topic.deprecated?
   end
 
   test 'user_requires_approval?' do
@@ -563,7 +567,9 @@ class MaterialTest < ActiveSupport::TestCase
       nodes: [node],
       external_resources_attributes: { '0' => { title: 'test', url: 'https://external-resource.com' } },
       events: [event],
-      scientific_topic_names: ['Proteins', 'DNA'],
+      # TODO: make Edam and CRDC work together
+      # scientific_topic_names: ['Proteins', 'DNA'],
+      scientific_topic_names: ['Algebra', 'Lexicography'],
       operation_names: ['Variant calling']
     )
 
@@ -587,7 +593,8 @@ class MaterialTest < ActiveSupport::TestCase
               assert_nil dup.url
               assert_equal [event], dup.events
               assert_equal [node], dup.nodes
-              assert_equal ['Proteins', 'DNA'], dup.scientific_topic_names
+              # assert_equal ['Proteins', 'DNA'], dup.scientific_topic_names
+              assert_equal ['Algebra', 'Lexicography'], dup.scientific_topic_names
               assert_equal ['Variant calling'], dup.operation_names
               assert_equal 1, dup.external_resources.length
               assert_equal 'test', dup.external_resources.first.title

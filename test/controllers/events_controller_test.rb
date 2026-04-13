@@ -291,7 +291,8 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should show event as json-api' do
-    @event.scientific_topic_uris = ['http://edamontology.org/topic_0654']
+    # TODO: make EDAM/CRDC work together
+    @event.scientific_topic_uris = ['https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF6020209']
     @event.materials << @material
     @event.collections << @collection
     @event.save!
