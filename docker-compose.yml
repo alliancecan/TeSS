@@ -44,7 +44,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
   solr:
-    container_name: ${PREFIX}-solr]
+    container_name: ${PREFIX}-solr
     logging: *default-logging
     image: solr:8
     volumes:
