@@ -126,7 +126,9 @@ class Event < ApplicationRecord
   # has_ontology_terms(:scientific_topics, branch: EDAM.topics)
   has_ontology_terms(:operations, branch: EDAM.operations)
 
-  has_ontology_terms(:scientific_topics, ontology: CRDC::Ontology.instance)
+  has_ontology_terms(:scientific_topics,
+                     ontologies: [{ ontology: CRDC::Ontology.instance },
+                                  { ontology: Edam::Ontology.instance, branch: EDAM.topics }])
 
   has_many :stars, as: :resource, dependent: :destroy
 

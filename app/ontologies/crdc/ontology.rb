@@ -56,6 +56,7 @@ module CRDC
       # This "ontology" doesn't have branches ...
       lookup_by_name(name)
     end
+    alias_method :scoped_lookup_by_name_or_synonym, :scoped_lookup_by_name
 
     def base_path
       File.join(Rails.root, 'config', 'ontologies')
