@@ -12,6 +12,11 @@
 
   <% # Required Fields    -%>
 
+  <!-- Field: Provider -->
+  <%= f.input :content_provider_id, collection: current_user.get_editable_providers, label_method: :title, value_method: :id,
+              include_blank: true, field_lock: true, label: t('materials.hints.providers'),
+              visibility_toggle: TeSS::Config.feature['materials_disabled'] %>
+
   <!-- Field: Title -->
   <%= f.input :title, as: :string, field_lock: true, input_html: { title: t('materials.hints.title'), placeholder: t('materials.hints.title') } %>
 
@@ -60,11 +65,6 @@
 
   <!-- Field: Version -->
   <%= f.input :version, input_html: { title: t('materials.hints.version') }, field_lock: true,
-              visibility_toggle: TeSS::Config.feature['materials_disabled'] %>
-
-  <!-- Field: Provider -->
-  <%= f.input :content_provider_id, collection: current_user.get_editable_providers, label_method: :title, value_method: :id,
-              include_blank: true, field_lock: true, label: t('materials.hints.providers'),
               visibility_toggle: TeSS::Config.feature['materials_disabled'] %>
 
   <!-- Field: Authors -->

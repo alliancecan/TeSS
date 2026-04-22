@@ -21,6 +21,13 @@
           <% end %>
         <% end %>
 
+        <% if policy(@content_provider).can_modify_materials? %>
+          <%= link_to new_material_path(content_provider_id: @content_provider.id),
+              class: 'btn btn-primary' do %>
+            <%= t('register.buttons.materials') %>
+          <% end %>
+        <% end %>
+
         <%= edit_button(@content_provider) if policy(@content_provider).update? %>
         <%= delete_button(@content_provider) if policy(@content_provider).destroy? %>
       </div>

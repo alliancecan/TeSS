@@ -336,6 +336,12 @@ class ContentProvidersControllerTest < ActionController::TestCase
     assert_select '.btn-primary', {count: 0, text: /Register event/}
   end
 
+  test 'do not show "Register training material" button when not owner or admin' do
+    sign_in users(:another_regular_user)
+    get :show, params: { id: @content_provider }
+    assert_select '.btn-primary', {count: 0, text: /Register training material/}
+  end
+
   test 'show action buttons when owner' do
     sign_in @content_provider.user
     get :show, params: { id: @content_provider }
@@ -349,6 +355,12 @@ class ContentProvidersControllerTest < ActionController::TestCase
     assert_select '.btn-primary', {count: 1, text: /Register event/}
   end
 
+  test 'show "Register training material" button when owner' do
+    sign_in @content_provider.user
+    get :show, params: { id: @content_provider }
+    assert_select '.btn-primary', {count: 1, text: /Register training material/}
+  end
+
   test 'show action buttons when admin' do
     sign_in users(:admin)
     get :show, params: { id: @content_provider }
@@ -360,6 +372,12 @@ class ContentProvidersControllerTest < ActionController::TestCase
     sign_in users(:admin)
     get :show, params: { id: @content_provider }
     assert_select '.btn-primary', {count: 1, text: /Register event/}
+  end
+
+  test 'show "Register training material" button when admin' do
+    sign_in users(:admin)
+    get :show, params: { id: @content_provider }
+    assert_select '.btn-primary', {count: 1, text: /Register training material/}
   end
 
   # API Actions

@@ -56,6 +56,10 @@ class MaterialsController < ApplicationController
   def new
     authorize Material
     @material = Material.new
+
+    if params[:content_provider_id]
+      @material.content_provider_id = params[:content_provider_id]
+    end
   end
 
   # GET /materials/1/clone

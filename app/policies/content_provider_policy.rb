@@ -4,4 +4,8 @@ class ContentProviderPolicy < ScrapedResourcePolicy
     manage?
   end
 
+  def can_modify_materials?
+    manage?
+  end
+
 end
