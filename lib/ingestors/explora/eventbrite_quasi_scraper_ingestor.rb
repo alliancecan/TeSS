@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'csv'
+require 'nokogiri'
 
 module Ingestors
   module Explora
@@ -26,21 +27,12 @@ module Ingestors
 
       # Fetching and scraping event ids from the organization page
       def event_ids
-        # Eventbrite is horrible. Rather than rendering events on the organization
-        # page, they store the data for events in JSON and then render using JS.
-        # With that in mind, what follow is likely quite brittle, as we try to
-        # extract the JSON data to grab the event ids
+        # Eventbrite is horrible. They change the schema of their pages whenever they want.
 
         return @event_ids if @event_ids
-        match = organization_response.body.match(/_SERVER_DATA__ = (\{.*\})/)
-        return [] unless match
 
-        json = JSON.parse(match[1])
-        events = json.dig('view_data', 'events', 'future_events')
-        events = json.dig('view_data', 'events', 'past_events') unless events.present?
-        return [] unless events.present?
-
-        @event_ids = events.map {|item| item['id']}
+        tree = Nokogiri::HTML5.parse(organization_response.body)
+        @event_ids = tree.css('a[data-event-id]').map {|element| element['data-event-id']}.uniq
       end
 
       def organization_response
