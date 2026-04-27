@@ -15,7 +15,7 @@ class Material < ApplicationRecord
   include IdentifiersDotOrg
   include HasFriendlyId
   include HasDifficultyLevel
-  include HasEdamTerms
+  include HasTermsAndSynonyms
 
   if TeSS::Config.solr_enabled
     # :nocov:
