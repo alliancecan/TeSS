@@ -302,7 +302,9 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'does not block non-disallowed(?!) domain' do
-    parameters = @mandatory.merge({ user: users(:regular_user), title: 'Good event', url: 'http://good-domain.example/event',
+    parameters = @mandatory.merge({ user: users(:regular_user),
+                                    content_provider: content_providers(:with_owner),
+                                    title: 'Good event', url: 'http://good-domain.example/event',
                                     description: 'event for does not block non-disallowed domain', online: true })
     event = Event.new(parameters)
 
@@ -313,7 +315,9 @@ class EventTest < ActiveSupport::TestCase
   test 'does not throw error when blocked domains list is blank' do
     with_settings(blocked_domains: nil) do
       assert_nothing_raised do
-        parameters = @mandatory.merge({ user: users(:regular_user), title: 'Bad event', url: 'https://bad-domain.example/event',
+        parameters = @mandatory.merge({ user: users(:regular_user),
+                                        content_provider: content_providers(:with_owner),
+                                        title: 'Bad event', url: 'https://bad-domain.example/event',
                                         description: 'event for does not throw error when blocked domains list is blank',
                                         online: true })
         Event.create!(parameters)
@@ -323,7 +327,9 @@ class EventTest < ActiveSupport::TestCase
 
   test 'enqueues a geocoding worker after creating an event' do
     assert_difference('GeocodingWorker.jobs.size', 1) do
-      parameters = @mandatory.merge({ user: users(:regular_user), title: 'New event', url: 'http://example.com',
+      parameters = @mandatory.merge({ user: users(:regular_user),
+                                      content_provider: content_providers(:with_owner),
+                                      title: 'New event', url: 'http://example.com',
                                       online: false, description: 'event to test enqueing of geocoding worker',
                                       venue: 'A place', city: 'Manchester', country: 'UK', postcode: 'M16 0TH' })
       event = Event.create(parameters)
@@ -372,7 +378,9 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'does not enqueue a geocoding worker if the address is cached' do
-    parameters = @mandatory.merge({ user: users(:regular_user), title: 'New event', url: 'http://example.com',
+    parameters = @mandatory.merge({ user: users(:regular_user),
+                                    content_provider: content_providers(:with_owner),
+                                    title: 'New event', url: 'http://example.com',
                                     online: false, description: 'event for geocoding enqueue test',
                                     venue: 'A place', city: 'Manchester',
                                     country: @event.country, postcode: @event.postcode })
@@ -445,7 +453,9 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'validates timezone if present' do
-    event = Event.new(title: 'An event', url: 'https://myevent.com', timezone: 'UTC', user: users(:regular_user))
+    event = Event.new(title: 'An event', url: 'https://myevent.com', timezone: 'UTC',
+                      user: users(:regular_user),
+                      content_provider: content_providers(:with_owner))
     assert event.valid?
 
     event.timezone = '123'
@@ -460,7 +470,9 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'validates language if present' do
-    event = Event.new(title: 'An event', url: 'https://myevent.com', language: 'en', user: users(:regular_user))
+    event = Event.new(title: 'An event', url: 'https://myevent.com', language: 'en',
+                      user: users(:regular_user),
+                      content_provider: content_providers(:with_owner))
     assert event.valid?
 
     # Okay if not present
@@ -478,8 +490,9 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'validates URL format' do
-    event = Event.new(title: 'An event', timezone: 'UTC', user: users(:regular_user))
-
+    event = Event.new(title: 'An event', timezone: 'UTC',
+                      user: users(:regular_user),
+                      content_provider: content_providers(:with_owner))
     refute event.valid?
     assert event.errors.added?(:url, :blank)
 
@@ -509,7 +522,8 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'fuzzy-matches event types according to dictionary' do
-    event = Event.new(title: 'An event', timezone: 'UTC', user: users(:regular_user), url: 'https://https-website.com/mat')
+    event = Event.new(title: 'An event', timezone: 'UTC', url: 'https://https-website.com/mat',
+                      user: users(:regular_user), content_provider: content_providers(:with_owner))
     assert event.valid?
 
     eligibility = EligibilityDictionary.instance.keys.first
@@ -525,7 +539,10 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'get online status from description if scraped' do
-    event = Event.new(title: 'An event', timezone: 'UTC', user: users(:regular_user), url: 'https://https-website.com/mat',
+    event = Event.new(title: 'An event', timezone: 'UTC',
+                      user: users(:regular_user),
+                      content_provider: content_providers(:with_owner),
+                      url: 'https://https-website.com/mat',
                       description: 'This event is held on Zoom', scraper_record: true)
     refute event.online?
     assert event.valid?
@@ -534,7 +551,10 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'do not fix online status if hybrid' do
-    event = Event.new(title: 'An event', timezone: 'UTC', user: users(:regular_user), url: 'https://https-website.com/mat',
+    event = Event.new(title: 'An event', timezone: 'UTC',
+                      user: users(:regular_user),
+                      content_provider: content_providers(:with_owner),
+                      url: 'https://https-website.com/mat',
                       description: 'This event is held on Zoom', scraper_record: true, presence: :hybrid)
     assert event.hybrid?
     assert event.valid?
@@ -552,7 +572,10 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'get event_type from keywords if scraped' do
-    event = Event.new(title: 'An event', timezone: 'UTC', user: users(:regular_user), url: 'https://https-website.com/mat',
+    event = Event.new(title: 'An event', timezone: 'UTC',
+                      user: users(:regular_user),
+                      content_provider: content_providers(:with_owner),
+                      url: 'https://https-website.com/mat',
                       keywords: ['Workshops and courses'], scraper_record: true)
     assert_not event.event_types.include?('Workshops and courses')
     assert event.keywords.include?('Workshops and courses')
@@ -563,7 +586,10 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'do not get event_type from keywords if not scraped' do
-    event = Event.new(title: 'An event', timezone: 'UTC', user: users(:regular_user), url: 'https://https-website.com/mat',
+    event = Event.new(title: 'An event', timezone: 'UTC',
+                      user: users(:regular_user),
+                      content_provider: content_providers(:with_owner),
+                      url: 'https://https-website.com/mat',
                       keywords: ['Workshops and courses'], scraper_record: false)
     assert event.valid?
     event.save!
@@ -573,12 +599,14 @@ class EventTest < ActiveSupport::TestCase
 
   test 'duplicate' do
     user = users(:regular_user)
+    content_provider = content_providers(:with_owner)
     node = nodes(:westeros)
     material = materials(:good_material)
     event = Event.new(
       title: 'An event',
       timezone: 'UTC',
       user:,
+      content_provider: content_provider,
       url: 'https://events.com/1',
       keywords: ['fun times'],
       nodes: [node],
@@ -833,6 +861,7 @@ class EventTest < ActiveSupport::TestCase
     end_time = start_time + 1.hour
 
     event1 = Event.create!(title: 'Event1',
+                           content_provider: content_providers(:with_owner),
                            url: 'https://example.com/events/1',
                            user: user,
                            start: start_time,

@@ -83,8 +83,8 @@ class CuratorControllerTest < ActionController::TestCase
     e = new_user.events.create!(title: 'Spam event', url: 'http://cool-event.pancakes', start: 10.days.from_now,
                                 description: "test event", organizer: "test organizer", end: 11.days.from_now,
                                 eligibility: [ 'registration_of_interest' ], host_institutions: [ "MIT" ],
-                                contact: "me", online: true, timezone: 'UTC'
-                                )
+                                contact: "me", online: true, timezone: 'UTC',
+                                content_provider: content_providers(:with_owner))
     e.create_activity(:create, owner: new_user)
 
     get :users, params: { with_content: true }
@@ -135,13 +135,16 @@ class CuratorControllerTest < ActionController::TestCase
       e = new_user.events.create!(title: "Spam event #{i}", url: "http://cool-event.pancakes/#{i}", start: 10.days.from_now,
                                   description: "test event", organizer: "test organizer", end: 11.days.from_now,
                                   eligibility: [ 'registration_of_interest' ], host_institutions: [ "MIT" ],
-                                  contact: "me", online: true, timezone: 'UTC')
+                                  contact: "me", online: true, timezone: 'UTC',
+                                  content_provider: content_providers(:with_owner))
       e.create_activity(:create, owner: new_user)
       event = e
     end
 
     4.times do |i|
-      m = new_user.materials.create!(title: "Spam material #{i}", url: "http://cool-material.pancakes/#{i}", description: 'material')
+      m = new_user.materials.create!(title: "Spam material #{i}", url: "http://cool-material.pancakes/#{i}",
+                                     description: 'material',
+                                     content_provider: content_providers(:with_owner))
       m.create_activity(:create, owner: new_user)
       material = m
     end

@@ -73,3 +73,12 @@ acenet:
   user: regular_user
   content_provider_type: Portal
   contact: user@provider.portal
+
+with_owner:
+  title: With Owner
+  url: http://with.owner
+  user: content_provider_owner
+  content_provider_type: Portal
+  contact: user@with.owner
+  editors:
+    - content_provider_editor

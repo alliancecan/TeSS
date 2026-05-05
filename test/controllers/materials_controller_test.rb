@@ -8,9 +8,11 @@ class MaterialsControllerTest < ActionController::TestCase
     mock_images
     mock_biotools
     @material = materials(:good_material)
+    @content_provider = content_providers(:with_owner)
+    @material.content_provider = @content_provider
     @event = events(:one)
     @collection = collections(:two)
-    @user = users(:regular_user)
+    @user = users(:content_provider_owner)
     @material.user_id = @user.id
     @material.save!
     @updated_material = {
@@ -122,23 +124,42 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   #NEW TESTS
-  test 'should get new' do
+  test 'should not get new for regular user' do
     sign_in users(:regular_user)
     get :new
-    assert_response :success
+    assert_response :forbidden
   end
 
-  test 'should get new page for logged in users only' do
+  test 'should get new page for only authorized users only' do
     #Redirect to login if not logged in
     get :new
     assert_response :redirect
+
     sign_in users(:regular_user)
     #Success for everyone else
     get :new
-    assert_response :success
+    assert_response :forbidden
+
     sign_in users(:admin)
     get :new
     assert_response :success
+
+    user = users(:content_provider_owner)
+    content_provider = content_providers(:with_owner)
+
+    # Content provider user can't get there if the content provider isn't set
+    sign_in user
+    get :new
+    assert_response :forbidden
+
+    # Content provider user can get there if the content provider is set
+    get :new, params: {content_provider_id: content_provider.id}
+    assert_response :success
+
+    # Non-owner can't get there if a content provider is set
+    sign_in users(:regular_user)
+    get :new, params: {content_provider_id: content_provider.id}
+    assert_response :forbidden
   end
 
   test 'should not get new page for basic users' do
@@ -155,10 +176,10 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   #logged in but insufficient permissions = ERROR
-  test 'should get edit for material owner' do
+  test 'should not get edit page for regular user' do
     sign_in users(:regular_user)
     get :edit, params: { id: @material }
-    assert_response :success
+    assert_response :forbidden
   end
 
   test 'should get edit for admin' do
@@ -180,6 +201,12 @@ class MaterialsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should get edit for content provider editor' do
+    sign_in users(:content_provider_editor)
+    get :edit, params: { id: @material }
+    assert_response :success
+  end
+
   test 'should not get edit page for non-owner user' do
     #Administrator = SUCCESS
     sign_in users(:another_regular_user)
@@ -195,8 +222,34 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   #CREATE TEST
-  test 'should create material for user' do
+  test 'should not create material for regular user' do
     sign_in users(:regular_user)
+    content_provider = content_providers(:with_owner)
+
+    assert_no_difference('Material.count') do
+      post :create, params: {
+        material: {
+          doi: @material.doi,
+          remote_created_date: @material.remote_created_date,
+          remote_updated_date: @material.remote_updated_date,
+          description: @material.description,
+          title: @material.title,
+          content_provider_id: content_provider.id,
+          url: @material.url,
+          licence: @material.licence,
+          keywords: @material.keywords,
+          contact: @material.contact,
+          status: @material.status
+        }
+      }
+    end
+    assert_response :forbidden
+  end
+
+  test 'should create material for admin user' do
+    sign_in users(:admin)
+    content_provider = content_providers(:with_owner)
+
     assert_difference('Material.count') do
       post :create, params: {
         material: {
@@ -205,6 +258,7 @@ class MaterialsControllerTest < ActionController::TestCase
           remote_updated_date: @material.remote_updated_date,
           description: @material.description,
           title: @material.title,
+          content_provider_id: content_provider.id,
           url: @material.url,
           licence: @material.licence,
           keywords: @material.keywords,
@@ -223,10 +277,12 @@ class MaterialsControllerTest < ActionController::TestCase
     test_url = 'https://test.of.create/with/optionals_via_post'
     test_material = materials(:material_with_optionals)
     test_provider = content_providers(:portal_provider)
+    owner = test_provider.user
     assert_not_nil test_material, 'missing reference material'
     assert_not_nil test_provider, 'missing reference provider'
 
-    sign_in users(:regular_user)
+    sign_in owner
+
     assert_difference('Material.count') do
       post :create, params: {
         material: {
@@ -309,6 +365,7 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   test 'should create material for admin' do
+    content_provider = content_providers(:with_owner)
     sign_in users(:admin)
     assert_difference('Material.count') do
       post :create, params: {
@@ -318,6 +375,7 @@ class MaterialsControllerTest < ActionController::TestCase
           remote_updated_date: @material.remote_updated_date,
           description: @material.description,
           title: @material.title,
+          content_provider_id: content_provider,
           url: @material.url,
           licence: @material.licence,
           keywords: @material.keywords,
@@ -470,8 +528,14 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   #DESTROY TEST
-  test 'should destroy material owned by user' do
+  test 'should not destroy material owned by user unless user owns the content provider' do
     sign_in users(:regular_user)
+    assert_no_difference('Material.count') do
+      delete :destroy, params: { id: @material }
+    end
+    assert_response :forbidden
+
+    sign_in users(:content_provider_owner)
     assert_difference('Material.count', -1) do
       delete :destroy, params: { id: @material }
     end
@@ -546,7 +610,7 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   test 'breadcrumbs for editing material' do
-    sign_in users(:regular_user)
+    sign_in users(:content_provider_editor)
     get :edit, params: { id: @material }
     assert_response :success
     assert_select 'div.breadcrumbs', :text => /Home/, :count => 1 do
@@ -562,8 +626,9 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   test 'breadcrumbs for creating new material' do
-    sign_in users(:regular_user)
-    get :new
+    sign_in users(:content_provider_owner)
+    content_provider = content_providers(:with_owner)
+    get :new, params: { content_provider_id: content_provider.id }
     assert_response :success
     assert_select 'div.breadcrumbs', :text => /Home/, :count => 1 do
       assert_select 'a[href=?]', root_path, :count => 1
@@ -596,7 +661,7 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   test 'show action buttons when owner' do
-    sign_in users(:regular_user)
+    sign_in users(:content_provider_owner)
     get :show, params: { id: @material }
     assert_select 'a.btn[href=?]', edit_material_path(@material), :count => 1
     assert_select 'a.btn[href=?]', material_path(@material), :text => 'Delete', :count => 1
@@ -691,6 +756,8 @@ class MaterialsControllerTest < ActionController::TestCase
   test 'should create new material through API' do
     scraper_role = Role.fetch('scraper_user')
     scraper_user = User.where(:role_id => scraper_role.id).first
+    # For scraper, this should code from the Source
+    content_provider = content_providers(:with_owner)
     material_title = 'horse'
     assert scraper_user
     assert_difference('Material.count') do
@@ -701,6 +768,7 @@ class MaterialsControllerTest < ActionController::TestCase
           title: material_title,
           url: 'http://horse.com',
           description: 'I love horses',
+          content_provider_id: content_provider.id,
           contact: 'default contact',
           doi: 'https://doi.org/10.1001/RSE.2.190',
           licence: 'CC-BY-4.0',
@@ -945,11 +1013,13 @@ class MaterialsControllerTest < ActionController::TestCase
 
   test 'should sanitize descriptions when creating material' do
     sign_in @user
+    content_provider = content_providers(:with_owner)
 
     assert_difference('Material.count', 1) do
       post :create, params: {
         material: { description: '<b>hi</b><script>alert("hi!");</script>',
                     title: 'Insanity',
+                    content_provider_id: content_provider.id,
                     url: 'http://www.example.com/sanity/0',
                     doi: 'https://doi.org/10.1100/RSE.2019.23',
                     licence: 'CC-BY-4.0',
@@ -999,6 +1069,7 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   test 'parameter log activity works when removing an association' do
+    skip "Explora: Can't remove content provider"
     sign_in @material.user
     @material.activities.destroy_all
 
@@ -1036,13 +1107,14 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   test 'can assign nodes by name' do
-    sign_in users(:regular_user)
+    sign_in users(:content_provider_owner)
 
     assert_difference('Material.count') do
       post :create, params: {
         material: {
           description: @material.description,
           title: @material.title,
+          content_provider_id: @material.content_provider,
           url: @material.url,
           node_names: [nodes(:westeros).name, nodes(:good).name],
           doi: @material.doi,
@@ -1231,6 +1303,8 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   test 'should trigger notification when unverified user creates material' do
+    skip 'Explora: unverified users should not be able to create a material'
+
     sign_in users(:unverified_user)
 
     assert_enqueued_jobs 1 do
@@ -1254,6 +1328,7 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   test 'should not trigger notification if unverified user already created content' do
+    skip "Explora: Unverified users shouldn't be creating content"
     sign_in users(:unverified_user)
     users(:unverified_user).materials.create!(description: @material.description,
                                               title: @material.title, url: 'http://example.com/dodgy-event',
@@ -1296,6 +1371,7 @@ class MaterialsControllerTest < ActionController::TestCase
 
   test 'should support legacy clients using short_description and long_description' do
     scraper_user = users(:scraper_user)
+    content_provider = content_providers(:with_owner)
     material_title = 'horse'
     assert_difference('Material.count') do
       post :create, params: {
@@ -1304,6 +1380,7 @@ class MaterialsControllerTest < ActionController::TestCase
         material: {
           title: material_title,
           url: 'http://horse.com',
+          content_provider_id: content_provider.id,
           short_description: 'I love horses',
           long_description: 'I really love horses',
           contact: 'default contact',
@@ -1383,9 +1460,15 @@ class MaterialsControllerTest < ActionController::TestCase
 
   test 'should hide fields' do
     with_settings(feature: { materials_disabled: ['licence', 'scientific_topics', 'resource_type'] }) do
-      sign_in users(:regular_user)
+      sign_in users(:content_provider_owner)
+      content_provider = content_providers(:with_owner)
+
       get :new
+      assert_response :forbidden
+
+      get :new, params: { content_provider_id: content_provider.id}
       assert_response :success
+
       assert_select 'div.hidden' do |div|
         assert_select 'label', text: 'Licence', count: 1
         assert_select 'label', text: 'Status', count: 0
@@ -1413,12 +1496,14 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   test 'should preview material' do
-    sign_in users(:regular_user)
+    sign_in users(:content_provider_owner)
+    content_provider = content_providers(:with_owner)
 
     assert_no_difference('Material.count') do
       assert_no_difference('ExternalResource.count') do
         post :preview, params: { material: { title: 'Potential material',
                                              url: 'https://somematerial.com',
+                                             content_provider_id: content_provider.id,
                                              description: 'hey',
                                              external_resources_attributes: [
                                                { title: 'A tool perhaps', url: 'https://bio.tools/some_tool' }
@@ -1445,6 +1530,7 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   test 'should show unverified users material to themselves' do
+    skip "Explora: We don't allow unverified users to create materials"
     sign_in users(:unverified_user)
     material = users(:unverified_user).materials.create!(description: @material.description,
                                               title: @material.title, url: 'http://example.com/dodgy-event',
@@ -1460,6 +1546,7 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   test 'should show unverified users material to admin' do
+    skip "Explora: We don't allow unverified users to create materials"
     material = users(:unverified_user).materials.create!(description: @material.description,
                                               title: @material.title, url: 'http://example.com/dodgy-event',
                                               doi: 'https://doi.org/10.10067/SEA.2019.22', status: 'active',
@@ -1475,6 +1562,7 @@ class MaterialsControllerTest < ActionController::TestCase
   end
 
   test 'should not show unverified users material anon user' do
+    skip "Explora: We don't allow unverified users to create materials"
     material = users(:unverified_user).materials.create!(description: @material.description,
                                               title: @material.title, url: 'http://example.com/dodgy-event',
                                               doi: 'https://doi.org/10.10067/SEA.2019.22', status: 'active',

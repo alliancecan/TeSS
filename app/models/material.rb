@@ -105,7 +105,7 @@ class Material < ApplicationRecord
   # e.g. "James     Bond  " => "James Bond"
   auto_strip_attributes :title, :description, :url, squish: false
 
-  validates :title, :description, :url, presence: true
+  validates :title, :description, :url, :content_provider, presence: true
   validates :url, url: true
   validates :other_types, presence: true, if: proc { |m| m.resource_type.include?('other') }
   validates :keywords, length: { maximum: 20 }

@@ -193,6 +193,7 @@ class EditorTest < ActiveSupport::TestCase
   end
 
   test 'reassigning resources works for resources without content provider set' do
+    skip "Explora: content provider is required for Events"
     trainer = users :trainer_user
     provider = content_providers :goblet
     event = events :training_event

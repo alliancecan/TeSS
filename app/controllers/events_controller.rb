@@ -86,12 +86,12 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    authorize Event
     @event = Event.new(start: DateTime.now.change(hour: 9),
                        end: DateTime.now.change(hour: 17))
     if params[:content_provider_id]
       @event.content_provider_id = params[:content_provider_id]
     end
+    authorize @event
   end
 
   # GET /events/1/clone
@@ -150,11 +150,11 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    authorize Event
     @event = Event.new(event_params)
     # TODO: should time only shift for timezone if format is HTML?
     shift_times_to_utc_for_saving
     @event.user = current_user
+    authorize @event
 
     respond_to do |format|
       if @event.save

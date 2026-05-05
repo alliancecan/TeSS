@@ -8,8 +8,10 @@ class CurationMailerTest < ActionMailer::TestCase
     @url_opts = Rails.application.routes.default_url_options
     Rails.application.routes.default_url_options = Rails.application.config.action_mailer.default_url_options
     @user = users(:unverified_user)
+    @content_provider = content_providers(:with_owner)
     @material = @user.materials.create!(title: 'Unverified Material',
                                         url: 'http://example.com/shady-event',
+                                        content_provider: @content_provider,
                                         description: '123',
                                         licence: 'Fair',
                                         doi: 'https://doi.org/10.1200/RSE.2020.123',

@@ -305,6 +305,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'merge users' do
+    content_provider = content_providers(:with_owner)
     user1 = User.create!(username: 'base_user', password: '12345678', email: 'base-user@example.com',
                          processing_consent: '1', profile_attributes: {
         expertise_technical: ['Python', 'Ruby', 'R'],
@@ -325,10 +326,16 @@ class UserTest < ActiveSupport::TestCase
       })
 
     # Resources
-    material1 = user1.materials.create!(title: 'material 1', url: 'https://training.com/materials/1', description: 'material1')
-    material2 = user2.materials.create!(title: 'material 2', url: 'https://training.com/materials/2', description: 'material2')
-    event1 = user2.events.create!(title: 'event 1', url: 'https://training.com/events/1')
-    event2 = user3.events.create!(title: 'event 2', url: 'https://training.com/events/2')
+    material1 = user1.materials.create!(title: 'material 1', url: 'https://training.com/materials/1',
+                                        description: 'material1',
+                                        content_provider: content_provider)
+    material2 = user2.materials.create!(title: 'material 2', url: 'https://training.com/materials/2',
+                                        description: 'material2',
+                                        content_provider: content_provider)
+    event1 = user2.events.create!(title: 'event 1', url: 'https://training.com/events/1',
+                                  content_provider: content_provider)
+    event2 = user3.events.create!(title: 'event 2', url: 'https://training.com/events/2',
+                                  content_provider: content_provider)
 
     # Activity
     admin = users(:admin)

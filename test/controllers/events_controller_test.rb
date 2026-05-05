@@ -138,22 +138,66 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   # NEW TESTS
-  test 'should get new' do
+  test 'should get new only for the right people, under the right conditions' do
     sign_in users(:regular_user)
     get :new
+    assert_response :forbidden
+
+    content_provider = content_providers(:with_owner)
+    get :new, params: { content_provider_id: content_provider.id}
+    assert_response :forbidden
+
+    sign_in users(:content_provider_owner)
+    get :new
+    assert_response :forbidden
+    get :new, params: { content_provider_id: content_provider.id}
+    assert_response :success
+
+    sign_in users(:content_provider_editor)
+    get :new
+    assert_response :forbidden
+    get :new, params: { content_provider_id: content_provider.id}
+    assert_response :success
+
+    # It's good to be king ...
+    sign_in users(:admin)
+    get :new
+    assert_response :success
+    get :new, params: { content_provider_id: content_provider.id}
     assert_response :success
   end
 
-  test 'should get new page for logged in users only' do
+  test 'should not get new page for regular user, just the chosen ones' do
     # Redirect to login if not logged in
+    content_provider = content_providers(:with_owner)
     get :new
     assert_response :redirect
+    get :new, params: { content_provider_id: content_provider.id }
+    assert_response :redirect
+
     sign_in users(:regular_user)
     # Success for everyone else
     get :new
+    assert_response :forbidden
+    get :new, params: { content_provider_id: content_provider.id }
+    assert_response :forbidden
+
+    sign_in users(:content_provider_owner)
+    get :new
+    assert_response :forbidden
+    get :new, params: { content_provider_id: content_provider.id }
     assert_response :success
+
+    sign_in users(:content_provider_editor)
+    get :new
+    assert_response :forbidden
+    get :new, params: { content_provider_id: content_provider.id }
+    assert_response :success
+
     sign_in users(:admin)
     get :new
+    assert_response :success
+    get :new, params: { content_provider_id: content_provider.id }
     assert_response :success
   end
 
@@ -214,12 +258,13 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   # CREATE TEST
-  test 'should create online event for user' do
-    sign_in users(:regular_user)
+  test 'should create online event for content provider editor' do
+    sign_in users(:content_provider_editor)
     assert_difference('Event.count') do
       # Create event with all mandatory fields
       post :create, params: { event: { description: @event.description, title: @event.title, url: @event.url,
                                        duration: @event.duration, recognition: @event.recognition,
+                                       content_provider_id: content_providers(:with_owner),
                                        learning_objectives: @event.learning_objectives }.merge(@mandatory_fields) }
     end
     assert_redirected_to event_path(assigns(:event))
@@ -236,14 +281,18 @@ class EventsControllerTest < ActionController::TestCase
   test 'should create event for admin' do
     sign_in users(:admin)
     assert_difference('Event.count') do
-      post :create, params: { event: { description: @event.description, title: @event.title, url: @event.url }.merge(@mandatory_fields) }
+      post :create, params: { event: { description: @event.description, title: @event.title,
+                                       content_provider_id: content_providers(:with_owner),
+                                       url: @event.url,}.merge(@mandatory_fields) }
     end
     assert_redirected_to event_path(assigns(:event))
   end
 
   test 'should not create event for non-logged in user' do
     assert_no_difference('Event.count') do
-      post :create, params: { event: { description: @event.description, title: @event.title, url: @event.url }.merge(@mandatory_fields) }
+      post :create, params: { event: { description: @event.description, title: @event.title,
+                                       content_provider_id: content_providers(:with_owner),
+                                       url: @event.url }.merge(@mandatory_fields) }
     end
     assert_redirected_to new_user_session_path
   end
@@ -421,6 +470,7 @@ class EventsControllerTest < ActionController::TestCase
       post :create, params: { event: { description: "Create time/timezone test",
                                        title: "Create time/timezone test",
                                        url: 'https://www.example.com/time/timezone/test',
+                                       content_provider_id: content_providers(:with_owner),
                                        timezone: 'Melbourne',
                                        # These are Melbourne time
                                        start: '2021-09-21 09:17:00',
@@ -527,8 +577,9 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'breadcrumbs for creating new event' do
-    sign_in users(:regular_user)
-    get :new
+    sign_in users(:content_provider_editor)
+    content_provider = content_providers(:with_owner)
+    get :new, params: { content_provider_id: content_provider.id }
     assert_response :success
     assert_select 'div.breadcrumbs', text: /Home/, count: 1 do
       assert_select 'a[href=?]', root_path, count: 1
@@ -691,13 +742,16 @@ class EventsControllerTest < ActionController::TestCase
   test 'should create new event through API' do
     scraper_role = Role.fetch('scraper_user')
     scraper_user = User.where(role_id: scraper_role.id).first
+    content_provider = content_providers(:with_owner)
     event_title = 'horse'
     assert scraper_user
     assert_difference('Event.count') do
       post :create, params: {
         user_token: scraper_user.authentication_token,
         user_email: scraper_user.email,
-        event: { title: event_title, url: 'http://horse.com', description: 'All about horses' }.merge(@mandatory_fields),
+        event: { title: event_title, url: 'http://horse.com',
+                 description: 'All about horses',
+                 content_provider_id: content_provider.id }.merge(@mandatory_fields),
         format: 'json'
       }
     end
@@ -909,7 +963,7 @@ class EventsControllerTest < ActionController::TestCase
   test 'should remove external resource from event' do
     event = events(:event_with_external_resource)
     resource = event.external_resources.first
-    sign_in event.user
+    sign_in users(:content_provider_editor)
 
     assert_difference('ExternalResource.count', -1) do
       patch :update, params: {
@@ -930,7 +984,7 @@ class EventsControllerTest < ActionController::TestCase
   test 'should modify external resource from event' do
     event = events(:event_with_external_resource)
     resource = event.external_resources.first
-    sign_in event.user
+    sign_in users(:content_provider_owner)
 
     assert_no_difference('ExternalResource.count') do
       patch :update, params: {
@@ -951,13 +1005,14 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should sanitize description when creating event' do
-    sign_in users(:regular_user)
+    sign_in users(:content_provider_owner)
 
     assert_difference('Event.count', 1) do
       post :create, params: {
         event: {
           description: '<b>hi</b><script>alert("hi!");</script>',
           title: 'Dirty Event',
+          content_provider_id: content_providers(:with_owner),
           url: 'http://www.example.com/events/dirty'
         }.merge(@mandatory_fields)
       }
@@ -968,13 +1023,14 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'can assign nodes by name' do
-    sign_in users(:regular_user)
+    sign_in users(:content_provider_editor)
 
     assert_difference('Event.count') do
       post :create, params: {
         event: {
           title: @event.title,
           url: @event.url,
+          content_provider_id: content_providers(:with_owner),
           description: @event.description,
           node_names: [nodes(:westeros).name, nodes(:good).name]
         }.merge(@mandatory_fields)
@@ -1192,7 +1248,7 @@ class EventsControllerTest < ActionController::TestCase
   test 'should only show report fields in JSON to privileged users' do
     hidden_report_event = events(:event_with_report)
     visible_report_event = events(:another_event_with_report)
-    sign_in users(:another_regular_user)
+    sign_in users(:content_provider_owner)
 
     get :show, params: { id: hidden_report_event, format: :json }
     refute JSON.parse(response.body).key?('funding')
@@ -1206,7 +1262,7 @@ class EventsControllerTest < ActionController::TestCase
   test 'should only show report fields in JSON index to privileged users' do
     hidden_report_event = events(:event_with_report)
     visible_report_event = events(:another_event_with_report)
-    sign_in users(:another_regular_user)
+    sign_in users(:content_provider_owner)
 
     get :index, format: :json
     assert_valid_legacy_json_response
@@ -1225,6 +1281,7 @@ class EventsControllerTest < ActionController::TestCase
     assert_valid_json_api_response
     refute JSON.parse(response.body)['data']['attributes'].key?('report')
 
+    sign_in users(:content_provider_owner)
     get :show, params: { id: visible_report_event, format: :json_api }
     assert_valid_json_api_response
     assert_equal visible_report_event.funding, JSON.parse(response.body)['data']['attributes']['report']['funding']
@@ -1233,7 +1290,7 @@ class EventsControllerTest < ActionController::TestCase
   test 'should only show report fields in JSON-API index to privileged users' do
     hidden_report_event = events(:event_with_report)
     visible_report_event = events(:another_event_with_report)
-    sign_in users(:another_regular_user)
+    sign_in users(:content_provider_editor)
 
     get :index, format: :json_api
     assert_valid_json_api_response
@@ -1584,16 +1641,16 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should not show address finder if disabled' do
-    sign_in users(:regular_user)
+    sign_in users(:content_provider_editor)
     assert TeSS::Config.map_enabled
     assert TeSS::Config.address_finder_enabled
-    get :new
+    get :new, params: { content_provider_id: content_providers(:with_owner)}
     assert_response :success
     assert_select '#event-map-form', count: 1
     with_settings(feature: { disabled: ['address_finder'] }) do
       assert TeSS::Config.map_enabled
       refute TeSS::Config.address_finder_enabled
-      get :new
+      get :new, params: { content_provider_id: content_providers(:with_owner)}
       assert_response :success
       assert_select '#event-map-form', count: 0
     end
@@ -1620,12 +1677,13 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should preview event' do
-    sign_in users(:regular_user)
+    sign_in users(:content_provider_editor)
 
     assert_no_difference('Event.count') do
       assert_no_difference('ExternalResource.count') do
         post :preview, params: { event: { title: 'Potential event',
                                           url: 'https://someevent.com',
+                                          content_provider_id: content_providers(:with_owner),
                                           external_resources_attributes: [
                                             { title: 'A tool perhaps', url: 'https://bio.tools/some_tool' }
                                           ] } }
@@ -1666,6 +1724,7 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should show unverified users event to themselves' do
+    skip "Explora: unverified users shouldn't be able to do this"
     sign_in users(:unverified_user)
     event = users(:unverified_user).events.create!(title: 'Hello', description: 'World',
                                                    url: 'https://example.com/event')
@@ -1678,6 +1737,7 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should show unverified users event to admin' do
+    skip "Explora: unverified users shouldn't be able to do this"
     event = users(:unverified_user).events.create!(title: 'Hello', description: 'World',
                                                    url: 'https://eexample.com/event')
     sign_in users(:admin)
@@ -1690,6 +1750,7 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should not show unverified users event anon user' do
+    skip "Explora: unverified users shouldn't be able to do this"
     event = users(:unverified_user).events.create!(title: 'Hello', description: 'World',
                                                    url: 'https://example.com/event')
 
@@ -1698,9 +1759,11 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should create event without language specified' do
-    sign_in users(:regular_user)
+    sign_in users(:content_provider_editor)
+    content_provider = content_providers(:with_owner)
     assert_difference('Event.count', 1) do
       post :create, params: { event: { description: @event.description, title: @event.title, url: @event.url,
+                                       content_provider_id: content_provider.id,
                                        language: '' } }
     end
     assert_redirected_to event_path(assigns(:event))
@@ -1714,7 +1777,10 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test 'should not display language of instruction if not specified' do
-    event = users(:regular_user).events.create!(title: 'No language', url: 'https://example.com/nolang', language: '')
+    content_provider = content_providers(:with_owner)
+    event = users(:regular_user).events.create!(title: 'No language', url: 'https://example.com/nolang',
+                                                content_provider_id: content_provider.id,
+                                                language: '')
 
     get :show, params: { id: event }
     assert_response :success

@@ -54,12 +54,11 @@ class MaterialsController < ApplicationController
 
   # GET /materials/new
   def new
-    authorize Material
     @material = Material.new
-
     if params[:content_provider_id]
       @material.content_provider_id = params[:content_provider_id]
     end
+    authorize @material
   end
 
   # GET /materials/1/clone
@@ -95,9 +94,9 @@ class MaterialsController < ApplicationController
   # POST /materials
   # POST /materials.json
   def create
-    authorize Material
     @material = Material.new(material_params)
     @material.user = current_user
+    authorize @material
 
     respond_to do |format|
       if @material.save

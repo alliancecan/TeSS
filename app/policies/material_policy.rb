@@ -1,7 +1,2 @@
-class MaterialPolicy < ScrapedResourcePolicy
-
-  def clone?
-    manage?
-  end
-
+class MaterialPolicy < ContentProviderResourcePolicy
 end

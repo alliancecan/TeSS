@@ -22,6 +22,12 @@ class MaterialTest < ActiveSupport::TestCase
     assert_not_nil @material
   end
 
+  # We test this since it's different than upstream
+  test 'validates that content provider is present' do
+    assert Material.validators_on(:content_provider).\
+             any? { |v| v.is_a?(ActiveRecord::Validations::PresenceValidator) }
+  end
+
   test 'should update optionals' do
     m = materials(:material_with_optionals)
 
@@ -311,7 +317,9 @@ class MaterialTest < ActiveSupport::TestCase
   test 'user_requires_approval?' do
     user = users(:unverified_user)
 
+    content_provider = content_providers(:with_owner)
     first_material = user.materials.build(title: 'bla', url: 'http://example.com/spam', description: '123',
+                                          content_provider: content_provider,
                                           doi: 'https://doi.org/10.1111/123.1235', licence: 'Fair', keywords: ['uno'],
                                           contact: 'default contact', status: 'active')
     assert first_material.user_requires_approval?
@@ -319,6 +327,7 @@ class MaterialTest < ActiveSupport::TestCase
     first_material.save!
 
     second_material = user.materials.build(title: 'bla', url: 'http://example.com/spam2', description: '123',
+                                           content_provider: content_provider,
                                            doi: 'https://doi.org/10.1111/123.1235', licence: 'Fair', keywords: ['dos'],
                                            contact: 'default contact', status: 'active')
     refute second_material.user_requires_approval?
@@ -326,8 +335,9 @@ class MaterialTest < ActiveSupport::TestCase
 
   test 'from_unverified_or_rejected?' do
     user = users(:unverified_user)
-
+    content_provider = content_providers(:with_owner)
     first_material = user.materials.create!(title: 'bla', url: 'http://example.com/spam', description: '123',
+                                            content_provider_id: content_provider.id,
                                             doi: 'https://doi.org/10.1111/123.1235', licence: 'Fair', keywords: ['uno'],
                                             contact: 'default contact', status: 'active')
     assert first_material.from_unverified_or_rejected?
@@ -336,6 +346,7 @@ class MaterialTest < ActiveSupport::TestCase
     user.save!
 
     second_material = user.materials.create(title: 'bla', url: 'http://example.com/spam2', description: '123',
+                                            content_provider_id: content_provider.id,
                                             doi: 'https://doi.org/10.1111/123.1235', licence: 'Fair', keywords: ['dos'],
                                             contact: 'default contact', status: 'development')
     assert second_material.from_unverified_or_rejected?
@@ -344,6 +355,7 @@ class MaterialTest < ActiveSupport::TestCase
     user.save!
 
     third_material = user.materials.create(title: 'bla', url: 'http://example.com/spam3', description: '123',
+                                           content_provider_id: content_provider.id,
                                            doi: 'https://doi.org/10.1111/123.1235', licence: 'Fair', keywords: ['tres'],
                                            contact: 'default contact', status: 'archived')
     refute third_material.from_unverified_or_rejected?
@@ -463,7 +475,10 @@ class MaterialTest < ActiveSupport::TestCase
 
   test 'verified users scope' do
     bad_user = users(:unverified_user)
+    content_provider = content_providers(:with_owner)
+
     bad_material = bad_user.materials.build(title: 'bla', url: 'http://example.com/spam', description: 'vvv',
+                                            content_provider_id: content_provider.id,
                                             doi: 'https://doi.org/10.1111/123.1235', contact: 'default contact',
                                             licence: 'Fair', keywords: %w{ key words }, status: 'active')
     assert bad_material.user_requires_approval?
@@ -471,6 +486,7 @@ class MaterialTest < ActiveSupport::TestCase
 
     good_user = users(:regular_user)
     good_material = good_user.materials.build(title: 'h', url: 'http://example.com/good-stuff',
+                                              content_provider_id: content_provider.id,
                                               description: 'vvv', contact: 'default contact',
                                               doi: 'https://doi.org/10.1111/123.1235', status: 'active',
                                               licence: 'Fair', keywords: %w{ key words })
@@ -487,8 +503,10 @@ class MaterialTest < ActiveSupport::TestCase
 
   test 'creates sensible friendly ID' do
     # Reserved word throws error
+    content_provider = content_providers(:with_owner)
     reserved_word_material = Material.new(title: 'edit',
                                           description: 'long desc',
+                                          content_provider_id: content_provider.id,
                                           url: 'http://tess.elixir-europe.org',
                                           doi: 'https://doi.org/10.1111/123.1235',
                                           licence: 'Fair',
@@ -501,6 +519,7 @@ class MaterialTest < ActiveSupport::TestCase
     # Numeric slug generates UUID slug
     material = Material.create!(title: '123',
                                 description: 'short desc',
+                                content_provider_id: content_provider.id,
                                 url: 'http://tess.elixir-europe.org',
                                 doi: 'https://doi.org/10.1111/123.1235',
                                 licence: 'Fair',
@@ -512,6 +531,7 @@ class MaterialTest < ActiveSupport::TestCase
 
     material = Material.create!(title: '第9回研究会開催案内',
                                 description: 'short desc',
+                                content_provider_id: content_provider.id,
                                 url: 'http://tess.elixir-europe.org',
                                 doi: 'https://doi.org/10.1111/123.1235',
                                 licence: 'Fair',
@@ -524,7 +544,9 @@ class MaterialTest < ActiveSupport::TestCase
 
 
   test 'validates URL format' do
-    material = Material.new(title: 'Test', description: 'desc', user: users(:regular_user))
+    content_provider = content_providers(:with_owner)
+    material = Material.new(title: 'Test', description: 'desc',
+                            user: users(:regular_user), content_provider: content_provider)
 
     refute material.valid?
     assert material.errors.added?(:url, :blank)
@@ -558,10 +580,12 @@ class MaterialTest < ActiveSupport::TestCase
     user = users(:regular_user)
     node = nodes(:westeros)
     event = events(:one)
+    content_provider = content_providers(:with_owner)
     material = Material.new(
       title: 'A material',
       description: 'Very helpful',
       user: user,
+      content_provider_id: content_provider.id,
       url: 'https://materials.com/1',
       keywords: ['cool', 'great'],
       nodes: [node],

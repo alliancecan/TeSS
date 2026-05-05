@@ -166,3 +166,19 @@ admin_trainer:
   confirmed_at: <%= Time.zone.now %>
   role: admin
   check_broken_scrapers: true
+
+content_provider_owner:
+  username: 'CPOwner'
+  email: 'cpowner@with.owner'
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'hello') %>
+  confirmed_at: <%= Time.zone.now %>
+  role: user
+  authentication_token: <%= Devise.friendly_token %>
+
+content_provider_editor:
+  username: 'CPEditor'
+  email: 'cpeditor@with.owner'
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'hello') %>
+  confirmed_at: <%= Time.zone.now %>
+  role: user
+  authentication_token: <%= Devise.friendly_token %>

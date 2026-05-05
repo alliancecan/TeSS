@@ -254,9 +254,11 @@ class StaticControllerTest < ActionController::TestCase
   test 'should show event counts in counter blocks' do
     Event.destroy_all
     user = users(:regular_user)
+    content_provider = content_providers(:with_owner)
     11.times do |i|
       Event.create(title: "Event #{i}", url: "https://events.com/event##{i}",
-                   start: Time.zone.now + 1.week, end: Time.zone.now + 1.week + 8.hours, user: user)
+                   start: Time.zone.now + 1.week, end: Time.zone.now + 1.week + 8.hours,
+                   user: user, content_provider: content_provider)
     end
     with_settings({ site: { home_page: { counters: true } } }) do
       get :home

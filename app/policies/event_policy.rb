@@ -1,15 +1,6 @@
-class EventPolicy < ScrapedResourcePolicy
+class EventPolicy < ContentProviderResourcePolicy
 
-  def edit_report?
-    manage?
-  end
-
-  def view_report?
-    manage?
-  end
-
-  def clone?
-    manage?
-  end
+  alias_method :edit_report?, :manage?
+  alias_method :view_report?, :manage?
 
 end
