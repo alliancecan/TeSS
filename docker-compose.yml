@@ -1,6 +1,12 @@
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
 services:
   app:
     container_name: ${PREFIX}-app
+    logging: *default-logging
     build:
       context: .
       dockerfile: Dockerfile
@@ -39,6 +45,7 @@ services:
       - db-data:/var/lib/postgresql/data
   solr:
     container_name: ${PREFIX}-solr
+    logging: *default-logging
     image: solr:8
     volumes:
       - solr-data:/var/solr
@@ -51,6 +58,7 @@ services:
       - '8984:8983'
   redis:
     container_name: ${PREFIX}-redis
+    logging: *default-logging
     image: redis:6
     healthcheck:
       test: redis-cli ping
@@ -61,6 +69,7 @@ services:
       - redis-data:/data
   sidekiq:
     container_name: ${PREFIX}-sidekiq
+    logging: *default-logging
     build:
       context: .
       dockerfile: Dockerfile
@@ -84,6 +93,7 @@ services:
       - test-db
       - redis
     container_name: ${PREFIX}-test
+    logging: *default-logging
     build:
       context: .
       dockerfile: Dockerfile
