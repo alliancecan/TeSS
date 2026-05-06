@@ -48,21 +48,48 @@ class CollectionsControllerTest < ActionController::TestCase
     assert_equal collections_path, body['links']['self']
   end
 
-  #NEW TESTS
-  test 'should get new' do
-    sign_in users(:regular_user)
-    get :new
-    assert_response :success
+  test 'only show new button to the right people' do
+    # No button
+    get :index
+    assert_select 'a.btn[href=?]', new_collection_path, :count => 0
+
+    sign_in users(:another_regular_user)
+    assert_select 'a.btn[href=?]', new_collection_path, :count => 0
+
+    # Button is shown
+    sign_in users(:content_provider_owner)
+    get :index
+    assert_select 'a.btn[href=?]', new_collection_path, :count => 1
+
+    sign_in users(:content_provider_editor)
+    get :index
+    assert_select 'a.btn[href=?]', new_collection_path, :count => 1
+
+    sign_in users(:admin)
+    get :index
+    assert_select 'a.btn[href=?]', new_collection_path, :count => 1
   end
 
-  test 'should get new page for logged in users only' do
+  #NEW TESTS
+  test 'should not get new page for not logged in' do
     #Redirect to login if not logged in
     get :new
     assert_response :redirect
-    sign_in users(:regular_user)
-    #Success for everyone else
+  end
+
+  test 'should get new, but only for the right people' do
+    sign_in users(:another_regular_user)
+    get :new
+    assert_response :forbidden
+
+    sign_in users(:content_provider_owner)
     get :new
     assert_response :success
+
+    sign_in users(:content_provider_editor)
+    get :new
+    assert_response :success
+
     sign_in users(:admin)
     get :new
     assert_response :success
@@ -139,10 +166,41 @@ class CollectionsControllerTest < ActionController::TestCase
   end
 
   #CREATE TEST
-  test 'should create collection for user' do
-    sign_in users(:regular_user)
+  test 'should not create collection for non-logged in user' do
+    assert_no_difference('Collection.count') do
+      post :create, params: { collection: { title: @collection.title,
+                                            image_url: @collection.image_url,
+                                            description: @collection.description } }
+    end
+    assert_redirected_to new_user_session_path
+  end
+
+  test 'should not create collection for user' do
+    sign_in users(:another_regular_user)
+    assert_no_difference('Collection.count') do
+      post :create, params: { collection: { title: @collection.title,
+                                            image_url: @collection.image_url,
+                                            description: @collection.description } }
+    end
+    assert_response :forbidden
+  end
+
+  test 'should create collection for a content provider owner' do
+    sign_in users(:content_provider_owner)
     assert_difference('Collection.count') do
-      post :create, params: { collection: { title: @collection.title, image_url: @collection.image_url, description: @collection.description } }
+      post :create, params: { collection: { title: @collection.title,
+                                            image_url: @collection.image_url,
+                                            description: @collection.description } }
+    end
+    assert_redirected_to collection_path(assigns(:collection))
+  end
+
+  test 'should create collection for a content provider editor' do
+    sign_in users(:content_provider_editor)
+    assert_difference('Collection.count') do
+      post :create, params: { collection: { title: @collection.title,
+                                            image_url: @collection.image_url,
+                                            description: @collection.description } }
     end
     assert_redirected_to collection_path(assigns(:collection))
   end
@@ -150,16 +208,11 @@ class CollectionsControllerTest < ActionController::TestCase
   test 'should create collection for admin' do
     sign_in users(:admin)
     assert_difference('Collection.count') do
-      post :create, params: { collection: { title: @collection.title, image_url: @collection.image_url, description: @collection.description } }
+      post :create, params: { collection: { title: @collection.title,
+                                            image_url: @collection.image_url,
+                                            description: @collection.description } }
     end
     assert_redirected_to collection_path(assigns(:collection))
-  end
-
-  test 'should not create collection for non-logged in user' do
-    assert_no_difference('Collection.count') do
-      post :create, params: { collection: { title: @collection.title, image_url: @collection.image_url, description: @collection.description } }
-    end
-    assert_redirected_to new_user_session_path
   end
 
   #SHOW TEST
@@ -588,6 +641,7 @@ class CollectionsControllerTest < ActionController::TestCase
   end
 
   test 'should trigger notification when unverified user creates collection' do
+    skip "Explora: unverified not allowed to create"
     sign_in users(:unverified_user)
 
     assert_enqueued_jobs 1 do
@@ -601,6 +655,7 @@ class CollectionsControllerTest < ActionController::TestCase
   end
 
   test 'should not trigger notification if unverified user already created content' do
+    skip "Explora: unverified not allowed to create"
     sign_in users(:unverified_user)
     users(:unverified_user).collections.create!(title: 'First collection')
 
