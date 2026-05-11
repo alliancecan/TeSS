@@ -9,4 +9,5 @@ class OntologyTermLink < ApplicationRecord
     @ontology ||= Ontology.subclasses.map(&:instance).\
                     find { |ontology| ontology.term_uri_matches?(term_uri) }
   end
+
 end
