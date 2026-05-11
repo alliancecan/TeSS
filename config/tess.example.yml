@@ -139,12 +139,12 @@ default: &default
       focused: 13
   header_notice: # HTML to display above the header
   feature:
-    elearning_materials: false
+    elearning_materials: true # CW: turned on
     events: true
     invitation: false
     materials: true # CW: turned on
     nodes: false
-    collections: false # CW: turned off
+    collections: true # CW: turned on
     content_providers: true
     subscription: true
     registration: true
