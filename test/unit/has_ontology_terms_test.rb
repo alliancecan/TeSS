@@ -160,6 +160,8 @@ class HasOntologyTermsTest < ActiveSupport::TestCase
     # (perhaps bogus because a previous ontology was take out).
     dummy.test_topic_names = ['Bioinformatics']
     dummy.multi_test_topic_names = ['Biochemistry', 'Bioinformatics', 'Poodles']
+    dummy.save!
+
     assert_equal dummy.ontology_term_links.count, 5
     assert_equal dummy.test_topic_links.count, 1
     assert_equal dummy.multi_test_topic_links.count, 4
