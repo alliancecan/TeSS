@@ -63,7 +63,9 @@ module CRDC
       I18n.transliterate(label.downcase.strip)
     end
 
-    def matches?(string, locale: :en, match_method: :'include?')
+    def matches?(string, locale: nil, match_method: :'include?')
+      locale ||= I18n.locale
+
       # methods are ':include?' or ':starts_with?'
       return @normalized[locale].send(match_method, string)
     end

@@ -21,7 +21,9 @@ module CRDC
     end
     alias_method :fetch, :lookup
 
-    def filter(string, locale=:en, match_method: :include, limit: 10)
+    def filter(string, locale: nil, match_method: :include, limit: 15)
+      locale ||= I18n.locale
+
       method = if match_method == :include
                  :'include?'
                elsif match_method == :starts_with
@@ -34,8 +36,9 @@ module CRDC
 
       @term_graph.values.
         select { |term| term.matches?(normalized_string, locale: locale, match_method: method) }.
-        sort_by { |term| 1 }.  # todo
-        slice(1, limit)
+        sort_by { |term| [term.matches?(normalized_string, locale: locale, match_method: :'starts_with?') ? 0 : 1,
+                          term.preferred_label.length] }.
+        slice(0, limit)
     end
 
     def all_topics
