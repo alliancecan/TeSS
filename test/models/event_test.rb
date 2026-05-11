@@ -161,60 +161,86 @@ class EventTest < ActiveSupport::TestCase
     e = events(:scraper_user_event)
 
     # Via names
-    assert_difference('OntologyTermLink.count', 2) do
-      e.scientific_topic_names = %w[Proteins Chromosomes Proteins Chromosomes]
+    assert_difference('OntologyTermLink.count', 4) do
+      e.scientific_topic_names = %w[Algebra Lexicography Proteins Chromosomes Algebra Lexicography Proteins Chromosomes]
       e.save!
-      assert_equal 2, e.scientific_topics.count
+      assert_equal 4, e.scientific_topics.count
+      # Only Algrbra, Lexicography. Protiens included
+      assert_equal Set.new(e.scientific_topic_uris),
+                   Set.new(['https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF1010101',
+                            'https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF6020207',
+                            'http://edamontology.org/topic_0078',
+                            'http://edamontology.org/topic_0654'])
     end
 
     assert_no_difference('OntologyTermLink.count') do
-      e.scientific_topic_names = %w[Proteins Chromosomes]
+      e.scientific_topic_names = %w[Proteins Chromosomes Algebra Lexicography]
       e.save!
-      assert_equal 2, e.scientific_topics.count
+      assert_equal 4, e.scientific_topics.count
     end
 
     # Via uris
-    assert_difference('OntologyTermLink.count', -2) do
+    assert_difference('OntologyTermLink.count', -4) do
       e.scientific_topic_links.clear
     end
 
-    assert_difference('OntologyTermLink.count', 2) do
-      e.scientific_topic_uris = ['http://edamontology.org/topic_0078', 'http://edamontology.org/topic_0654',
-                                 'http://edamontology.org/topic_0078', 'http://edamontology.org/topic_0654']
+    assert_difference('OntologyTermLink.count', 4) do
+      # TODO: make EDAM and CRDC work together
+      e.scientific_topic_uris = ['https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF1010101',
+                                 'https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF6020207',
+                                 'https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF1010101',
+                                 'https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF6020207',
+                                 'http://edamontology.org/topic_0078',
+                                 'http://edamontology.org/topic_0654',
+                                 'http://edamontology.org/topic_0078',
+                                 'http://edamontology.org/topic_0654']
+
       e.save!
-      assert_equal 2, e.scientific_topics.count
+      assert_equal 4, e.scientific_topics.count
     end
 
     assert_no_difference('OntologyTermLink.count') do
-      e.scientific_topic_uris = ['http://edamontology.org/topic_0078', 'http://edamontology.org/topic_0654']
+      # TODO: make EDAM and CRDC work together
+      e.scientific_topic_uris = ['https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF1010101',
+                                 'https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF6020207',
+                                 'http://edamontology.org/topic_0078',
+                                 'http://edamontology.org/topic_0654']
       e.save!
-      assert_equal 2, e.scientific_topics.count
+      assert_equal 4, e.scientific_topics.count
     end
 
     # Via terms
     e.scientific_topic_links.clear
 
-    proteins_term = Edam::Ontology.instance.lookup('http://edamontology.org/topic_0078')
-    chromosomes_term = Edam::Ontology.instance.lookup('http://edamontology.org/topic_0624')
+    # Algebra, Lexicography, Proteins, Chromosomes
+    term1 =
+      CRDC::Ontology.instance.lookup('https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF1010101')
+    term2 =
+      CRDC::Ontology.instance.lookup('https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF6020207',)
+    term3 = Edam::Ontology.instance.lookup('http://edamontology.org/topic_0078')
+    term4 = Edam::Ontology.instance.lookup('http://edamontology.org/topic_0624')
 
-    assert_difference('OntologyTermLink.count', 2) do
-      e.scientific_topics = [proteins_term, chromosomes_term, proteins_term, chromosomes_term]
+    assert_difference('OntologyTermLink.count', 4) do
+      e.scientific_topics = [term1, term2, term3, term4, term1, term2, term3, term4]
       e.save!
     end
 
     assert_no_difference('OntologyTermLink.count') do
-      e.scientific_topics = [proteins_term, chromosomes_term]
+      e.scientific_topics = [term1, term2, term3, term4]
       e.save!
     end
 
     # All three
     assert_no_difference('OntologyTermLink.count') do
-      e.scientific_topic_names = %w[Proteins Chromosomes]
+      e.scientific_topic_names = %w[Algebra Lexicography Proteins Chromosomes]
       e.save!
     end
 
     assert_no_difference('OntologyTermLink.count') do
-      e.scientific_topic_uris = ['http://edamontology.org/topic_0078', 'http://edamontology.org/topic_0654']
+      e.scientific_topic_uris = ['https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF1010101',
+                                 'https://www.statcan.gc.ca/en/subjects/standard/crdc/2020v2#RDF6020207',
+                                 'http://edamontology.org/topic_0078',
+                                 'http://edamontology.org/topic_0624']
       e.save!
     end
   end
@@ -558,7 +584,8 @@ class EventTest < ActiveSupport::TestCase
       nodes: [node],
       external_resources_attributes: { '0' => { title: 'test', url: 'https://external-resource.com' } },
       materials: [material],
-      scientific_topic_names: %w[Proteins DNA],
+      # TODO: make EDAM and CRDC work together
+      scientific_topic_names: %w[Algebra Lexicography],
       operation_names: ['Variant calling']
     )
 
@@ -581,7 +608,7 @@ class EventTest < ActiveSupport::TestCase
               assert_nil dup.url
               assert_equal [material], dup.materials
               assert_equal [node], dup.nodes
-              assert_equal %w[Proteins DNA], dup.scientific_topic_names
+              assert_equal %w[Algebra Lexicography], dup.scientific_topic_names
               assert_equal ['Variant calling'], dup.operation_names
               assert_equal 1, dup.external_resources.length
               assert_equal 'test', dup.external_resources.first.title
@@ -713,13 +740,14 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'scientific_topics_and_synonyms' do
-    @event.scientific_topic_names = ['Data management']
+    # TODO: make EDAM and CRDC work together
+    @event.scientific_topic_names = ['Algebra']
     @event.save!
-    assert_equal ['Data management', 'Metadata management', 'Research data management (RDM)'], @event.reload.scientific_topics_and_synonyms
+    assert_equal ['Algebra'], @event.reload.scientific_topics_and_synonyms
 
-    @event.scientific_topic_names = ['Data management', 'Metadata management', 'Research data management (RDM)']
+    @event.scientific_topic_names = ['Algebra']
     @event.save!
-    assert_equal ['Data management', 'Metadata management', 'Research data management (RDM)'], @event.reload.scientific_topics_and_synonyms
+    assert_equal ['Algebra'], @event.reload.scientific_topics_and_synonyms
   end
 
   test 'operations_and_synonyms' do
