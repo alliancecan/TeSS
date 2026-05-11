@@ -134,7 +134,9 @@ class Event < ApplicationRecord
 
   auto_strip_attributes :title, :description, :url, squish: false
 
-  validates :title, :url, :content_provider, presence: true
+  # Explora: we make description mandatory
+  validates :title, :url, :description, :content_provider, presence: true
+
   validates :url, url: true
   validates :capacity, numericality: { greater_than_or_equal_to: 1 }, allow_blank: true
   validates :cost_value, numericality: { greater_than: 0 }, allow_blank: true

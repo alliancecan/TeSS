@@ -453,7 +453,8 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'validates timezone if present' do
-    event = Event.new(title: 'An event', url: 'https://myevent.com', timezone: 'UTC',
+    event = Event.new(title: 'An event', description: 'Just an event',
+                      url: 'https://myevent.com', timezone: 'UTC',
                       user: users(:regular_user),
                       content_provider: content_providers(:with_owner))
     assert event.valid?
@@ -470,7 +471,8 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'validates language if present' do
-    event = Event.new(title: 'An event', url: 'https://myevent.com', language: 'en',
+    event = Event.new(title: 'An event', description: 'An event',
+                      url: 'https://myevent.com', language: 'en',
                       user: users(:regular_user),
                       content_provider: content_providers(:with_owner))
     assert event.valid?
@@ -490,7 +492,8 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'validates URL format' do
-    event = Event.new(title: 'An event', timezone: 'UTC',
+    event = Event.new(title: 'An event', description: 'An event',
+                      timezone: 'UTC',
                       user: users(:regular_user),
                       content_provider: content_providers(:with_owner))
     refute event.valid?
@@ -522,7 +525,8 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'fuzzy-matches event types according to dictionary' do
-    event = Event.new(title: 'An event', timezone: 'UTC', url: 'https://https-website.com/mat',
+    event = Event.new(title: 'An event', description: 'Just an event',
+                      timezone: 'UTC', url: 'https://https-website.com/mat',
                       user: users(:regular_user), content_provider: content_providers(:with_owner))
     assert event.valid?
 
@@ -572,7 +576,9 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'get event_type from keywords if scraped' do
-    event = Event.new(title: 'An event', timezone: 'UTC',
+    event = Event.new(title: 'An event',
+                      description: 'An event',
+                      timezone: 'UTC',
                       user: users(:regular_user),
                       content_provider: content_providers(:with_owner),
                       url: 'https://https-website.com/mat',
@@ -586,7 +592,9 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test 'do not get event_type from keywords if not scraped' do
-    event = Event.new(title: 'An event', timezone: 'UTC',
+    event = Event.new(title: 'An event',
+                      description: 'An event',
+                      timezone: 'UTC',
                       user: users(:regular_user),
                       content_provider: content_providers(:with_owner),
                       url: 'https://https-website.com/mat',
@@ -605,6 +613,7 @@ class EventTest < ActiveSupport::TestCase
     event = Event.new(
       title: 'An event',
       timezone: 'UTC',
+      description: 'Just an event',
       user:,
       content_provider: content_provider,
       url: 'https://events.com/1',
@@ -809,15 +818,24 @@ class EventTest < ActiveSupport::TestCase
     provider_1 = content_providers(:goblet)
     provider_2 = content_providers(:iann)
     provider_3 = content_providers(:two)
-    e1a = provider_1.events.create!(title: 'Event1a', url: 'https://example.com/events/1a', user: user)
-    e1b = provider_1.events.create!(title: 'Event1b', url: 'https://example.com/events/1b', user: user)
-    e1c = provider_1.events.create!(title: 'Event1c', url: 'https://example.com/events/1c', user: user)
-    e2a = provider_2.events.create!(title: 'Event2a', url: 'https://example.com/events/2a', user: user)
-    e2b = provider_2.events.create!(title: 'Event2b', url: 'https://example.com/events/2b', user: user)
-    e2c = provider_2.events.create!(title: 'Event2c', url: 'https://example.com/events/2c', user: user)
-    e3a = provider_3.events.create!(title: 'Event3a', url: 'https://example.com/events/3a', user: user)
-    e3b = provider_3.events.create!(title: 'Event3b', url: 'https://example.com/events/3b', user: user)
-    e3c = provider_3.events.create!(title: 'Event3c', url: 'https://example.com/events/3c', user: user)
+    e1a = provider_1.events.create!(title: 'Event1a', description: 'An event',
+                                    url: 'https://example.com/events/1a', user: user)
+    e1b = provider_1.events.create!(title: 'Event1b', description: 'An event',
+                                    url: 'https://example.com/events/1b', user: user)
+    e1c = provider_1.events.create!(title: 'Event1c', description: 'An event',
+                                    url: 'https://example.com/events/1c', user: user)
+    e2a = provider_2.events.create!(title: 'Event2a', description: 'An event',
+                                    url: 'https://example.com/events/2a', user: user)
+    e2b = provider_2.events.create!(title: 'Event2b', description: 'An event',
+                                    url: 'https://example.com/events/2b', user: user)
+    e2c = provider_2.events.create!(title: 'Event2c', description: 'An event',
+                                    url: 'https://example.com/events/2c', user: user)
+    e3a = provider_3.events.create!(title: 'Event3a', description: 'An event',
+                                    url: 'https://example.com/events/3a', user: user)
+    e3b = provider_3.events.create!(title: 'Event3b', description: 'An event',
+                                    url: 'https://example.com/events/3b', user: user)
+    e3c = provider_3.events.create!(title: 'Event3c', description: 'An event',
+                                    url: 'https://example.com/events/3c', user: user)
 
     even_single_mix = Event.from_varied_providers([e1a, e1b, e1c, e2a, e2b, e2c, e3a, e3b, e3c], 3)
     assert_equal 3, even_single_mix.length
@@ -861,22 +879,25 @@ class EventTest < ActiveSupport::TestCase
     end_time = start_time + 1.hour
 
     event1 = Event.create!(title: 'Event1',
+                           description: 'An event',
                            content_provider: content_providers(:with_owner),
                            url: 'https://example.com/events/1',
                            user: user,
                            start: start_time,
                            end: end_time)
     event2 = provider1.events.create!(title: 'Event2',
-                                       url: 'https://example.com/events/2',
-                                       user: user,
-                                       start: start_time,
+                                      description: 'An event 2',
+                                      url: 'https://example.com/events/2',
+                                      user: user,
+                                      start: start_time,
                                        end: end_time)
     event3 = provider2.events.create!(title: 'Event3',
-                                       url: 'https://example.com/events/3',
-                                       external_id: '90210',
-                                       user: user,
-                                       start: start_time,
-                                       end: end_time)
+                                      description: 'An event 3',
+                                      url: 'https://example.com/events/3',
+                                      external_id: '90210',
+                                      user: user,
+                                      start: start_time,
+                                      end: end_time)
 
     # Match title and url, no external id
     event = Event.new(title: 'Event1', url: 'https://example.com/events/1')

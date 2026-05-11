@@ -28,6 +28,7 @@ class IngestorTest < ActiveSupport::TestCase
     # Fake an event that was read ... no language set
     ingestor.instance_variable_set(:@events,
                                    [OpenStruct.new(url: 'https://some-course.ca',
+                                                   description: 'Course!!!',
                                                    title: 'Some course',
                                                    start: '2021-01-31 13:00:00',
                                                    end:'2021-01-31 14:00:00')])
@@ -53,6 +54,7 @@ class IngestorTest < ActiveSupport::TestCase
     # Fake an event that was read ... with language set
     ingestor.instance_variable_set(:@events,
                                    [OpenStruct.new(url: 'https://some-course.de',
+                                                   description: 'Das course',
                                                    title: 'Some german course',
                                                    start: '2021-01-31 13:00:00',
                                                    end:'2021-01-31 14:00:00',
@@ -79,6 +81,7 @@ class IngestorTest < ActiveSupport::TestCase
     ingestor.instance_variable_set(:@events,
                                    [OpenStruct.new(url: 'https://some-course.org',
                                                    title: 'Some other course',
+                                                   description: 'Just a course',
                                                    start: '2021-01-31 13:00:00',
                                                    end:'2021-01-31 14:00:00',
                                                    language: 'de')])
@@ -103,6 +106,7 @@ class IngestorTest < ActiveSupport::TestCase
     # Fake an event that was read ... no language set
     ingestor.instance_variable_set(:@events,
                                    [OpenStruct.new(url: 'https://some-course.net',
+                                                   description: 'Course!!!',
                                                    title: 'Yet another course',
                                                    start: '2021-01-31 13:00:00',
                                                    end:'2021-01-31 14:00:00')])
@@ -128,26 +132,31 @@ class IngestorTest < ActiveSupport::TestCase
     # Fake an event that was read ... no language set
     ingestor.instance_variable_set(:@events,
                                    [OpenStruct.new(url: 'https://some-course-hamburger.ca',
+                                                   description: 'Hamburgers!',
                                                    title: 'Some Hamburger course',
                                                    start: '2021-01-31 13:00:00',
                                                    end:'2021-01-31 14:00:00'),
                                     OpenStruct.new(url: 'https://some-course-hamburgerz.ca',
+                                                   description: 'Hamburgerz!',
                                                    title: 'Some hamburger course',
                                                    start: '2021-01-31 13:00:00',
                                                    end:'2021-01-31 14:00:00'),
                                     OpenStruct.new(url: 'https://some-course-hot-dog.ca',
+                                                   description: 'Hot dogs!',
                                                    title: 'Some Hot Dog course',
                                                    start: '2021-01-31 13:00:00',
                                                    end:'2021-01-31 14:00:00'),
                                     OpenStruct.new(url: 'https://some-course-milk-shake.ca',
+                                                   description: 'Milk shakes!!',
                                                    title: 'Some Milk Shake course',
                                                    start: '2021-01-31 13:00:00',
                                                    end:'2021-01-31 14:00:00'),
                                     OpenStruct.new(url: 'https://some-course-milk-shakez.ca',
-                                                   title: 'Some milk shake course',
+                                                   title: 'Some milk shakez course',
                                                    start: '2021-01-31 13:00:00',
                                                    end:'2021-01-31 14:00:00'),
                                     OpenStruct.new(url: 'https://some-course-veggie.ca',
+                                                   description: 'Veggies!',
                                                    title: 'Some veggie course',
                                                    start: '2021-01-31 13:00:00',
                                                    end:'2021-01-31 14:00:00')])

@@ -502,17 +502,20 @@ class ContentProvidersControllerTest < ActionController::TestCase
     past_event = good_user.events.build(title: 'past',
                                         url: 'http://example.com/good-stuff',
                                         end: 3.days.ago,
+                                        description: 'A test event',
                                         content_provider: @content_provider)
     past_event.save!
 
     future_event = good_user.events.build(title: 'future',
                                           url: 'http://example.com/good-stuff',
                                           end: 4.days.from_now,
+                                          description: 'Another test event',
                                           content_provider: @content_provider)
     future_event.save!
 
     dateless_event = good_user.events.build(title: 'dateless',
                                             url: 'http://example.com/good-stuff',
+                                            description: 'Yet another test event',
                                             content_provider: @content_provider)
     dateless_event.save!
 

@@ -26,8 +26,8 @@ class WurIngestorTest < ActiveSupport::TestCase
     new_url = 'https://www.wur.nl/en/activity/genetic-diversity-key-to-transitions-in-agriculture-and-forestry-1.htm'
     refute Event.where(title: new_title, url: new_url).any?
 
-    # run task
-    assert_difference 'Event.count', 24 do
+    # Explora: mandatory description means only 7 of 24 events are accepted
+    assert_difference 'Event.count', 7 do
       freeze_time(2016) do
         VCR.use_cassette("ingestors/wur") do
           ingestor.read(source.url)
@@ -38,9 +38,9 @@ class WurIngestorTest < ActiveSupport::TestCase
 
     assert_equal 24, ingestor.events.count
     assert ingestor.materials.empty?
-    assert_equal 24, ingestor.stats[:events][:added]
+    assert_equal 7, ingestor.stats[:events][:added]
     assert_equal 0, ingestor.stats[:events][:updated]
-    assert_equal 0, ingestor.stats[:events][:rejected]
+    assert_equal 17, ingestor.stats[:events][:rejected]
 
     # check event does exist
     event = Event.where(title: new_title, url: new_url).first

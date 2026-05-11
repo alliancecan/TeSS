@@ -39,19 +39,19 @@ class LlmServiceTest < ActiveSupport::TestCase
   test 'check event filtering in post_processing' do
     u = users(:scraper_user)
     c = content_providers(:with_owner)
-    event1 = Event.create!(title: 'needs_processing',
+    event1 = Event.create!(title: 'needs_processing', description: 'A test event',
                            start: Time.zone.now - 5.hours, end: Time.zone.now + 5.hours,
                            url: 'https://www.google.com#1',
                            user_id: u.id, content_provider_id: c.id)
     event1.llm_interaction = llm_interactions(:needs_processing)
     event1.save!
-    event2 = Event.create!(title: 'different_prompt',
+    event2 = Event.create!(title: 'different_prompt', description: 'Different event',
                            start: Time.zone.now - 5.hours, end: Time.zone.now + 5.hours,
                            url: 'https://www.google.com#2',
                            user_id: u.id, content_provider_id: c.id)
     event2.llm_interaction = llm_interactions(:different_prompt)
     event2.save!
-    event3 = Event.create!(title: 'finished',
+    event3 = Event.create!(title: 'finished', description: 'Finished event',
                            start: Time.zone.now - 5.hours, end: Time.zone.now - 4.hours,
                            url: 'https://www.google.com#3',
                            user_id: u.id, content_provider_id: c.id)

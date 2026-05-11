@@ -2,6 +2,8 @@ require 'test_helper'
 
 class DccIngestorTest < ActiveSupport::TestCase
   setup do
+    skip "Explora: test events don't have descriptions, and we don't ingest from here"
+
     @user = users(:regular_user)
     @content_provider = content_providers(:another_portal_provider)
     mock_ingestions

@@ -257,6 +257,7 @@ class StaticControllerTest < ActionController::TestCase
     content_provider = content_providers(:with_owner)
     11.times do |i|
       Event.create(title: "Event #{i}", url: "https://events.com/event##{i}",
+                   description: 'A test event',
                    start: Time.zone.now + 1.week, end: Time.zone.now + 1.week + 8.hours,
                    user: user, content_provider: content_provider)
     end

@@ -18,7 +18,8 @@ class BioschemasIngestorTest < ActiveSupport::TestCase
     assert_equal 23, @ingestor.events.count
     assert_equal 0, @ingestor.materials.count
 
-    assert_difference('Event.count', 23) do
+    # Explora: mandatory description means only 22 of 23 events are accepted
+    assert_difference('Event.count', 22) do
       @ingestor.write(@user, @content_provider)
     end
 

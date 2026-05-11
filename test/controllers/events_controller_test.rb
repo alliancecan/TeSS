@@ -696,8 +696,14 @@ class EventsControllerTest < ActionController::TestCase
     provider1 = content_providers(:iann)
     provider2 = content_providers(:two)
 
-    e1 = provider1.events.create!(title: 'another event', url: @event.url, user: users(:regular_user))
-    e2 = provider2.events.create!(title: 'a third event', url: @event.url, user: users(:regular_user))
+    e1 = provider1.events.create!(title: 'another event',
+                                  url: @event.url,
+                                  description: 'Another event',
+                                  user: users(:regular_user))
+    e2 = provider2.events.create!(title: 'a third event',
+                                  url: @event.url,
+                                  description: 'Third event',
+                                  user: users(:regular_user))
 
     post :check_exists, params: { format: :json, event: { url: @event.url, content_provider_id: provider1.id } }
     assert_response :success
@@ -1683,6 +1689,7 @@ class EventsControllerTest < ActionController::TestCase
       assert_no_difference('ExternalResource.count') do
         post :preview, params: { event: { title: 'Potential event',
                                           url: 'https://someevent.com',
+                                          description: 'A potential event',
                                           content_provider_id: content_providers(:with_owner),
                                           external_resources_attributes: [
                                             { title: 'A tool perhaps', url: 'https://bio.tools/some_tool' }
@@ -1779,6 +1786,7 @@ class EventsControllerTest < ActionController::TestCase
   test 'should not display language of instruction if not specified' do
     content_provider = content_providers(:with_owner)
     event = users(:regular_user).events.create!(title: 'No language', url: 'https://example.com/nolang',
+                                                description: 'A test event',
                                                 content_provider_id: content_provider.id,
                                                 language: '')
 

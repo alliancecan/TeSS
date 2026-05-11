@@ -333,8 +333,10 @@ class UserTest < ActiveSupport::TestCase
                                         description: 'material2',
                                         content_provider: content_provider)
     event1 = user2.events.create!(title: 'event 1', url: 'https://training.com/events/1',
+                                  description: 'A test event',
                                   content_provider: content_provider)
     event2 = user3.events.create!(title: 'event 2', url: 'https://training.com/events/2',
+                                  description: 'Another test event',
                                   content_provider: content_provider)
 
     # Activity

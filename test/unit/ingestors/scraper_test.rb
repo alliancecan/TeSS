@@ -268,7 +268,10 @@ class ScraperTest < ActiveSupport::TestCase
                             enabled: true, approval_status: 'approved',
                             content_provider: provider, user: users(:admin))
 
-    existing_event = provider.events.create!(url: 'https://uppsala.instructure.com/courses/73110', title: 'Existing', user: users(:regular_user))
+    existing_event = provider.events.create!(url: 'https://uppsala.instructure.com/courses/73110',
+                                             title: 'Existing',
+                                             description: 'This event already exists',
+                                             user: users(:regular_user))
     existing_activities = existing_event.activities.to_a
 
     file = Rails.root.join('test', 'fixtures', 'files', 'ingestion', 'nbis-course-instances.json')
@@ -277,8 +280,9 @@ class ScraperTest < ActiveSupport::TestCase
 
     refute provider.events.where(url: 'https://uppsala.instructure.com/courses/75565').exists?
     assert provider.events.where(url: 'https://uppsala.instructure.com/courses/73110').exists?
-    assert_difference('provider.events.count', 22) do
-      assert_difference('PublicActivity::Activity.where(key: "event.create").count', 22) do
+    # Explora: one less event than upstream becauase one event lacks a description
+    assert_difference('provider.events.count', 21) do
+      assert_difference('PublicActivity::Activity.where(key: "event.create").count', 21) do
         assert_difference('PublicActivity::Activity.where(key: "event.update").count', 1) do
           scraper.scrape(source)
         end
@@ -287,10 +291,11 @@ class ScraperTest < ActiveSupport::TestCase
     assert provider.events.where(url: 'https://uppsala.instructure.com/courses/75565').exists?
     source.reload
     assert_equal 23, source.records_read
-    assert_equal 23, source.records_written
-    assert_equal 22, source.resources_added
+    # Explora: One event lacks a description, so one less record written
+    assert_equal 22, source.records_written
+    assert_equal 21, source.resources_added
     assert_equal 1, source.resources_updated
-    assert_equal 0, source.resources_rejected
+    assert_equal 1, source.resources_rejected
     assert source.finished_at > 1.day.ago
     assert_includes source.log, 'Bioschemas summary'
     assert_includes source.log, '- CourseInstances: 23'
@@ -326,7 +331,8 @@ class ScraperTest < ActiveSupport::TestCase
     @scraper = Scraper.new
 
     refute provider.events.where(url: 'https://uppsala.instructure.com/courses/75565').exists?
-    assert_difference('provider.events.count', 23) do
+    # Explora: 23 events, but one doesn't have a description
+    assert_difference('provider.events.count', 22) do
       @scraper.scrape(@source)
     end
     assert provider.events.where(url: 'https://uppsala.instructure.com/courses/75565').exists?
