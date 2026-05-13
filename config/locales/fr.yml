@@ -58,12 +58,18 @@ fr:
         firstname: 'Prénom'
         surname: 'Nom de famille'
       event:
+        title: Titre
+        content_provider_id: Fournisseur de contenu
         county: Région
         language: 'Langue d''enseignement'
         duration: 'Durée'
         keywords: 'Mots-clés'
         timezone: 'Fuseau horaire'
         venue: 'Lieu'
+      material:
+        title: Titre
+        content_provider_id: Fournisseur de contenu
+        keywords: 'Mots-clés'
       source:
         default_language: 'Langue par défaut'
         exclude_patterns: "Ignorer le ou les éléments suivants"

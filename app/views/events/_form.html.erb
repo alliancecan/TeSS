@@ -26,9 +26,9 @@
   <%= hidden_field_tag 'event[locked_fields][]', '' %>
 
   <!-- Field: Content Provider -->
-  <%= f.input :content_provider_id, label: 'Content provider (where the event metadata is obtained from)',
-              collection: current_user.get_editable_providers, label_method: :title, value_method: :id, include_blank: true,
-              field_lock: true %>
+  <%= f.input :content_provider_id, collection: current_user.get_editable_providers,
+              label_method: :title, value_method: :id,
+              include_blank: true, required: true, field_lock: true %>
 
   <!-- Field: Title -->
   <%= f.input :title, as: :string, field_lock: true, input_html: { title: t('events.hints.title') } %>

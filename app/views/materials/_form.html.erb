@@ -13,8 +13,9 @@
   <% # Required Fields    -%>
 
   <!-- Field: Provider -->
-  <%= f.input :content_provider_id, collection: current_user.get_editable_providers, label_method: :title, value_method: :id,
-              include_blank: true, field_lock: true, label: t('materials.hints.providers'),
+  <%= f.input :content_provider_id, collection: current_user.get_editable_providers,
+              label_method: :title, value_method: :id,
+              include_blank: true, required: true, field_lock: true,
               visibility_toggle: TeSS::Config.feature['materials_disabled'] %>
 
   <!-- Field: Title -->

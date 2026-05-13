@@ -696,7 +696,7 @@ en:
       prerequisites: >
         What prior understanding or knowledge does your audience need to have on the topics covered in the training
         material?
-      providers: ''
+      providers: 'Content provider (where the event metadata is obtained from)'
       resources: 'Are there any external resources that relate to the is training material?'
       status: 'Indicate the current status of the training material.'
       subsets: 'Add identifier URLs or DOIs for each subset of the training material.'

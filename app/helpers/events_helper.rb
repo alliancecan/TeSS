@@ -82,14 +82,13 @@ module EventsHelper
           # required fields
           item.title = event.title
           item.link = event_url(event)
-
-          # optional fields
           description = ''
           description += (neatly_printed_date_range(event.start_local, event.end_local) + "\n\n") if event.start.present?
           description += (event.description + "\n\n") if event.description.present?
           description += event.organizer if event.organizer.present?
           item.description = description.to_s
 
+          # optional fields
           # we should think about our RSS feed updating rules. If a line of the event description
           # changes, do we repost it? I don't think so.
           # also this field is not in the specification...
