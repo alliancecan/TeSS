@@ -86,11 +86,11 @@
     </div>
   </nav>
 
-  <% if TeSS::Config.announcement_message&.strip.present? %>
+  <% if announcement_message.present? %>
     <div class="container">
       <div class="alert alert-info fade in" id="front-page-announcement">
         <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
-        <%== TeSS::Config.announcement_message %>
+        <%== announcement_message %>
       </div>
     </div>
   <% end %>

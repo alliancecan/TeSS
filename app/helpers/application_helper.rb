@@ -720,6 +720,16 @@ module ApplicationHelper
     menu_item text, url, class: "ml-3"
   end
 
+  def announcement_message
+    message = TeSS::Config.announcement_message
+    return unless message.present?
+    if message.is_a?(String)
+      return message.strip
+    elsif message.is_a?(Hash)
+      return message[I18n.locale]
+    end
+  end
+
   if ENV["HIGHLIGHT_TRANSLATIONS"]
     def t(...)
       # Note: missing translation will be a span contained in this one

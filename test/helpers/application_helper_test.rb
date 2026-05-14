@@ -140,6 +140,45 @@ class ApplicationHelperTest < ActionView::TestCase
     end
   end
 
+  def mock_config_announcement_message(value, &block)
+    TeSS::Config.stub :announcement_message, value do
+      yield
+    end
+  end
+
+  test 'No announcement shown when not configured' do
+    mock_config_announcement_message(nil) do
+      assert_nil announcement_message
+    end
+  end
+
+  test 'No announcement shown when configured as blank string' do
+    mock_config_announcement_message('') do
+      assert_nil announcement_message
+    end
+  end
+
+  test 'Announcement shown when configured as a string' do
+    mock_config_announcement_message('free pizza') do
+      assert_equal announcement_message, 'free pizza'
+    end
+  end
+
+  test 'Announcement shown when configured as a multilingual hash' do
+    mock_config_announcement_message({en: 'free pizza', fr: 'pizza gratuit'}) do
+      saved_locale = I18n.locale
+
+      I18n.locale = :en
+      assert_equal announcement_message, 'free pizza'
+      I18n.locale = :fr
+      assert_equal announcement_message, 'pizza gratuit'
+      I18n.locale = :de
+      assert_nil announcement_message
+
+      I18n.locale = saved_locale
+    end
+  end
+
   # This test is failing because the content_provider isn't found, but the code runs anyway
 =begin
   test "no icon should be shown for an iAnn event which has not been scraped recently" do

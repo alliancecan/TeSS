@@ -16,6 +16,7 @@ default: &default
     available_locales:
       - en
       - fr
+      - de
     default_locale: en
     fallback_strategy: manual
   site:
