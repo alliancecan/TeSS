@@ -50,6 +50,7 @@ class ZenodoIngestorTest < ActiveSupport::TestCase
     assert_equal 1, material.authors.size, 'material authors count not matched.'
     assert material.authors.include?('Australian Research Data Commons')
     assert_equal '10.5281/zenodo.10656276', material.doi, 'material.doi not matched.'
+    assert_equal Date.parse('2024-02-29'), material.date_published, 'publication date not matched.'
 
     # check material with contributors
     material = get_zenodo_id(10525947, 'HASS and Indigenous Research Data Commons co-design framework', 'Portal Provider')

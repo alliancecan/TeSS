@@ -110,11 +110,21 @@ class Material < ApplicationRecord
   validates :other_types, presence: true, if: proc { |m| m.resource_type.include?('other') }
   validates :keywords, length: { maximum: 20 }
 
+  # TODO: remove "on: create" when all records are valid
+  validate :validate_required_dates, on: :create
+
   clean_array_fields(:keywords, :fields, :contributors, :authors,
                      :target_audience, :resource_type, :subsets)
 
   update_suggestions(:keywords, :contributors, :authors, :target_audience,
                      :resource_type)
+
+  def validate_required_dates
+    # Presence of any one of these will make record valid
+    return if date_created || date_modified || date_published
+
+    errors.add(:base, :dates_required)
+  end
 
   def description=(desc)
     super(Rails::Html::FullSanitizer.new.sanitize(desc))

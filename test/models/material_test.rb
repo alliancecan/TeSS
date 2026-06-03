@@ -14,6 +14,7 @@ class MaterialTest < ActiveSupport::TestCase
                                  licence: 'CC-BY-NC-SA-4.0',
                                  keywords: ['goblet'],
                                  contact: 'default contact',
+                                 date_published: Date.today - 1.year,
                                  content_provider: content_providers(:goblet),
                                  status: 'active'
     )
@@ -26,6 +27,28 @@ class MaterialTest < ActiveSupport::TestCase
   test 'validates that content provider is present' do
     assert Material.validators_on(:content_provider).\
              any? { |v| v.is_a?(ActiveRecord::Validations::PresenceValidator) }
+  end
+
+  test 'validates that required dates are present' do
+    material = Material.new()
+    refute material.valid?
+    assert_includes material.errors[:base],
+                    'At least one of these must be included: date created, date modified, or date published.'
+
+    material = Material.new(date_modified: Date.today - 1.day)
+    refute material.valid?
+    refute_includes material.errors[:base],
+                    'At least one of these must be included: date created, date modified, or date published.'
+
+    material = Material.new(date_created: Date.today - 1.year)
+    refute material.valid?
+    refute_includes material.errors[:base],
+                    'At least one of these must be included: date created, date modified, or date published.'
+
+    material = Material.new(date_published: Date.today - 1.week)
+    refute material.valid?
+    refute_includes material.errors[:base],
+                    'At least one of these must be included: date created, date modified, or date published.'
   end
 
   test 'should update optionals' do
@@ -321,6 +344,7 @@ class MaterialTest < ActiveSupport::TestCase
     first_material = user.materials.build(title: 'bla', url: 'http://example.com/spam', description: '123',
                                           content_provider: content_provider,
                                           doi: 'https://doi.org/10.1111/123.1235', licence: 'Fair', keywords: ['uno'],
+                                          date_published: Date.today - 1.week,
                                           contact: 'default contact', status: 'active')
     assert first_material.user_requires_approval?
     assert first_material.from_unverified_or_rejected?
@@ -329,6 +353,7 @@ class MaterialTest < ActiveSupport::TestCase
     second_material = user.materials.build(title: 'bla', url: 'http://example.com/spam2', description: '123',
                                            content_provider: content_provider,
                                            doi: 'https://doi.org/10.1111/123.1235', licence: 'Fair', keywords: ['dos'],
+                                           date_modified: Date.today - 1.day,
                                            contact: 'default contact', status: 'active')
     refute second_material.user_requires_approval?
   end
@@ -338,6 +363,7 @@ class MaterialTest < ActiveSupport::TestCase
     content_provider = content_providers(:with_owner)
     first_material = user.materials.create!(title: 'bla', url: 'http://example.com/spam', description: '123',
                                             content_provider_id: content_provider.id,
+                                            date_created: Date.today - 1.month,
                                             doi: 'https://doi.org/10.1111/123.1235', licence: 'Fair', keywords: ['uno'],
                                             contact: 'default contact', status: 'active')
     assert first_material.from_unverified_or_rejected?
@@ -347,6 +373,7 @@ class MaterialTest < ActiveSupport::TestCase
 
     second_material = user.materials.create(title: 'bla', url: 'http://example.com/spam2', description: '123',
                                             content_provider_id: content_provider.id,
+                                            date_created: Date.today - 1.month,
                                             doi: 'https://doi.org/10.1111/123.1235', licence: 'Fair', keywords: ['dos'],
                                             contact: 'default contact', status: 'development')
     assert second_material.from_unverified_or_rejected?
@@ -356,6 +383,7 @@ class MaterialTest < ActiveSupport::TestCase
 
     third_material = user.materials.create(title: 'bla', url: 'http://example.com/spam3', description: '123',
                                            content_provider_id: content_provider.id,
+                                           date_created: Date.today - 1.month,
                                            doi: 'https://doi.org/10.1111/123.1235', licence: 'Fair', keywords: ['tres'],
                                            contact: 'default contact', status: 'archived')
     refute third_material.from_unverified_or_rejected?
@@ -480,6 +508,7 @@ class MaterialTest < ActiveSupport::TestCase
     bad_material = bad_user.materials.build(title: 'bla', url: 'http://example.com/spam', description: 'vvv',
                                             content_provider_id: content_provider.id,
                                             doi: 'https://doi.org/10.1111/123.1235', contact: 'default contact',
+                                            date_created: Date.today - 1.month,
                                             licence: 'Fair', keywords: %w{ key words }, status: 'active')
     assert bad_material.user_requires_approval?
     bad_material.save!
@@ -489,6 +518,7 @@ class MaterialTest < ActiveSupport::TestCase
                                               content_provider_id: content_provider.id,
                                               description: 'vvv', contact: 'default contact',
                                               doi: 'https://doi.org/10.1111/123.1235', status: 'active',
+                                              date_modified: Date.today - 2.years,
                                               licence: 'Fair', keywords: %w{ key words })
     refute good_material.user_requires_approval?
     good_material.save!
@@ -509,6 +539,7 @@ class MaterialTest < ActiveSupport::TestCase
                                           content_provider_id: content_provider.id,
                                           url: 'http://tess.elixir-europe.org',
                                           doi: 'https://doi.org/10.1111/123.1235',
+                                          date_published: Date.today - 1.month,
                                           licence: 'Fair',
                                           keywords: ['uno'],
                                           contact: 'default contact',
@@ -522,6 +553,7 @@ class MaterialTest < ActiveSupport::TestCase
                                 content_provider_id: content_provider.id,
                                 url: 'http://tess.elixir-europe.org',
                                 doi: 'https://doi.org/10.1111/123.1235',
+                                date_published: Date.today - 1.month,
                                 licence: 'Fair',
                                 keywords: ['uno'],
                                 contact: 'default contact',
@@ -534,6 +566,7 @@ class MaterialTest < ActiveSupport::TestCase
                                 content_provider_id: content_provider.id,
                                 url: 'http://tess.elixir-europe.org',
                                 doi: 'https://doi.org/10.1111/123.1235',
+                                date_published: Date.today - 1.month,
                                 licence: 'Fair',
                                 keywords: ['uno'],
                                 contact: 'default contact',
@@ -546,7 +579,8 @@ class MaterialTest < ActiveSupport::TestCase
   test 'validates URL format' do
     content_provider = content_providers(:with_owner)
     material = Material.new(title: 'Test', description: 'desc',
-                            user: users(:regular_user), content_provider: content_provider)
+                            user: users(:regular_user), content_provider: content_provider,
+                            date_modified: Date.today - 1.month)
 
     refute material.valid?
     assert material.errors.added?(:url, :blank)
@@ -589,6 +623,7 @@ class MaterialTest < ActiveSupport::TestCase
       url: 'https://materials.com/1',
       keywords: ['cool', 'great'],
       nodes: [node],
+      date_created: Date.today - 2.weeks,
       external_resources_attributes: { '0' => { title: 'test', url: 'https://external-resource.com' } },
       events: [event],
       # TODO: make Edam and CRDC work together

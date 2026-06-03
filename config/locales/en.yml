@@ -42,6 +42,12 @@ en:
     doi: 'DOI'
     orcid: 'ORCID'
   activerecord:
+    errors:
+      models:
+        material:
+          attributes:
+            base:
+              dates_required: 'At least one of these must be included: date created, date modified, or date published.'
     models:
       event: Event
       material: Material
@@ -681,6 +687,9 @@ en:
       date_created: 'Add the date that the training material was created.'
       date_modified: 'Add the date that the training material was last modified.'
       date_published: 'Add the date that the training material was published.'
+      dates_required_html: >
+        At least one of these must be included: <b>date created</b>, <b>date modified</b>,
+        or <b>date published</b>.
       description: 'Provide a textual description of your training material, for additional context.'
       difficulty: 'Indicate the learners expected level of competency in the topic covered by the material.'
       doi: 'Include a DOI if one exists for the training material.'

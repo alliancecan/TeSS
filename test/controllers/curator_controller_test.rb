@@ -144,6 +144,7 @@ class CuratorControllerTest < ActionController::TestCase
     4.times do |i|
       m = new_user.materials.create!(title: "Spam material #{i}", url: "http://cool-material.pancakes/#{i}",
                                      description: 'material',
+                                     date_modified: '2026-06-03',
                                      content_provider: content_providers(:with_owner))
       m.create_activity(:create, owner: new_user)
       material = m

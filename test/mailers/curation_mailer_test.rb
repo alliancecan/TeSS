@@ -14,6 +14,7 @@ class CurationMailerTest < ActionMailer::TestCase
                                         content_provider: @content_provider,
                                         description: '123',
                                         licence: 'Fair',
+                                        date_created: Date.today - 1.week,
                                         doi: 'https://doi.org/10.1200/RSE.2020.123',
                                         keywords: %w[unverified user material],
                                         contact: 'main contact',

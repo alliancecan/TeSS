@@ -160,6 +160,7 @@ class MaterialCsvIngestorTest < ActiveSupport::TestCase
     assert_difference 'Material.count', 1 do
       params = { user: @user, content_provider: @content_provider, url: url, title: title, description: description,
                  keywords: %w[Man Woman Person Computer Window], contact: 'Dummy Contact',
+                 date_published: '2026-06-03',
                  licence: 'GPL-3.0', status: ['development'], locked_fields: locked_fields }
       material = Material.new(params)
       material.save!
