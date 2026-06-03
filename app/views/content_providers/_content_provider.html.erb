@@ -1,4 +1,7 @@
-<% cache([content_provider, I18n.locale], expires_in: 6.hours) do %>
+<% cache([content_provider,
+          content_provider.events.count,
+          content_provider.materials.count,
+          I18n.locale], expires_in: 6.hours) do %>
   <li class="masonry-brick media-item <%="long" if TeSS::Config.site.fetch('content_provider_grid_long', true)%>")>
     <%= link_to content_provider, class: 'link-overlay' do %>
       <%= image_tag content_provider.image.url, class: 'media-image listing_image' %>
