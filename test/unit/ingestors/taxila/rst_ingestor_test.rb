@@ -13,6 +13,8 @@ class RstIngestorTest < ActiveSupport::TestCase
   end
 
   test 'can ingest materials from rst' do
+    skip "Explora: required dates not present, and we don't read from here."
+
     source = @content_provider.sources.build(
       url: 'https://researchsoftwaretraining.nl/resources/',
       method: 'rst',

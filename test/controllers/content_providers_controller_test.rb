@@ -441,6 +441,7 @@ class ContentProvidersControllerTest < ActionController::TestCase
     bad_material = bad_user.materials.build(title: 'bla', url: 'http://example.com/spam', description: '123',
                                             doi: 'https://doi.org/10.1080/exa.2021.011', licence: 'Fair',
                                             keywords: %w[bad material user], status: 'active',
+                                            date_created: Date.today - 1.day,
                                             contact: 'bad contact',
                                             content_provider: @content_provider)
     assert bad_material.user_requires_approval?
@@ -451,6 +452,7 @@ class ContentProvidersControllerTest < ActionController::TestCase
                                               description: '456', licence: 'Fair',
                                               doi: 'https://doi.org/10.1080/exa.2021.011',
                                               keywords: %w[good material user],
+                                              date_created: Date.today - 1.day,
                                               contact: 'good contact',
                                               content_provider: @content_provider,
                                               status: 'development')
@@ -626,7 +628,10 @@ class ContentProvidersControllerTest < ActionController::TestCase
   end
 
   test 'should hide disabled materials on content provider page' do
-    new_material = Material.create!(title: 'my_material', description: 'visible material', url: 'http://new.url.com', content_provider: @content_provider, user: @content_provider.user)
+    new_material = Material.create!(title: 'my_material', description: 'visible material',
+                                    url: 'http://new.url.com', content_provider: @content_provider,
+                                    date_created: Date.today - 1.day,
+                                    user: @content_provider.user)
     get :show, params: { id: @content_provider }
     assert_response :success
     assert_select '.search-results-count.my-3', text: 'Showing 10 materials'

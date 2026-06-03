@@ -34,6 +34,7 @@ module Ingestors
           # copy optional values
           material.doi = get_column row, 'DOI'
           material.version = get_column row, 'Version'
+          material.date_created = get_column row, 'Created'
           material.date_published = get_column row, 'Published'
           material.date_modified = get_column row, 'Modified'
           material.difficulty_level = process_competency row, 'Competency'

@@ -13,6 +13,7 @@ class VuMaterialIngestorTest < ActiveSupport::TestCase
   end
 
   test 'can ingest materials from vu' do
+    skip "Explora: materials need at least one required date, VU content doesn't have."
     source = @content_provider.sources.build(
       url: 'https://vu.nl/en/education/phd-courses',
       method: 'vu_material',

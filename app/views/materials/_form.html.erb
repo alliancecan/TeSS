@@ -96,6 +96,10 @@
               input_html: { rows: '3', title: t('materials.hints.objectives') },
               visibility_toggle: TeSS::Config.feature['materials_disabled'] %>
 
+  <div class="dates_required">
+
+  <p><%= t('materials.hints.dates_required_html') %></p>
+
   <!-- Field: Date Created -->
   <%= f.input :date_created, as: :date_picker, field_lock: true, input_html: { title: t('materials.hints.date_created') },
               visibility_toggle: TeSS::Config.feature['materials_disabled'] %>
@@ -106,6 +110,8 @@
               visibility_toggle: TeSS::Config.feature['materials_disabled'] %>
   <%= f.input :date_published, as: :date_picker, field_lock: true, input_html: { title: t('materials.hints.date_published') },
               visibility_toggle: TeSS::Config.feature['materials_disabled'] %>
+
+  </div>
 
   <!-- Field: Other Types -->
   <%= f.input :other_types, input_html: { title: t('materials.hints.other_types') }, field_lock: true,

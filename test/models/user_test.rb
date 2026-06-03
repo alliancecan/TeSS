@@ -328,10 +328,12 @@ class UserTest < ActiveSupport::TestCase
     # Resources
     material1 = user1.materials.create!(title: 'material 1', url: 'https://training.com/materials/1',
                                         description: 'material1',
-                                        content_provider: content_provider)
+                                        content_provider: content_provider,
+                                        date_modified: Date.today - 1.day)
     material2 = user2.materials.create!(title: 'material 2', url: 'https://training.com/materials/2',
                                         description: 'material2',
-                                        content_provider: content_provider)
+                                        content_provider: content_provider,
+                                        date_modified: Date.today - 2.days)
     event1 = user2.events.create!(title: 'event 1', url: 'https://training.com/events/1',
                                   description: 'A test event',
                                   content_provider: content_provider)

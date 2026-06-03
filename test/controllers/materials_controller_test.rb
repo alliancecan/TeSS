@@ -238,6 +238,7 @@ class MaterialsControllerTest < ActionController::TestCase
           url: @material.url,
           licence: @material.licence,
           keywords: @material.keywords,
+          date_created: '2026-06-03',
           contact: @material.contact,
           status: @material.status
         }
@@ -260,6 +261,7 @@ class MaterialsControllerTest < ActionController::TestCase
           title: @material.title,
           content_provider_id: content_provider.id,
           url: @material.url,
+          date_created: '2026-06-03',
           licence: @material.licence,
           keywords: @material.keywords,
           contact: @material.contact,
@@ -323,6 +325,7 @@ class MaterialsControllerTest < ActionController::TestCase
       format: :json,
       material: { title: test_title,
                   url: test_url,
+                  date_created: '2026-06-03',
                   content_provider_id: test_provider.id
       }
     }
@@ -380,6 +383,7 @@ class MaterialsControllerTest < ActionController::TestCase
           licence: @material.licence,
           keywords: @material.keywords,
           contact: @material.contact,
+          date_created: '2026-06-03',
           status: @material.status
         }
       }
@@ -400,6 +404,7 @@ class MaterialsControllerTest < ActionController::TestCase
           licence: @material.licence,
           keywords: @material.keywords,
           contact: @material.contact,
+          date_created: '2026-06-03',
           status: @material.status
         }
       }
@@ -717,8 +722,16 @@ class MaterialsControllerTest < ActionController::TestCase
     provider1 = content_providers(:iann)
     provider2 = content_providers(:two)
 
-    e1 = provider1.materials.create!(title: 'another material', url: @material.url, description: '123', user: users(:regular_user))
-    e2 = provider2.materials.create!(title: 'a third material', url: @material.url, description: '123', user: users(:regular_user))
+    e1 = provider1.materials.create!(title: 'another material',
+                                     url: @material.url,
+                                     description: '123',
+                                     date_created: '2026-06-03',
+                                     user: users(:regular_user))
+    e2 = provider2.materials.create!(title: 'a third material',
+                                     url: @material.url,
+                                     description: '123',
+                                     date_created: '2026-06-03',
+                                     user: users(:regular_user))
 
     post :check_exists, params: { format: :json, material: { url: @material.url, content_provider_id: provider1.id } }
     assert_response :success
@@ -772,6 +785,7 @@ class MaterialsControllerTest < ActionController::TestCase
           contact: 'default contact',
           doi: 'https://doi.org/10.1001/RSE.2.190',
           licence: 'CC-BY-4.0',
+          date_created: '2026-06-03',
           keywords: ['scraped', 'through', 'api'],
           status: 'active'
         },
@@ -796,6 +810,7 @@ class MaterialsControllerTest < ActionController::TestCase
           description: 'All about horses',
           contact: 'default contact',
           doi: 'https://doi.org/10.1001/RSE.2.190',
+          date_created: '2026-06-03',
           licence: 'CC-BY-4.0',
           keywords: %{ invalid authtoken },
           status: 'active'
@@ -1024,6 +1039,7 @@ class MaterialsControllerTest < ActionController::TestCase
                     doi: 'https://doi.org/10.1100/RSE.2019.23',
                     licence: 'CC-BY-4.0',
                     keywords: ['insanity', 'sanitized', 'sanitary'],
+                    date_created: '2026-06-03',
                     contact: 'default contact',
                     status: 'development'
         }
@@ -1120,6 +1136,7 @@ class MaterialsControllerTest < ActionController::TestCase
           doi: @material.doi,
           licence: @material.licence,
           keywords: @material.keywords,
+          date_created: '2026-06-03',
           contact: @material.contact,
           status: @material.status
         }
@@ -1384,6 +1401,7 @@ class MaterialsControllerTest < ActionController::TestCase
           short_description: 'I love horses',
           long_description: 'I really love horses',
           contact: 'default contact',
+          date_created: '2026-06-03',
           doi: 'https://doi.org/10.1001/RSE.2.190',
           licence: 'CC-BY-4.0',
           keywords: ['scraped', 'through', 'api'],
@@ -1505,6 +1523,7 @@ class MaterialsControllerTest < ActionController::TestCase
                                              url: 'https://somematerial.com',
                                              content_provider_id: content_provider.id,
                                              description: 'hey',
+                                             date_created: '2026-06-03',
                                              external_resources_attributes: [
                                                { title: 'A tool perhaps', url: 'https://bio.tools/some_tool' }
                                              ]

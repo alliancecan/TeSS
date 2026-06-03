@@ -42,6 +42,12 @@ fr:
     doi: 'DOI'
     orcid: 'ORCID'
   activerecord:
+    errors:
+      models:
+        material:
+          attributes:
+            base:
+              dates_required: 'Au moins l’une des dates suivantes doit être incluse : la date de création, la date de modification ou la date de publication.'
     models:
       event: Événement
       material: Matériel
@@ -484,6 +490,9 @@ fr:
       date_created: 'Ajouter la date à laquelle le matériel de formation a été créé.'
       date_modified: 'Ajouter la date de la dernière modification du matériel de formation.'
       date_published: 'Ajouter la date à laquelle le matériel de formation a été publié.'
+      dates_required_html: >
+        Au moins l’une des dates suivantes doit être incluse : la <b>date de création</b>,
+        la <b>date de modification</b> ou la <b>date de publication</b>.
       description: 'Fournir une description textuelle de votre matériel de formation, pour plus de contexte.'
       difficulty: 'Indiquer le niveau de compétence attendu des apprenants dans le sujet couvert par le matériel.'
       doi: 'Inclure un DOI s''il en existe pour le matériel de formation.'
