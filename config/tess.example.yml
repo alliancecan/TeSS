@@ -11,8 +11,8 @@ default: &default
     # trainers:
   facets_max_age_list: ['Event', 'Material']
   announcement_message:
-    en: "Explora Phase II Beta Release is now live - Training materials discovery is now available."
-    fr: "Explora Phase II Beta est maintenant en ligne - la découverte de matériel de formation est désormais disponible."
+    en: "Explora Phase II is now live - Explore training materials from across the Canadian DRI ecosystem."
+    fr: "Explora Phase II est maintenant en ligne - Découvrez des ressources de formation de partout dans l’écosystème canadien de l’IRN."
   prevent_robot_indexing: false
   require_cookie_consent: true
   blocked_domains:
