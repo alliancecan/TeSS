@@ -11,16 +11,13 @@
 class AggregateTotalTrainingHours
 
   def main
-    events = Event.where("events.start >= '#{options.start_date}'").
-               where("events.end <= '#{options.end_date}'")
-
     num_events = 0
     time_sum = 0
 
     num_skipped = 0
     time_skipped_sum = 0
 
-    events.each do |event|
+    included_events.each do |event|
       if skip_event?(event)
         num_skipped += 1
         time_skipped_sum += (event.end - event.start)
@@ -32,6 +29,11 @@ class AggregateTotalTrainingHours
 
     puts "Total duration: #{hour_minute_time(time_sum)} (#{num_events} events)"
     puts "\nTotal skipped: #{hour_minute_time(time_skipped_sum)} (#{num_skipped} events)"
+  end
+
+  def included_events
+    Event.where("events.start >= '#{options.start_date}'").
+      where("events.end <= '#{options.end_date}'")
   end
 
   def hour_minute_time(seconds)
