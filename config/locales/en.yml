@@ -834,6 +834,11 @@ en:
       not_approved: Not approved
       requested: Approval requested
       approved: Approved
+    testing:
+      error:
+        title: "Error rendering test ingestion!"
+        input_data: "Input data:"
+        message: "Error message:"
     prompts:
       default_language: 'Select a default language...'
     exclude_patterns:
