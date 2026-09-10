@@ -104,6 +104,83 @@ class EventTest < ActiveSupport::TestCase
     assert_equal e.end_local.to_s, '2016-12-12 12:00:00 UTC'
   end
 
+  test 'start_local/end_local work with changes to AB/BC timezones' do
+    # Not really a code test, but a test that tzdata is up to date.
+    # Need tzinfo-data gem greater or equal to 1.2026.3
+
+    string_version = TZInfo::Data::VERSION
+    parts = string_version.split('.').map(&:to_i)
+
+    assert_equal parts[0], 1
+    assert parts[1] >= 2026
+    if parts[1] == 2026
+      assert parts[2] >= 3
+    end
+
+    # Daylight savings should end in BC/AB during 2025
+    # (Before and after November should be offset by an hour)
+
+    # BC
+    e_before = Event.new(start: '2025-09-12 10:00:00 UTC',
+                                 end:'2025-09-12 12:00:00 UTC',
+                                 timezone: 'America/Vancouver')
+    e_after = Event.new(start: '2025-12-12 10:00:00 UTC',
+                                end:'2025-12-12 12:00:00 UTC',
+                                timezone: 'America/Vancouver')
+
+    assert_equal e_before.start_local.hour, 3
+    assert_equal e_before.start_local.gmt_offset / 3600, -7
+
+    assert_equal e_after.start_local.hour, 2
+    assert_equal e_after.start_local.gmt_offset / 3600, -8
+
+    # AB
+    e_before = Event.new(start: '2025-09-12 10:00:00 UTC',
+                                 end:'2025-09-12 12:00:00 UTC',
+                                 timezone: 'America/Edmonton')
+    e_after = Event.new(start: '2025-12-12 10:00:00 UTC',
+                                end:'2025-12-12 12:00:00 UTC',
+                                timezone: 'America/Edmonton')
+
+    assert_equal e_before.start_local.hour, 4
+    assert_equal e_before.start_local.gmt_offset / 3600, -6
+
+    assert_equal e_after.end_local.hour, 5
+    assert_equal e_after.start_local.gmt_offset / 3600, -7
+
+    # Daylight savings should not end in BC/AB during 2026
+    # (Before and after November should be the same time)
+
+    # BC
+    e_before = Event.new(start: '2026-09-12 10:00:00 UTC',
+                                 end:'2026-09-12 12:00:00 UTC',
+                                 timezone: 'America/Vancouver')
+    e_after = Event.new(start: '2026-12-12 10:00:00 UTC',
+                                end:'2026-12-12 12:00:00 UTC',
+                                timezone: 'America/Vancouver')
+
+    assert_equal e_before.start_local.hour, 3
+    assert_equal e_before.start_local.gmt_offset / 3600, -7
+
+    assert_equal e_after.start_local.hour, 3
+    assert_equal e_after.start_local.gmt_offset / 3600, -7
+
+    # AB
+    e_before = Event.new(start: '2026-09-12 10:00:00 UTC',
+                                 end:'2026-09-12 12:00:00 UTC',
+                                 timezone: 'America/Edmonton')
+    e_after = Event.new(start: '2026-12-12 10:00:00 UTC',
+                                end:'2026-12-12 12:00:00 UTC',
+                                timezone: 'America/Edmonton')
+
+    assert_equal e_before.start_local.hour, 4
+    assert_equal e_before.start_local.gmt_offset / 3600, -6
+
+    assert_equal e_after.start_local.hour, 4
+    assert_equal e_after.start_local.gmt_offset / 3600, -6
+
+  end
+
   test 'lower precedence content provider does not overwrite' do
     e = events(:organisation_event)
 
