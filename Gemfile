@@ -68,7 +68,7 @@ gem 'terser'
 gem 'tess_rdf_extractors', git: 'https://github.com/ElixirTeSS/TeSS_RDF_Extractors', branch: 'master'
 gem 'turbolinks'
 gem 'tzinfo'
-gem 'tzinfo-data'
+gem 'tzinfo-data', '~> 1.2026.3'
 gem 'validate_url'
 gem 'whenever', require: false # Work around https://github.com/javan/whenever/issues/831
 gem 'will_paginate'
