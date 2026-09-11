@@ -28,11 +28,17 @@ module Ingestors
       # Fetching and scraping event ids from the organization page
       def event_ids
         # Eventbrite is horrible. They change the schema of their pages whenever they want.
-
+        # Rather than rendering events on the organization
+        # page, they store the data for events in JSON and then render using JS.
+        # With that in mind, what follow is likely quite brittle, as we try to
+        # extract the JSON data to grab the event ids.
+        # Previously, this information was extractable from anchor tags.
         return @event_ids if @event_ids
 
         tree = Nokogiri::HTML5.parse(organization_response.body)
-        @event_ids = tree.css('a[data-event-id]').map {|element| element['data-event-id']}.uniq
+        @event_ids = JSON.parse(tree.css('script#__NEXT_DATA__').text)&.\
+                       dig('props', 'pageProps', 'upcomingEvents')&.\
+                       map{|e| e['eventbrite_event_id']} || []
       end
 
       def organization_response
