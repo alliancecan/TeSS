@@ -1,0 +1,255 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.ace-net.ca/wp-json/acenet/v1/courses
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - rest-client/2.1.0 (linux x86_64) ruby/3.3.8p144
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - www.ace-net.ca
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 15 Sep 2026 20:43:48 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept-Encoding
+      - Origin
+      X-Robots-Tag:
+      - noindex
+      Link:
+      - <https://www.ace-net.ca/wp-json/>; rel="https://api.w.org/"
+      X-Content-Type-Options:
+      - nosniff
+      Access-Control-Expose-Headers:
+      - X-WP-Total, X-WP-TotalPages, Link
+      Access-Control-Allow-Headers:
+      - Authorization, X-WP-Nonce, Content-Disposition, Content-MD5, Content-Type
+      X-Wp-Total:
+      - '16'
+      X-Wp-Totalpages:
+      - '1'
+      Allow:
+      - GET
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"id":2553,"slug":"introduction-to-computational-thinking","title":"Introduction
+        to Computational Thinking \u2013 Dalhousie University","url":"https:\/\/www.ace-net.ca\/training-course\/introduction-to-computational-thinking\/","modified_gmt":"2026-09-14T19:24:20+00:00","course_status":"public","description":{"rendered":"<p>Computational
+        thinking is an essential skill for anyone wanting to learn to program computers
+        and write code. This workshop takes you through the steps involved in computational
+        thinking, learning how to break down complex problems into smaller parts,
+        identify patterns, and design logical solutions that a computer can execute.
+        Through hands-on activities, you practice techniques such as problem decomposition,
+        abstraction, and algorithmic thinking. By the end of the session, you have
+        a stronger foundation for approaching programming tasks with confidence, setting
+        the stage for future coding and data-driven learning.<\/p>\n","plain":"Computational
+        thinking is an essential skill for anyone wanting to learn to program computers
+        and write code. This workshop takes you through the steps involved in computational
+        thinking, learning how to break down complex problems into smaller parts,
+        identify patterns, and design logical solutions that a computer can execute.
+        Through hands-on activities, you practice techniques such as problem decomposition,
+        abstraction, and algorithmic thinking. By the end of the session, you have
+        a stronger foundation for approaching programming tasks with confidence, setting
+        the stage for future coding and data-driven learning."},"short_description":"Workshop
+        on computational thinking, guiding participants to break down problems, recognize
+        patterns, and design logical, efficient solutions through practical exercises.","image_url":"https:\/\/lwfiles.mycourse.app\/651ebde6c37afd427e55d85f-public\/5f81a73a2569d519dcb108c96a3aceee.jpg","sessions":[{"title":"Introduction
+        to Computational Thinking","date_range":"","dates":["2026-10-09"],"start":"09:00","end":"12:00","unknown":false,"unknown_message":""}],"timezone":"America\/Halifax","format":"in_person","format_label":"In
+        Person","location":"Dalhousie Life Sciences Centre (6287 Alumni Crescent),
+        SURGE Sandbox (LSC 02660), Halifax, NS","level":"Beginner","credential":"None","duration":"3
+        Hours","prerequisites":"- No coding experience is required\r\n- An interest
+        in problem-solving and creative thinking. \r\n- Basic computer skills, such
+        as word processors, search engines, or spreadsheets.","learning_objectives":"-
+        Identify the steps in computational thinking\r\n- Break problems into manageable
+        parts\r\n- Develop a clear sequence of steps (an algorithm) to solve a problem\r\n-
+        Generalize the steps to make the algorithm re-usable (abstraction)","who_should_enrol":"This
+        session is designed for beginners who are curious about programming but may
+        not know where to start. It\u2019s especially valuable for those exploring
+        computer science or data science for the first time, or people in non-technical
+        fields who want to build problem-solving and coding skills.","categories":["Beginner","Fall
+        2026","In-person"],"tags":["Computational Thinking","Data Analytics","Introductory
+        Programming","Skills Development","Training"],"pricing":{"is_paid":false,"original":"0","discount":"0","final":"0"},"registration_url":"https:\/\/www.acenet.training\/course\/intro-comp-thinking-sept2025"},{"id":2780,"slug":"introduction-to-computational-thinking-mun","title":"Introduction
+        to Computational Thinking \u2013 Memorial University","url":"https:\/\/www.ace-net.ca\/training-course\/introduction-to-computational-thinking-mun\/","modified_gmt":"2026-09-14T19:20:09+00:00","course_status":"public","description":{"rendered":"<p>Computational
+        thinking is an essential skill for anyone wanting to learn to program computers
+        and write code. This workshop will take you through the steps involved in
+        computational thinking \u2013 learning how to break down complex problems
+        into smaller parts, identify patterns, and design logical solutions that a
+        computer can execute. Through hands-on activities, you will practice techniques
+        such as problem decomposition, abstraction, and algorithmic thinking. By the
+        end of the session, you will have a stronger foundation for approaching programming
+        tasks with confidence, setting the stage for future coding and data-driven
+        learning.<\/p>\n","plain":"Computational thinking is an essential skill for
+        anyone wanting to learn to program computers and write code. This workshop
+        will take you through the steps involved in computational thinking \u2013
+        learning how to break down complex problems into smaller parts, identify patterns,
+        and design logical solutions that a computer can execute. Through hands-on
+        activities, you will practice techniques such as problem decomposition, abstraction,
+        and algorithmic thinking. By the end of the session, you will have a stronger
+        foundation for approaching programming tasks with confidence, setting the
+        stage for future coding and data-driven learning."},"short_description":"Workshop
+        on computational thinking, guiding participants to break down problems, recognize
+        patterns, and design logical, efficient solutions through practical exercises.","image_url":"https:\/\/lwfiles.mycourse.app\/651ebde6c37afd427e55d85f-public\/5f81a73a2569d519dcb108c96a3aceee.jpg","sessions":[{"title":"Introduction
+        to Computational Thinking - MUN","date_range":"","dates":["2026-10-07"],"start":"13:00","end":"16:00","unknown":false,"unknown_message":""}],"timezone":"America\/St_Johns","format":"in_person","format_label":"In
+        Person","location":"G.A. Hickman Building (Education Building), Memorial University,
+        Room ED 3034A, St John''s, Newfoundland, A1C 5S7, Canada","level":"Beginner","credential":"None","duration":"3
+        Hours","prerequisites":"No coding experience is required\r\nAn interest in
+        problem-solving and creative thinking. \r\nBasic computer skills, such as
+        word processors, search engines, or spreadsheets.","learning_objectives":"-
+        Identify the steps in computational thinking\r\n- Break problems into manageable
+        parts\r\n- Develop a clear sequence of steps (an algorithm) to solve a problem\r\n-
+        Generalize the steps to make the algorithm re-usable (abstraction)","who_should_enrol":"This
+        session is designed for beginners who are curious about programming but may
+        not know where to start. It\u2019s especially valuable for those exploring
+        computer science or data science for the first time, or for people in non-technical
+        fields who want to build problem-solving and coding skills.","categories":["In-person","Beginner","Fall
+        2026"],"tags":[],"pricing":{"is_paid":false,"original":"0","discount":"0","final":"0"},"registration_url":"https:\/\/www.acenet.training\/course\/introduction-to-computational-thinking-mun"},{"id":2765,"slug":"microcredential-in-practical-foundations-for-data-analytics","title":"Microcredential
+        in Practical Foundations for Data Analytics","url":"https:\/\/www.ace-net.ca\/training-course\/microcredential-in-practical-foundations-for-data-analytics\/","modified_gmt":"2026-09-10T17:05:31+00:00","course_status":"public","description":{"rendered":"<p><span
+        style=\"font-weight: 400\">This microcredential provides a comprehensive introduction
+        to the essential tools and techniques required for modern computational data
+        analysis. The program combines classroom and self-study learning to build
+        foundational skills in Linux, Python, version control with Git, cybersecurity,
+        and high performance computing (HPC).<\/span><\/p>\n<p><span style=\"font-weight:
+        400\">Participants gain hands-on experience with essential computational tools
+        and methods and develop practical skills.<\/span><\/p>\n<p><span style=\"font-weight:
+        400\">Whether you are beginning to integrate computational tools into your
+        workflow or seek to expand your knowledge, this microcredential offers a structured
+        pathway to becoming proficient in key areas of data analytics.<\/span><\/p>\n<p>Teaching
+        classes run from October 20 to November 10, 2026. An additional three optional
+        classes are scheduled on November 12, 17, and 19 to provide help with final
+        projects.<\/p>\n<p><strong>The deadline to apply for this microcredential
+        is September 18, 2026.<\/strong><\/p>\n","plain":"This microcredential provides
+        a comprehensive introduction to the essential tools and techniques required
+        for modern computational data analysis. The program combines classroom and
+        self-study learning to build foundational skills in Linux, Python, version
+        control with Git, cybersecurity, and high performance computing (HPC).\r\n\r\nParticipants
+        gain hands-on experience with essential computational tools and methods and
+        develop practical skills.\r\n\r\nWhether you are beginning to integrate computational
+        tools into your workflow or seek to expand your knowledge, this microcredential
+        offers a structured pathway to becoming proficient in key areas of data analytics.\r\n\r\nTeaching
+        classes run from October 20 to November 10, 2026. An additional three optional
+        classes are scheduled on November 12, 17, and 19 to provide help with final
+        projects.\r\n\r\nThe deadline to apply for this microcredential is September
+        18, 2026."},"short_description":"This microcredential covers Linux, Python,
+        Git, cybersecurity, and HPC, combining hands-on and asynchronous learning
+        to build practical data analysis skills.","image_url":"https:\/\/lwfiles.mycourse.app\/651ebde6c37afd427e55d85f-public\/27ad23d5b58e282afd3e67661cda3623.png","sessions":[{"title":"Live
+        Session","date_range":"","dates":["2026-10-20","2026-10-22","2026-10-27","2026-10-29","2026-11-03","2026-11-05","2026-11-10"],"start":"14:00","end":"17:00","unknown":false,"unknown_message":""}],"timezone":"America\/Halifax","format":"online","format_label":"Online","location":"Online","level":"Beginner","credential":"Microcredential","duration":"21
+        synchronous hours, 12-15 asynchronous hours","prerequisites":"Basic math and
+        intermediate experience with computers, including working with documents and
+        spreadsheets.","learning_objectives":"Synchronous courses:\r\n\r\nLinux and
+        the Command Line\r\n- Navigate a file system via the command line\r\n- Create
+        and edit text files\r\n- Integrate wildcards to sort output\r\n- Redirect
+        command output to files\r\n- Combine commands using pipes\r\n\r\nProgramming
+        in Python \r\n- Write and execute code in Python \r\n- Interact with Python
+        using the command line\r\n- Run Python in both interactive and scripting modes\r\n-
+        Execute Python code inside Jupyter Lab\r\n- Write and execute Python code
+        in different environments, including Integrated Development Environments (IDEs)\r\n-
+        Define variables in Python\r\n- Slice strings into substrings\r\n- Explain
+        differences between lists and tuples in Python\r\n- Demonstrate the use of
+        dictionaries\r\n- Explain the use of \u201cfor\u201d loops\r\n- Write programs
+        that use \u201cif\u201d and \u201celse\u201d statements, and simple Boolean
+        expressions\r\n- Write a function that uses a fixed number of arguments and
+        produces results\r\n\r\nVersion Control \r\n- Describe the importance of Git
+        for version control in collaborative projects\r\n- Configure Git and manage
+        the workflow of additional changes to track version control \r\n- Establish
+        and configure remote Git repositories on platforms like GitHub for effective
+        project management\r\n- Execute commands to push local changes to a remote
+        repository or pull changes from a remote source\r\n- Work collaboratively
+        on a repository, identifying and resolving conflicts that arise when multiple
+        contributors make changes to the same codebase\r\n\r\nHigh Performance Computing
+        (HPC) \r\n- Describe and demonstrate what distinguishes HPC from conventional
+        computing\r\n- Communicate with remote computers and migrate data\r\n- Write
+        and execute a basic Slurm submission script\r\n- Submit and monitor computing
+        jobs with Slurm \r\n- Maintain a consistent software environment within jobs\r\n\r\nAsynchronous
+        courses:\r\n\r\nComputers and Overview of Programming Languages\r\n- Identify
+        the main components of a computer and describe how a computer works\r\n- Explain
+        the differences between operating systems, modern tools and platforms\r\n-
+        Describe the advantages and disadvantages of various types of programming
+        languages and decide which one best suits a project\u2019s requirements\r\n\r\nCybersecurity\r\n-
+        Summarize the different types of cyber threats and how they can occur\r\n-
+        Adopt incremental changes to improve personal cybersecurity \r\n- Implement
+        data storage best practices on HPC clusters\r\n- Secure logins to remote computers
+        with SSH keys","who_should_enrol":"Designed for professionals, researchers,
+        and students who seek to build a strong technical foundation for data analytics.
+        This course serves as a stepping stone for those who aim to develop their
+        data analytics capabilities and apply them in more advanced computing environments.","categories":["Beginner","Microcredential","Online
+        Synchronous","Fall 2026"],"tags":[],"pricing":{"is_paid":true,"original":"0","discount":"0","final":"149"},"registration_url":"https:\/\/www.acenet.training\/course\/microcredential-in-practical-foundations-for-data-analytics"},{"id":2706,"slug":"introductory-programming-unix-shell-git-and-python","title":"Introductory
+        Programming: Unix Shell, Git and Python","url":"https:\/\/www.ace-net.ca\/training-course\/introductory-programming-unix-shell-git-and-python\/","modified_gmt":"2026-08-28T17:29:57+00:00","course_status":"public","description":{"rendered":"<p>This
+        is a beginner level series that is hands-on, covering the fundamentals of
+        Unix Shell, Version Control with Git and Python. This includes data types,
+        conditional statements, loops and functions, as well as program design, version
+        control, data management, and task automation. Participants are encouraged
+        to help one another and to apply what they have learned to their own research
+        problems. The goal is to teach the practical knowledge needed to start programming,
+        debugging and using Python in everyday tasks.<\/p>\n<p>You do not need to
+        have any previous knowledge of the tools that are presented or previous programming
+        experience but intermediate level experience with a computer is highly recommended.<\/p>\n<p>You
+        do need to have a laptop with a Mac, Linux or Windows operating system (not
+        a tablet, Chromebook, etc) on which you have administrative privileges, as
+        you need to pre-load specific software packages.<\/p>\n","plain":"This is
+        a beginner level series that is hands-on, covering the fundamentals of Unix
+        Shell, Version Control with Git and Python. This includes data types, conditional
+        statements, loops and functions, as well as program design, version control,
+        data management, and task automation. Participants are encouraged to help
+        one another and to apply what they have learned to their own research problems.
+        The goal is to teach the practical knowledge needed to start programming,
+        debugging and using Python in everyday tasks.\r\n\r\nYou do not need to have
+        any previous knowledge of the tools that are presented or previous programming
+        experience but intermediate level experience with a computer is highly recommended.\r\n\r\nYou
+        do need to have a laptop with a Mac, Linux or Windows operating system (not
+        a tablet, Chromebook, etc) on which you have administrative privileges, as
+        you need to pre-load specific software packages."},"short_description":"Hands-on
+        beginner series covering Unix Shell, Git, and Python fundamentals, teaching
+        programming, version control, data management, and task automation for research
+        applications.","image_url":"","sessions":[{"title":"Intro to Unix Shell","date_range":"","dates":["2026-09-29"],"start":"13:00","end":"16:00","unknown":false,"unknown_message":""},{"title":"Intro
+        to Version Control (Git)","date_range":"","dates":["2026-10-01"],"start":"13:00","end":"16:00","unknown":false,"unknown_message":""},{"title":"Intro
+        to Python (Session 1)","date_range":"","dates":["2026-10-06"],"start":"13:00","end":"16:00","unknown":false,"unknown_message":""},{"title":"Intro
+        to Python (Session 2)","date_range":"","dates":["2026-10-08"],"start":"13:00","end":"16:00","unknown":false,"unknown_message":""}],"timezone":"America\/Halifax","format":"online","format_label":"Online","location":"Online","level":"Beginner","credential":"None","duration":"12
+        Hours","prerequisites":"Participants should be comfortable using a computer
+        and navigating files and folders. No prior programming experience is necessary.","learning_objectives":"Unix
+        Shell:\t\r\n- Explain the role of the Unix shell and when command-line interfaces
+        are preferable to graphical interfaces.\r\n- Navigate the file system using
+        absolute and relative paths.\r\n- Create, move, rename, and delete files and
+        directories using shell commands.\r\n- Use tab completion, command history,
+        and wildcards to work efficiently at the command line.\r\n- Combine commands
+        using pipes and redirection to process data.\r\n- Write simple loops to automate
+        repetitive tasks.\r\n- Develop and run basic shell scripts to automate workflows.\r\n-
+        Search for files and text patterns using tools like find and grep.\r\n\r\nGit:\t\r\n-
+        Explain the purpose of version control and its role in tracking changes.\r\n-
+        Initialize and configure a Git repository.\r\n- Track changes using commits
+        and write meaningful commit messages.\r\n- View and interpret version history
+        to understand project evolution.\r\n- Undo changes and recover previous versions
+        of files.\r\n- Use branching to manage parallel development.\r\n- Collaborate
+        using remote repositories (push, pull, sync).\r\n- Describe best practices
+        for sharing and managing code, including basic considerations for licensing
+        and collaboration.\r\n\r\nPython:\r\n- Load and inspect tabular data using
+        libraries such as NumPy and pandas.\r\n- Index, slice, and subset datasets
+        to access relevant data.\r\n- Perform basic data analysis operations (e.g.,
+        aggregation, statistics).\r\n- Visualize data using plotting tools (e.g.,
+        matplotlib).\r\n- Use loops and conditionals to process and analyze datasets.\r\n-
+        Write functions to structure and reuse analysis workflows.\r\n- Interpret
+        and troubleshoot errors encountered during data analysis.\r\n- Apply Python
+        to explore and analyze real-world datasets (e.g., Gapminder).","who_should_enrol":"This
+        training is designed for students, researchers, and professionals who are
+        new to programming and want to develop a foundation in programming skills
+        with Unix Shell, Git and Python. It\u2019s ideal for those in any field\u2014such
+        as science, engineering, data analysis, or digital research\u2014who wish
+        to begin applying programming skills to their work or studies.","categories":[],"tags":[],"pricing":{"is_paid":false,"original":"0","discount":"0","final":"0"},"registration_url":"https:\/\/www.acenet.training\/course\/introductory-programming-unix-shell-git-and-python"}]'
+  recorded_at: Thu, 02 Jan 2025 16:00:00 GMT
+recorded_with: VCR 6.2.0
