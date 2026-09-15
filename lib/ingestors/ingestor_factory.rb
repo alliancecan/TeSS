@@ -15,6 +15,7 @@ module Ingestors
 
     def self.explora_ingestors
       [
+        Ingestors::Explora::AcenetWordpressIngestor,
         Ingestors::Explora::AcenetLearnWorldsIngestor,
         Ingestors::Explora::DracIcalIngestor,
         Ingestors::Explora::EventbriteQuasiScraperIngestor,
