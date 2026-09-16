@@ -36,7 +36,7 @@ module ApplicationHelper
   }.freeze
 
   # Countries that have priority in the country selection menu. Using ISO 3166-1 Alpha2 code.
-  PRIORITY_COUNTRIES = []
+  PRIORITY_COUNTRIES = ['CA']
 
   # Languages that have priority in the trainer language selection menu. Using ISO 639-1 Alpha2 code.
   PRIORITY_LANGUAGES = ['EN']
