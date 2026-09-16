@@ -23,7 +23,7 @@
     <%= f.input :county, field_lock: true %>
   <% end %>
   <% alpha2 = @event.nil? ? '' : country_alpha2_by_name(@event.country) %>
-  <%= f.input :country, priority: priority_countries, field_lock: true, selected: alpha2 %>
+  <%= f.input :country, priority: priority_countries, field_lock: true, include_blank: true, selected: alpha2 %>
   <%= f.input :postcode, field_lock: true %>
   <%= f.hidden_field :latitude %>
   <%= f.hidden_field :longitude %>
