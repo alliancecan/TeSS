@@ -244,13 +244,7 @@ class Event < ApplicationRecord
   def to_ical_event
     Icalendar::Event.new.tap do |ical_event|
       if start && self.end
-        tz =
-          if timezone.present?
-            # Convert to Canada/(Pacific|Eastern|Atlantic|...)
-            'Canada/' + timezone.split[0]
-          else
-            'UTC'
-          end
+        tz = ActiveSupport::TimeZone::MAPPING.fetch(timezone, 'UTC')
         if all_day?
           ical_event.dtstart = Icalendar::Values::Date.new(start_local, tzid: tz) unless start.blank?
           ical_event.dtend = Icalendar::Values::Date.new(self.end_local.tomorrow, tzid: tz) unless self.end.blank?
