@@ -43,10 +43,10 @@ module ApplicationHelper
 
   # Canadian provinces get priority, going left to right
   PRIORITY_TIME_ZONES = [
-    "Pacific Time (US & Canada)",
-    "Mountain Time (US & Canada)",
+    "Pacific Time (Canada)",
+    "Alberta",
     "Saskatchewan",
-    "Central Time (US & Canada)",
+    "Manitoba",
     "Eastern Time (US & Canada)",
     "Atlantic Time (Canada)",
     "Newfoundland"
