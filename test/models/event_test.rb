@@ -117,16 +117,16 @@ class EventTest < ActiveSupport::TestCase
       assert parts[2] >= 3
     end
 
-    # Daylight savings should end in BC/AB during 2025
+    # Daylight savings should end in BC/AB/MB during 2025
     # (Before and after November should be offset by an hour)
 
     # BC
     e_before = Event.new(start: '2025-09-12 10:00:00 UTC',
                                  end:'2025-09-12 12:00:00 UTC',
-                                 timezone: 'America/Vancouver')
+                                 timezone: 'Pacific Time (Canada)')
     e_after = Event.new(start: '2025-12-12 10:00:00 UTC',
                                 end:'2025-12-12 12:00:00 UTC',
-                                timezone: 'America/Vancouver')
+                                timezone: 'Pacific Time (Canada)')
 
     assert_equal e_before.start_local.hour, 3
     assert_equal e_before.start_local.gmt_offset / 3600, -7
@@ -137,10 +137,10 @@ class EventTest < ActiveSupport::TestCase
     # AB
     e_before = Event.new(start: '2025-09-12 10:00:00 UTC',
                                  end:'2025-09-12 12:00:00 UTC',
-                                 timezone: 'America/Edmonton')
+                                 timezone: 'Alberta')
     e_after = Event.new(start: '2025-12-12 10:00:00 UTC',
                                 end:'2025-12-12 12:00:00 UTC',
-                                timezone: 'America/Edmonton')
+                                timezone: 'Alberta')
 
     assert_equal e_before.start_local.hour, 4
     assert_equal e_before.start_local.gmt_offset / 3600, -6
@@ -148,16 +148,30 @@ class EventTest < ActiveSupport::TestCase
     assert_equal e_after.end_local.hour, 5
     assert_equal e_after.start_local.gmt_offset / 3600, -7
 
-    # Daylight savings should not end in BC/AB during 2026
+    # MB
+    e_before = Event.new(start: '2025-09-12 10:00:00 UTC',
+                                 end:'2025-09-12 12:00:00 UTC',
+                                 timezone: 'Manitoba')
+    e_after = Event.new(start: '2025-12-12 10:00:00 UTC',
+                                end:'2025-12-12 12:00:00 UTC',
+                                timezone: 'Manitoba')
+
+    assert_equal e_before.start_local.hour, 5
+    assert_equal e_before.start_local.gmt_offset / 3600, -5
+
+    assert_equal e_after.end_local.hour, 6
+    assert_equal e_after.start_local.gmt_offset / 3600, -6
+
+    # Daylight savings should not end in BC/AB/MB during 2026
     # (Before and after November should be the same time)
 
     # BC
     e_before = Event.new(start: '2026-09-12 10:00:00 UTC',
                                  end:'2026-09-12 12:00:00 UTC',
-                                 timezone: 'America/Vancouver')
+                                 timezone: 'Pacific Time (Canada)')
     e_after = Event.new(start: '2026-12-12 10:00:00 UTC',
                                 end:'2026-12-12 12:00:00 UTC',
-                                timezone: 'America/Vancouver')
+                                timezone: 'Pacific Time (Canada)')
 
     assert_equal e_before.start_local.hour, 3
     assert_equal e_before.start_local.gmt_offset / 3600, -7
@@ -168,16 +182,30 @@ class EventTest < ActiveSupport::TestCase
     # AB
     e_before = Event.new(start: '2026-09-12 10:00:00 UTC',
                                  end:'2026-09-12 12:00:00 UTC',
-                                 timezone: 'America/Edmonton')
+                                 timezone: 'Alberta')
     e_after = Event.new(start: '2026-12-12 10:00:00 UTC',
                                 end:'2026-12-12 12:00:00 UTC',
-                                timezone: 'America/Edmonton')
+                                timezone: 'Alberta')
 
     assert_equal e_before.start_local.hour, 4
     assert_equal e_before.start_local.gmt_offset / 3600, -6
 
     assert_equal e_after.start_local.hour, 4
     assert_equal e_after.start_local.gmt_offset / 3600, -6
+
+    # MB
+    e_before = Event.new(start: '2026-09-12 10:00:00 UTC',
+                                 end:'2026-09-12 12:00:00 UTC',
+                                 timezone: 'Manitoba')
+    e_after = Event.new(start: '2026-12-12 10:00:00 UTC',
+                                end:'2026-12-12 12:00:00 UTC',
+                                timezone: 'Manitoba')
+
+    assert_equal e_before.start_local.hour, 5
+    assert_equal e_before.start_local.gmt_offset / 3600, -5
+
+    assert_equal e_after.start_local.hour, 5
+    assert_equal e_after.start_local.gmt_offset / 3600, -5
 
   end
 

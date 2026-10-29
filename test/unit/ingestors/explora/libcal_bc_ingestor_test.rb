@@ -41,7 +41,7 @@ class LibcalBcIngestorTest < ActiveSupport::TestCase
         assert_equal(event.keywords.sort, ['Data', 'Digital Scholarship',
                                            'Research Commons', 'Research Data Management'])
         assert_equal(event.presence, 'online')
-        assert_equal(event.timezone, 'Pacific Time (US & Canada)')
+        assert_equal(event.timezone, 'Pacific Time (Canada)')
         assert_equal(event.start_local.to_s, '2025-06-02 12:30:00 -0700')
         assert_equal(event.end_local.to_s, '2025-06-02 13:00:00 -0700')
 
@@ -53,7 +53,7 @@ class LibcalBcIngestorTest < ActiveSupport::TestCase
         assert_equal(event.keywords.sort, ['Data', 'Digital Scholarship',
                                            'Research Commons', 'Research Data Management'])
         assert_equal(event.presence, 'online')
-        assert_equal(event.timezone, 'Pacific Time (US & Canada)')
+        assert_equal(event.timezone, 'Pacific Time (Canada)')
         assert_equal(event.start_local.to_s, '2025-06-03 12:30:00 -0700')
         assert_equal(event.end_local.to_s, '2025-06-03 13:00:00 -0700')
 
@@ -66,7 +66,7 @@ class LibcalBcIngestorTest < ActiveSupport::TestCase
         assert_equal(event.presence, 'online')
         assert_equal(event.keywords.sort, ['Digital Scholarship', 'Research Commons',
                                            'Research Data Management'])
-        assert_equal(event.timezone, 'Pacific Time (US & Canada)')
+        assert_equal(event.timezone, 'Pacific Time (Canada)')
         assert_equal(event.start_local.to_s, '2025-06-04 11:00:00 -0700')
         assert_equal(event.end_local.to_s, '2025-06-04 13:00:00 -0700')
       end
