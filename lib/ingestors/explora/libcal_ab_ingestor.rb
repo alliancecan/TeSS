@@ -4,7 +4,7 @@ require 'csv'
 module Ingestors
   module Explora
     class LibcalAbIngestor < LibcalIngestor
-      TIMEZONE = 'Mountain Time (US & Canada)'
+      TIMEZONE = 'Alberta'
       CONVERT_TIMES_TO_UTC = true
 
       def self.config

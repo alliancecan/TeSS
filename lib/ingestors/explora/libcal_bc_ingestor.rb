@@ -4,7 +4,7 @@ require 'csv'
 module Ingestors
   module Explora
     class LibcalBcIngestor < LibcalIngestor
-      TIMEZONE = 'Pacific Time (US & Canada)'
+      TIMEZONE = 'Pacific Time (Canada)'
       CONVERT_TIMES_TO_UTC = true
 
       def self.config
