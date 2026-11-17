@@ -6,8 +6,10 @@ FROM ruby:$RUBY_VERSION-slim AS base
 # set work dir
 WORKDIR /code
 
-# install dependencies
-RUN apt-get update && apt-get install build-essential curl file git gnupg2 imagemagick libpq-dev libyaml-dev nodejs -y
+# install dependencies (note: try for tzdata with recent Canadian timezones)
+RUN apt-get update && \
+  apt-get install -y \
+  build-essential curl file git gnupg2 imagemagick libpq-dev libyaml-dev nodejs tzdata=2026f-0+deb13u1
 
 # install supercronic - a cron alternative
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.1.12/supercronic-linux-amd64 \
